@@ -45,7 +45,7 @@ const ConfirmShipment = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Header />
+      <Header navigation={navigation} />
       <ScrollView style={styles.scrollView}>
         <View style={styles.contentView}>
           <Text style={styles.h1}>Create a new</Text>
@@ -147,6 +147,7 @@ const ConfirmShipment = ({ navigation }) => {
               onPress={() => navigation.navigate("ShipmentInfo")}
             >
               <Text style={styles.btntext}>Previous</Text>
+              
             </Pressable>
             <Pressable
               style={styles.button}

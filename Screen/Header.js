@@ -16,14 +16,15 @@ import Icon from "react-native-vector-icons/FontAwesome";
 
 const Header = ({ navigation }) => {
   const [selectedLanguage, setSelectedLanguage] = useState();
+ // alert(navigation);
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.SquareShapeView}>
         <View style={styles.header}>
-          <Text style={{ paddingLeft: 20 }}>
+          <Text style={{ paddingLeft: 20 }} onPress={() => navigation.goBack()} >
             <Icon name="arrow-left" size={30} color="#b1aeae" />
           </Text>
-          <Image
+          <Image 
             style={styles.companyLogo}
             source={{
               uri: "https://shipwwt.com/wp-content/uploads/2022/11/cropped-wwt-global.png",
@@ -31,7 +32,7 @@ const Header = ({ navigation }) => {
           />
           <Text style={{ paddingRight: 20 ,paddingBottom:8 }}>
             <Icon name="user" size={40} color="#b1aeae" />
-          </Text>
+          </Text>          
         </View>
       </View>
     </SafeAreaView>

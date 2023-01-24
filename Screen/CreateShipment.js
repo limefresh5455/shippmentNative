@@ -18,7 +18,7 @@ const CreateShipment = ({ navigation }) => {
   const [selectedLanguage, setSelectedLanguage] = useState();
   return (
     <SafeAreaView style={styles.container}>
-      <Header />
+      <Header navigation={navigation} />
       <ScrollView style={styles.scrollView}>
         <View style={styles.contentView}>
           <Text style={styles.h1}>Create a new</Text>
@@ -133,6 +133,7 @@ const CreateShipment = ({ navigation }) => {
             style={styles.button}
             onPress={() => navigation.navigate("ShipmentInfo")}
           >
+            
             <Text style={styles.btntext}>NEXT</Text>
           </Pressable>
         </View>

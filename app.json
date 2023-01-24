@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Shipwwt",
-    "slug": "Shipwwt",
+    "name": "shipwwt",
+    "slug": "shipwwt",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -23,11 +23,19 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
-      }
+        "backgroundColor": "#FFFFFF",
+        "supportsTablet": true
+      },
+      "package": "com.rohitsolanki2392.shipwwt"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "c868f89e-47d4-47d9-835c-aedd66be2da5"
+      }
+    },
+    "owner": "rohitsolanki2392"
   }
 }

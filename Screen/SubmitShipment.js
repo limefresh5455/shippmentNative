@@ -14,11 +14,11 @@ import React, { useState } from "react";
 import { Picker } from "@react-native-picker/picker";
 import Icon from "react-native-vector-icons/FontAwesome";
 import Header from "./Header";
-const SubmitShipment = () => {
+const SubmitShipment = ({ navigation }) => {
   const [selectedLanguage, setSelectedLanguage] = useState();
   return (
     <SafeAreaView style={styles.container}>
-        <Header/>
+        <Header navigation={navigation} />
       <ScrollView style={styles.scrollView}>
         <View style={styles.contentView}>
           <Text style={styles.h1}>Create a new</Text>

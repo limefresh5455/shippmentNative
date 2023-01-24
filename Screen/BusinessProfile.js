@@ -19,7 +19,7 @@ const BusinessProfile = ({navigation}) => {
   const [selectedLanguage, setSelectedLanguage] = useState();
   return (
     <SafeAreaView style={styles.container}>
-         <Header/>
+         <Header navigation={navigation} />
       <ScrollView style={styles.scrollView}>
         <View style={styles.contentView}>
           <Text style={styles.h1}>Business</Text>
