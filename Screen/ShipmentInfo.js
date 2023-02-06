@@ -8,14 +8,44 @@ import {
   Linking,
   Pressable,
   SafeAreaView,
+  Dimensions,
   ScrollView,
 } from "react-native";
-import React, { useState } from "react";
+import Slideshow from "react-native-image-slider-show";
+import React, { useState, useEffect } from "react";
+import { Picker } from "@react-native-picker/picker";
 import Icon from "react-native-vector-icons/FontAwesome";
+// import {  Text, View } from 'react-native';
+// import Carousel from 'react-native-reanimated-carousel';
+import { Card } from "react-native-shadow-cards";
 import Header from "./Header";
+// import { Avatar, Button, Card, Text } from 'react-native-paper';
 
-const ShipmentInfo = ({ navigation }) => {
+const data = [
+  {
+    title: "Credit Card",
+    url: "https://www.sbicard.com/sbi-card-en/assets/media/images/personal/credit-cards/value-savings/card-faces/simplyclick-card-face.webp",
+  },
+  {
+    title: "Debit Card",
+    url: "https://www.sbicard.com/sbi-card-en/assets/media/images/personal/credit-cards/value-savings/card-faces/simplyclick-card-face.webp",
+  },
+];
+
+const CreateShipment = ({ navigation }) => {
   const [selectedLanguage, setSelectedLanguage] = useState();
+  const [position, setPosition] = useState(0);
+
+  useEffect(() => {
+    const toggle = setInterval(() => {
+      setPosition(position === data.length - 1 ? 0 : position + 1);
+    }, 3000);
+
+    return () => clearInterval(toggle);
+  });
+
+  // const width = Dimensions.get('window').width;
+
   return (
     <SafeAreaView style={styles.container}>
       <Header navigation={navigation} />
@@ -37,7 +67,7 @@ const ShipmentInfo = ({ navigation }) => {
                 marginLeft: 5,
               }}
             />
-            <Icon name="square" size={45} color="#cf9e63" s />
+            <Icon name="circle" size={45} color="#cf9e63" s />
 
             <View
               style={{
@@ -47,7 +77,7 @@ const ShipmentInfo = ({ navigation }) => {
                 marginTop: 25,
               }}
             />
-            <Icon name="square" size={45} color="#cf9e63" s />
+            <Icon name="circle" size={45} color="#b1aeae" s />
             <View
               style={{
                 flex: 1,
@@ -57,7 +87,7 @@ const ShipmentInfo = ({ navigation }) => {
                 paddingRight: -20,
               }}
             />
-            <Icon name="square" size={45} color="#b1aeae" s />
+            <Icon name="circle" size={45} color="#b1aeae" s />
             <View
               style={{
                 flex: 1,
@@ -77,17 +107,18 @@ const ShipmentInfo = ({ navigation }) => {
             >
               Package & {"\n"}Payments {"\n"} Info
             </Text>
+
             <Text
               style={{
                 paddingRight: 38,
-                color: "#cf9e63",
+                color: "#b1aeae",
               }}
             >
               shipment{"\n"} Info
             </Text>
             <Text
               style={{
-                paddingRight: 43,
+                paddingRight: 70,
                 color: "#b1aeae",
               }}
             >
@@ -95,52 +126,26 @@ const ShipmentInfo = ({ navigation }) => {
             </Text>
           </View>
           <View style={styles.formTitle}>
-            <Text style={styles.formTitleh1}>Personal {"\n"}Information</Text>
-            <Text style={styles.formTitleh2}>Step 2-4</Text>
+            <Text style={styles.formTitleh1}>Shipment info</Text>
           </View>
-          <Text style={styles.label}>First Name:*</Text>
-          <TextInput
-            style={styles.input}
-            //   onChangeText={onChangeText}
-            //   value={text}
-            placeholder="First Name"
-          />
-          <Text style={styles.label}>Last Name:*</Text>
-          <TextInput
-            style={styles.input}
-            //   onChangeText={onChangeNumber}
-            //   value={number}
-            placeholder="Last Name"
-            keyboardType="Years in Business"
-          />
-          <Text style={styles.label}>Contact No:*</Text>
-          <TextInput
-            style={styles.input}
-            //   onChangeText={onChangeNumber}
-            //   value={number}
-            placeholder="Contact No"
-            keyboardType="Years in Business"
-          />
-          <Text style={styles.label}>Alternate Contact No:*</Text>
-          <TextInput
-            style={styles.input}
-            //   onChangeText={onChangeNumber}
-            //   value={number}
-            placeholder="Alternate Contact No"
-            keyboardType="Years in Business"
-          />
-          <View style={styles.btn}>
-            <Pressable
-              style={styles.prevbutton}
-              onPress={() => navigation.goBack()}
-            >
-              <Text style={styles.btntext}>Previous</Text>
-            </Pressable>
+
+        
+
+        
+
+          <View style={styles.flex}>
             <Pressable
               style={styles.button}
-              onPress={() => navigation.navigate("ConfirmShipment")}
+              onPress={() => navigation.navigate("ShipmentInfo")}
             >
-              <Text style={styles.btntext}>NEXT</Text>
+              <Text style={styles.btntext1}>Cancel</Text>
+            </Pressable>
+
+            <Pressable
+              style={styles.button1}
+              onPress={() => navigation.navigate("ShipmentInfo")}
+            >
+              <Text style={styles.btntext}>Continue</Text>
             </Pressable>
           </View>
         </View>
@@ -151,7 +156,17 @@ const ShipmentInfo = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fbf1e6",
+    backgroundColor: "white",
+  },
+  header: {
+    display: "flex",
+    flexDirection: "row",
+    marginTop: 5,
+    // marginHorizontal: 90,
+    paddingLeft: 20,
+    justifyContent: "space-between",
+    paddingLeft: -60,
+    borderRadius: 10,
   },
   companyLogo: {
     width: 100,
@@ -160,19 +175,20 @@ const styles = StyleSheet.create({
     // paddingLeft:20
   },
   scrollView: {
-    marginHorizontal: 20,
+    // marginHorizontal: 20,
     marginTop: 110,
+    padding: 10,
   },
   h1: {
-    fontSize: 25,
+    fontSize: 30,
     marginBottom: 28,
     color: "#b1aeae",
-    fontWeight: "300",
+    fontWeight: "400",
   },
   h1m: {
-    fontSize: 25,
+    fontSize: 30,
     marginBottom: 28,
-    fontWeight: "300",
+    fontWeight: "400",
     // lineHeight: 1.15
   },
   contentView: {
@@ -186,22 +202,33 @@ const styles = StyleSheet.create({
     margin: 12,
     borderWidth: 1,
     padding: 10,
+    borderTopWidth: 0,
+    borderRightWidth: 0,
+    borderLeftWidth: 0,
     marginBottom: 20,
     borderStyle: "solid",
     borderBottomColor: "#6B6969",
+    marginLeft: 16,
+    marginRight: 20,
   },
   businessForm: {
     backgroundColor: "white",
     borderRadius: 10,
     paddingBottom: 26,
   },
-  btn: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-    marginRight: 110,
-  },
-
   button: {
+    alignItems: "center",
+    justifyContent: "center",
+    // elevation: 3,
+    borderRadius: 1,
+    borderWidth: 1,
+    borderColor: "#c97e3b",
+    marginTop: 28,
+    width: 100,
+    height: 50,
+    textAlign: "center",
+  },
+  button1: {
     alignItems: "center",
     justifyContent: "center",
     elevation: 3,
@@ -210,19 +237,20 @@ const styles = StyleSheet.create({
     width: 100,
     height: 50,
     textAlign: "center",
-    marginLeft: 200,
   },
-  prevbutton: {
-    alignItems: "center",
-    justifyContent: "center",
-    elevation: 3,
-    backgroundColor: "#b1aeae",
-    marginTop: 28,
+
+  btntext1: {
+    fontSize: 16,
+    lineHeight: 21,
+    fontWeight: "bold",
+    letterSpacing: 0.25,
+    color: "#cf9e63",
     width: 100,
     height: 50,
     textAlign: "center",
-    marginLeft: 200,
+    paddingTop: 15,
   },
+
   btntext: {
     fontSize: 16,
     lineHeight: 21,
@@ -234,6 +262,48 @@ const styles = StyleSheet.create({
     textAlign: "center",
     paddingTop: 15,
   },
+
+  flex: {
+    display: "flex",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    // marginLeft: 15,
+    // marginRight: 15,
+    justifyContent: "space-between",
+    margin: 20,
+  },
+
+  txt: {
+    fontSize: 20,
+    fontWeight: 300,
+  },
+
+  cards: {
+    width: 93,
+    height: 120,
+    borderRadius: 30,
+    justifyContent: "center",
+    alignItems: "center",
+    borderColor: "HEX",
+  },
+
+  card: {
+    padding: 10,
+  },
+
+  text: {
+    fontSize: 20,
+    justifyContent: "center",
+    alignItems: "center",
+    alignContent: "center",
+  },
+
+  img: {
+    width: 50,
+    height: 60,
+    justifyContent: "center",
+  },
+
   formTitle: {
     paddingTop: 30,
     flexDirection: "row",
@@ -241,10 +311,10 @@ const styles = StyleSheet.create({
     paddingLeft: 15,
   },
   formTitleh1: {
-    fontSize: 25,
-    marginBottom: 28,
-    color: "#cf9e63",
-    fontWeight: "400",
+    fontSize: 30,
+    // marginBottom: ,
+    // color: "#cf9e63",
+    fontWeight: "500",
   },
   formTitleh2: {
     fontSize: 25,
@@ -278,6 +348,7 @@ const styles = StyleSheet.create({
     backgroundColor: "rgb(255,250,240)",
     // paddingLeft:20,
   },
+ 
   header: {
     display: "flex",
     flexDirection: "row",
@@ -288,4 +359,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ShipmentInfo;
+export default CreateShipment;

@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { Alert, StyleSheet, Text, View } from 'react-native';
  import SignIn from './Screen/SignIn';
 import BusinessProfile from './Screen/BusinessProfile';
 import ConfirmEmail from './Screen/ConfirmEmail';
@@ -10,22 +10,32 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import ConfirmShipment from './Screen/ConfirmShipment';
 import SubmitShipment from './Screen/SubmitShipment';
+import Testing from './Screen/Testing';
 export default function App() {
-  const Stack = createNativeStackNavigator();
+
+  const Stack = createNativeStackNavigator(); 
+
   return (
-    <NavigationContainer>
-    <Stack.Navigator initialRouteName='SignIn'>
-    <Stack.Screen name='SignIn' component={SignIn} options={{ headerShown: false }}/>
-    <Stack.Screen name='BusinessProfile' component={BusinessProfile} options={{ headerShown: false }} />   
-    <Stack.Screen name='CreateShipment' component={CreateShipment} options={{ headerShown: false }}/>  
-    <Stack.Screen name='ShipmentInfo' component={ShipmentInfo} options={{ headerShown: false }}/>  
-    <Stack.Screen name='ConfirmShipment' component={ConfirmShipment} options={{ headerShown: false }}/> 
-    <Stack.Screen name='Submit' component={SubmitShipment} options={{ headerShown: false }}/> 
-    <Stack.Screen name='SignUp' component={SignUp} options={{ headerShown: false }}/>   
-    <Stack.Screen name='ConfirmEmail' component={ConfirmEmail} options={{ headerShown: false }}/>   
-    </Stack.Navigator>
-    </NavigationContainer>
+    // <NavigationContainer>
+    //   <Stack.Navigator initialRouteName='SignIn'> 
+    //   <Stack.Screen name='SignIn' component={SignIn} options={{ headerShown: false }}/>  
+    //   <Stack.Screen name='BusinessProfile' component={BusinessProfile} options={{ headerShown: false }} />   
+    //   <Stack.Screen name='CreateShipment' component={CreateShipment} options={{ headerShown: false }}/>  
+    //   <Stack.Screen name='ShipmentInfo' component={ShipmentInfo} options={{ headerShown: false }}/>  
+    //   <Stack.Screen name='ConfirmShipment' component={ConfirmShipment} options={{ headerShown: false }}/> 
+    //   <Stack.Screen name='Submit' component={SubmitShipment} options={{ headerShown: false }}/> 
+    //   <Stack.Screen name='SignUp' component={SignUp} options={{ headerShown: false }}/>   
+    //   <Stack.Screen name='ConfirmEmail' component={ConfirmEmail} options={{ headerShown: false }}/>
+    //   </Stack.Navigator>
+    // </NavigationContainer>   
+
+    // <CreateShipment/>
+
+ //  <ShipmentInfo/>
+
+    <Testing/>
     
+
   );
 }
 
@@ -33,6 +43,5 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fbf1e6",
-    
   },
 });
