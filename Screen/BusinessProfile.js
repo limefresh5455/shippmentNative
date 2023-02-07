@@ -14,6 +14,7 @@ import {
 import React, { useState } from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
+import AnimatedInput from "react-native-animated-input";
 import { Picker } from "@react-native-picker/picker";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
@@ -47,7 +48,7 @@ const BusinessProfile = ({ navigation }) => {
   const [copynew, setCopynew] = useState([]);
 
   const handle = () => {
-      alert("hiii!")
+    alert("hiii!");
     // const abc = [...copynew];
     // setCopynew(abc);
   };
@@ -136,22 +137,35 @@ const BusinessProfile = ({ navigation }) => {
                 <Text style={styles.h1m}>profile</Text>
               </View>
               <View style={styles.businessForm}>
-                <TextInput
-                  style={styles.input}
-                  onChangeText={handleChange("company_name")}
-                  value={values.company_name}
-                  placeholder="company"
-                />
+                <View style={{ marginLeft: 14, marginRight:14}}>
+                  <AnimatedInput
+                    style={styles.input}
+                    onChangeText={handleChange("company_name")}
+                    value={values.company_name}
+                    placeholder="Company"
+                    styleBodyContent={{
+                    borderBottomWidth: 12,
+                    borderBottomColor: "#cf9e63",
+                  }}
+                  />
+                </View>
                 {errors.company_name && (
                   <Text style={styles.errorTxt}>{errors.company_name}</Text>
                 )}
-                <TextInput
+
+                <View style={{ marginLeft: 14, marginRight:14}}>
+                <AnimatedInput
                   style={styles.input}
                   onChangeText={handleChange("year_in_business")}
                   value={values.year_in_business}
                   placeholder="Years in Business"
                   keyboardType="Years in Business"
+                  styleBodyContent={{
+                    borderBottomWidth: 12,
+                    borderBottomColor: "#cf9e63",
+                  }}
                 />
+                </View>
                 {errors.year_in_business && (
                   <Text style={styles.errorTxt}>{errors.year_in_business}</Text>
                 )}
@@ -216,12 +230,14 @@ const BusinessProfile = ({ navigation }) => {
                   <TextInput
                     style={styles.input}
                     onChangeText={handleChange("company_type_other")}
-                    value={values.company_type_other}   
+                    value={values.company_type_other}
                     keyboardType="Years in Business"
-                  />
+                  />;
                   {
                     errors.company_type_other && (
-                      <Text style={styles.errorTxt}>{errors.company_type_other}</Text>
+                      <Text style={styles.errorTxt}>
+                        {errors.company_type_other}
+                      </Text>
                     );
                   }
                 })}
@@ -368,7 +384,7 @@ const styles = StyleSheet.create({
 
   start: {
     flex: 2,
-    marginTop: -100
+    marginTop: -100,
   },
 
   businessForm: {

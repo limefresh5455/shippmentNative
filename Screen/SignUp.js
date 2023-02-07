@@ -13,6 +13,7 @@ import React from "react";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { Formik, yupToFormErrors } from "formik";
+import AnimatedInput from "react-native-animated-input";
 import * as Yup from "yup";
 import Container from "react-native-container";
 
@@ -20,32 +21,29 @@ const phoneRegExp =
   /^(\+?\d{0,4})?\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{4}\)?)$/;
 
 const SignupSchema = Yup.object().shape({
-  // user_fname: Yup.string()
-  //   .min(2, "Too Short!")
-  //   .max(50, "Too Long!")
-  //   .required("Required"),
-  // user_lname: Yup.string()
-  //   .min(2, "Too Short!")
-  //   .max(50, "Too Long!")
-  //   .required("Required"),
-  // user_email: Yup.string().email("Invalid email").required("Required"),
-  // user_phone: Yup.string()
-  //   .matches(phoneRegExp, "Phone number is not valid")
-  //   .required("Phone Number is Required"),
-  // user_password: Yup.string()
-  //   .required("Password is required")
-  //   .min(5, "Your password is too short.")
-  //   .matches(/[a-zA-Z]/, "Password can only contain Latin letters."),
-  // user_cpassword: Yup.string().required("Password is required"),
+  user_fname: Yup.string()
+    .min(2, "Too Short!")
+    .max(50, "Too Long!")
+    .required("Required"),
+  user_lname: Yup.string()
+    .min(2, "Too Short!")
+    .max(50, "Too Long!")
+    .required("Required"),
+  user_email: Yup.string().email("Invalid email").required("Required"),
+  user_phone: Yup.string()
+    .matches(phoneRegExp, "Phone number is not valid")
+    .required("Phone Number is Required"),
+  user_password: Yup.string()
+    .required("Password is required")
+    .min(5, "Your password is too short.")
+    .matches(/[a-zA-Z]/, "Password can only contain Latin letters."),
+  user_cpassword: Yup.string().required("Password is required"),
   // .oneOf([Yup.ref("password"), null], "Passwords must match"),
 });
 
 const SignUp = ({ navigation }) => {
-
-
   const handleSubmit = (values) => {
-
-   // alert("Hii!")
+    // alert("Hii!")
 
     const user = {
       user_fname: values.user_fname,
@@ -125,71 +123,88 @@ const SignUp = ({ navigation }) => {
                 </Text>
               </View>
               <View style={styles.loginForm}>
-                <TextInput
-                  style={styles.input}
-                  onChangeText={handleChange("user_fname")}
-                  value={values.user_fname}
-                  placeholder="First name"
-                  keyboardType="Years in Business"
-                />
+                <View style={{ marginLeft: 11, marginRight: 8 }}>
+                  <AnimatedInput
+                    style={styles.input}
+                    onChangeText={handleChange("user_fname")}
+                    value={values.user_fname}
+                    placeholder="First name"
+                    keyboardType="Years in Business"
+                  />
+                </View>
                 {errors.user_fname && (
                   <Text style={styles.errorTxt}>{errors.user_fname}</Text>
                 )}
-                <TextInput
-                  style={styles.input}
-                  onChangeText={handleChange("user_lname")}
-                  value={values.user_lname}
-                  placeholder="Last name"
-                  keyboardType="Years in Business"
-                />
+
+                <View style={{ marginLeft: 11, marginRight: 8 }}>
+                  <AnimatedInput
+                    style={styles.input}
+                    onChangeText={handleChange("user_lname")}
+                    value={values.user_lname}
+                    placeholder="Last name"
+                    keyboardType="Years in Business"
+                  />
+                </View>
                 {errors.user_lname && (
                   <Text style={styles.errorTxt}>{errors.user_lname}</Text>
                 )}
-                <TextInput
-                  style={styles.input}
-                  onChangeText={handleChange("user_email")}
-                  value={values.user_email}
-                  placeholder="Email"
-                  keyboardType="Years in Business"
-                />
+
+                <View style={{ marginLeft: 11, marginRight: 8 }}>
+                  <AnimatedInput
+                    style={styles.input}
+                    onChangeText={handleChange("user_email")}
+                    value={values.user_email}
+                    placeholder="Email"
+                    keyboardType="Years in Business"
+                  />
+                </View>
                 {errors.user_email && (
                   <Text style={styles.errorTxt}>{errors.user_email}</Text>
                 )}
-                <TextInput
-                  style={styles.input}
-                  onChangeText={handleChange("user_phone")}
-                  value={values.user_phone}
-                  placeholder="Phone number"
-                  keyboardType="Years in Business"
-                />
+
+                <View style={{ marginLeft: 11, marginRight: 8 }}>
+                  <AnimatedInput
+                    style={styles.input}
+                    onChangeText={handleChange("user_phone")}
+                    value={values.user_phone}
+                    placeholder="Phone number"
+                    keyboardType="Years in Business"
+                  />
+                </View>
                 {errors.user_phone && (
                   <Text style={styles.errorTxt}>{errors.user_phone}</Text>
                 )}
-                <TextInput
-                  style={styles.input}
-                  onChangeText={handleChange("user_password")}
-                  value={values.user_password}
-                  placeholder="Password"
-                  keyboardType="Years in Business"
-                  autoCapitalize="none"
-                  autoCorrect={false}
-                  secureTextEntry
-                  enablesReturnKeyAutomatically
-                />
+
+                <View style={{ marginLeft: 11, marginRight: 8 }}>
+                  <AnimatedInput
+                    style={styles.input}
+                    onChangeText={handleChange("user_password")}
+                    value={values.user_password}
+                    placeholder="Password"
+                    keyboardType="Years in Business"
+                    autoCapitalize="none"
+                    autoCorrect={false}
+                    secureTextEntry
+                    enablesReturnKeyAutomatically
+                  />
+                </View>
                 {errors.user_password && (
                   <Text style={styles.errorTxt}>{errors.user_password}</Text>
                 )}
-                <TextInput
-                  style={styles.input}
-                  onChangeText={handleChange("user_cpassword")}
-                  value={values.user_cpassword}
-                  placeholder="Confirm Password"
-                  keyboardType="Years in Business"
-                  autoCapitalize="none"
-                  autoCorrect={false}
-                  secureTextEntry
-                  enablesReturnKeyAutomatically
-                />
+
+                <View style={{ marginLeft: 11, marginRight: 8 }}>
+                  <AnimatedInput
+                    style={styles.input}
+                    onChangeText={handleChange("user_cpassword")}
+                    value={values.user_cpassword}
+                    placeholder="Confirm Password"
+                    keyboardType="Years in Business"
+                    autoCapitalize="none"
+                    autoCorrect={false}
+                    secureTextEntry
+                    enablesReturnKeyAutomatically
+                  />
+                </View>
                 {errors.user_cpassword && (
                   <Text style={styles.errorTxt}>{errors.user_cpassword}</Text>
                 )}
@@ -271,22 +286,14 @@ const styles = StyleSheet.create({
   },
   loginForm: {
     justifyContent: "center",
-    marginTop: -7,
+    marginTop: -20,
     borderRadius: 9,
   },
   input: {
-    height: 40,
-    margin: 5,
-    justifyContent: "space-between",
-    borderWidth: 1,
-    padding: 10,
-    borderTopWidth: 0,
-    borderRightWidth: 0,
-    borderLeftWidth: 0,
-    marginBottom: 20,
-    paddingTop: 5,
-    borderStyle: "solid",
-    borderBottomColor: "#57bdff",
+    paddingHorizontal: 20,
+    paddingLeft: 100,
+    marginLeft: 150,
+    marginRight: 20,
   },
   btntext: {
     fontSize: 16,
@@ -309,7 +316,7 @@ const styles = StyleSheet.create({
   errorTxt: {
     color: "red",
     marginTop: -19,
-    marginLeft: 15,
+    marginLeft: 12,
   },
 });
 export default SignUp;

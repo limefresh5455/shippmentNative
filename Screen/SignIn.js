@@ -11,6 +11,7 @@ import {
 } from "react-native";
 // import { AsyncStorage } from '@react-native-async-storage/async-storage';
 // import {AsyncStorage} from 'react-native';
+import AnimatedInput from "react-native-animated-input";
 import React from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
@@ -98,27 +99,37 @@ const SignIn = ({ navigation }) => {
                 <Text style={styles.title}>your</Text>
               </View>
               <Text style={styles.titles}>account</Text>
-              <TextInput
-                style={styles.input}
-                onChangeText={handleChange("user_email")}
-                value={values.user_email}
-                placeholder="Email"
-                keyboardType="Years in Business"
-              />
+              <View style={{ marginLeft: 14, marginTop: 15 }}>
+                <AnimatedInput
+                  style={styles.input}
+                  onChangeText={handleChange("user_email")}
+                  value={values.user_email}
+                  placeholder="Email"
+                  styleBodyContent={{
+                    borderBottomWidth: 8,
+                    borderBottomColor: "#57bdff",
+                  }}
+                />
+              </View>
               {errors.user_email && (
                 <Text style={styles.errorTxt}>{errors.user_email}</Text>
               )}
-              <TextInput
-                style={styles.input}
-                placeholder="Password"
-                onChangeText={handleChange("user_password")}
-                value={values.user_password}
-                autoCapitalize="none"
-                autoCorrect={false}
-                secureTextEntry
-                enablesReturnKeyAutomatically
-                keyboardType="Years in Business"
-              />
+              <View style={{ marginLeft: 14, marginTop: 1 }}>
+                <AnimatedInput
+                  style={styles.input}
+                  placeholder="Password"
+                  onChangeText={handleChange("user_password")}
+                  value={values.user_password}
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  secureTextEntry
+                  enablesReturnKeyAutomatically
+                  styleBodyContent={{
+                    borderBottomWidth: 8,
+                    borderBottomColor: "#57bdff",
+                  }}
+                />
+              </View>
               {errors.user_password && (
                 <Text style={styles.errorTxt}>{errors.user_password}</Text>
               )}
@@ -219,16 +230,10 @@ const styles = StyleSheet.create({
     marginLeft: 5,
   },
   input: {
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
-    padding: 10,
-    borderTopWidth: 0,
-    borderRightWidth: 0,
-    borderLeftWidth: 0,
-    marginBottom: 20,
-    borderStyle: "solid",
-    borderBottomColor: "#57bdff",
+    paddingHorizontal: 20,
+    paddingLeft: 100,
+    marginLeft: 150,
+    marginRight: 20,
   },
   heading1: {
     color: "#4f4f4f",
@@ -274,6 +279,8 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     marginTop: 40,
     justifyContent: "center",
+    flex: 1,
+    paddingHorizontal: 20,
   },
 
   button: {
