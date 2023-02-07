@@ -13,7 +13,7 @@ import SubmitShipment from "./Screen/SubmitShipment";
 // import Tabs from './Screen/Tabs';
 export default function App() {
   const Stack = createNativeStackNavigator();
-
+  
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="SignIn">
@@ -59,12 +59,11 @@ export default function App() {
         />
       </Stack.Navigator>
     </NavigationContainer>
-    
+
 
     // <CreateShipment/>
     //  <ShipmentInfo/>
-    // <Tabs/>
-    // <Testing/>
+  
   );
 }
 
