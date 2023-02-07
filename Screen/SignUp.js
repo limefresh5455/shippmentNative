@@ -20,29 +20,33 @@ const phoneRegExp =
   /^(\+?\d{0,4})?\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{4}\)?)$/;
 
 const SignupSchema = Yup.object().shape({
-  user_fname: Yup.string()
-    .min(2, "Too Short!")
-    .max(50, "Too Long!")
-    .required("Required"),
-  user_lname: Yup.string()
-    .min(2, "Too Short!")
-    .max(50, "Too Long!")
-    .required("Required"),
-  user_email: Yup.string().email("Invalid email").required("Required"),
-  user_phone: Yup.string()
-    .matches(phoneRegExp, "Phone number is not valid")
-    .required("Phone Number is Required"),
-  user_password: Yup.string()
-    .required("Password is required")
-    .min(5, "Your password is too short.")
-    .matches(/[a-zA-Z]/, "Password can only contain Latin letters."),
-  user_cpassword: Yup.string()
-    .required("Password is required")
-    // .oneOf([Yup.ref("password"), null], "Passwords must match"),
+  // user_fname: Yup.string()
+  //   .min(2, "Too Short!")
+  //   .max(50, "Too Long!")
+  //   .required("Required"),
+  // user_lname: Yup.string()
+  //   .min(2, "Too Short!")
+  //   .max(50, "Too Long!")
+  //   .required("Required"),
+  // user_email: Yup.string().email("Invalid email").required("Required"),
+  // user_phone: Yup.string()
+  //   .matches(phoneRegExp, "Phone number is not valid")
+  //   .required("Phone Number is Required"),
+  // user_password: Yup.string()
+  //   .required("Password is required")
+  //   .min(5, "Your password is too short.")
+  //   .matches(/[a-zA-Z]/, "Password can only contain Latin letters."),
+  // user_cpassword: Yup.string().required("Password is required"),
+  // .oneOf([Yup.ref("password"), null], "Passwords must match"),
 });
 
 const SignUp = ({ navigation }) => {
+
+
   const handleSubmit = (values) => {
+
+   // alert("Hii!")
+
     const user = {
       user_fname: values.user_fname,
       user_lname: values.user_lname,
@@ -105,7 +109,12 @@ const SignUp = ({ navigation }) => {
                       uri: "https://shipwwt.com/wp-content/uploads/2022/11/cropped-wwt-global.png",
                     }}
                   />
-                  <Text style={styles.text} onPress={() => navigation.navigate("SignIn")}>Sign in</Text>
+                  <Text
+                    style={styles.text}
+                    onPress={() => navigation.navigate("SignIn")}
+                  >
+                    Sign in
+                  </Text>
                 </View>
               </View>
 
