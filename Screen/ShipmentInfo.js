@@ -1,9 +1,7 @@
 import {
-  View,
   Text,
   TextInput,
   Button,
-  StyleSheet,
   Image,
   Linking,
   Pressable,
@@ -15,44 +13,29 @@ import Slideshow from "react-native-image-slider-show";
 import React, { useState, useEffect } from "react";
 import { Picker } from "@react-native-picker/picker";
 import Icon from "react-native-vector-icons/FontAwesome";
-// import {  Text, View } from 'react-native';
-// import Carousel from 'react-native-reanimated-carousel';
 import { Card } from "react-native-shadow-cards";
 import Header from "./Header";
-// import { Avatar, Button, Card, Text } from 'react-native-paper';
+import { View, StyleSheet, useWindowDimensions, StatusBar } from "react-native";
+import { TabView, SceneMap } from "react-native-tab-view";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import { NavigationContainer } from "@react-navigation/native";
+import SFD from "./SFD";
+import STI from "./STI";
 
-const data = [
-  {
-    title: "Credit Card",
-    url: "https://www.sbicard.com/sbi-card-en/assets/media/images/personal/credit-cards/value-savings/card-faces/simplyclick-card-face.webp",
-  },
-  {
-    title: "Debit Card",
-    url: "https://www.sbicard.com/sbi-card-en/assets/media/images/personal/credit-cards/value-savings/card-faces/simplyclick-card-face.webp",
-  },
-];
+const Tab = createMaterialTopTabNavigator();
 
 const CreateShipment = ({ navigation }) => {
   const [selectedLanguage, setSelectedLanguage] = useState();
-  const [position, setPosition] = useState(0);
-
-  useEffect(() => {
-    const toggle = setInterval(() => {
-      setPosition(position === data.length - 1 ? 0 : position + 1);
-    }, 3000);
-
-    return () => clearInterval(toggle);
-  });
-
-  // const width = Dimensions.get('window').width;
 
   return (
+    <>
     <SafeAreaView style={styles.container}>
       <Header navigation={navigation} />
-      <ScrollView style={styles.scrollView}>
+      <KeyboardAwareScrollView>
         <View style={styles.contentView}>
           <Text style={styles.h1}>Create a new</Text>
-          <Text style={styles.h1m}> shipment</Text>
+          <Text style={styles.h1m}>shipment</Text>
         </View>
         <View style={styles.businessForm}>
           <View style={styles.iconAligen}>
@@ -128,35 +111,32 @@ const CreateShipment = ({ navigation }) => {
           <View style={styles.formTitle}>
             <Text style={styles.formTitleh1}>Shipment info</Text>
           </View>
-
-        
-
-        
-
-          <View style={styles.flex}>
-            <Pressable
-              style={styles.button}
-              onPress={() => navigation.navigate("ShipmentInfo")}
-            >
-              <Text style={styles.btntext1}>Cancel</Text>
-            </Pressable>
-
-            <Pressable
-              style={styles.button1}
-              onPress={() => navigation.navigate("ShipmentInfo")}
-            >
-              <Text style={styles.btntext}>Continue</Text>
-            </Pressable>
-          </View>
         </View>
-      </ScrollView>
+      </KeyboardAwareScrollView>
+     
+       
+  
     </SafeAreaView>
+     <NavigationContainer>
+          <Tab.Navigator style={styles.tab}>
+            <Tab.Screen name="Ship From Details" component={SFD} />
+            <Tab.Screen name="Ship To Information" component={STI} />
+          </Tab.Navigator>
+        </NavigationContainer>
+        </>
   );
 };
+
+// Styling
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "white",
+  },
+
+  scene: {
+    flex: 1,
   },
   header: {
     display: "flex",
@@ -348,7 +328,7 @@ const styles = StyleSheet.create({
     backgroundColor: "rgb(255,250,240)",
     // paddingLeft:20,
   },
- 
+
   header: {
     display: "flex",
     flexDirection: "row",
