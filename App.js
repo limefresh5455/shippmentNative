@@ -16,22 +16,22 @@ export default function App() {
   const Stack = createNativeStackNavigator(); 
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName='SignIn'> 
-      <Stack.Screen name='SignIn' component={SignIn} options={{ headerShown: false }}/>  
-      <Stack.Screen name='BusinessProfile' component={BusinessProfile} options={{ headerShown: false }} />   
-      <Stack.Screen name='CreateShipment' component={CreateShipment} options={{ headerShown: false }}/>  
-      <Stack.Screen name='ShipmentInfo' component={ShipmentInfo} options={{ headerShown: false }}/>  
-      <Stack.Screen name='ConfirmShipment' component={ConfirmShipment} options={{ headerShown: false }}/> 
-      <Stack.Screen name='Submit' component={SubmitShipment} options={{ headerShown: false }}/> 
-      <Stack.Screen name='SignUp' component={SignUp} options={{ headerShown: false }}/>   
-      <Stack.Screen name='ConfirmEmail' component={ConfirmEmail} options={{ headerShown: false }}/>
-      </Stack.Navigator>
-    </NavigationContainer>   
+    // <NavigationContainer>
+    //   <Stack.Navigator initialRouteName='SignIn'> 
+    //   <Stack.Screen name='SignIn' component={SignIn} options={{ headerShown: false }}/>  
+    //   <Stack.Screen name='BusinessProfile' component={BusinessProfile} options={{ headerShown: false }} />   
+    //   <Stack.Screen name='CreateShipment' component={CreateShipment} options={{ headerShown: false }}/>  
+    //   <Stack.Screen name='ShipmentInfo' component={ShipmentInfo} options={{ headerShown: false }}/>  
+    //   <Stack.Screen name='ConfirmShipment' component={ConfirmShipment} options={{ headerShown: false }}/> 
+    //   <Stack.Screen name='Submit' component={SubmitShipment} options={{ headerShown: false }}/> 
+    //   <Stack.Screen name='SignUp' component={SignUp} options={{ headerShown: false }}/>   
+    //   <Stack.Screen name='ConfirmEmail' component={ConfirmEmail} options={{ headerShown: false }}/>
+    //   </Stack.Navigator>
+    // </NavigationContainer>   
 
     // <CreateShipment/>
 
-    //  <ShipmentInfo/> 
+      <ShipmentInfo/> 
     // <Tabs/>
 
    // <Testing/>

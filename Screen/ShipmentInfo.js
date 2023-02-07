@@ -114,9 +114,8 @@ const CreateShipment = ({ navigation }) => {
         </View>
       </KeyboardAwareScrollView>
      
-       
-  
     </SafeAreaView>
+    
      <NavigationContainer>
           <Tab.Navigator style={styles.tab}>
             <Tab.Screen name="Ship From Details" component={SFD} />
@@ -172,7 +171,7 @@ const styles = StyleSheet.create({
     // lineHeight: 1.15
   },
   contentView: {
-    paddingTop: 30,
+    paddingTop: 120,
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "center",
