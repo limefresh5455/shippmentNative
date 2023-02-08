@@ -6,7 +6,8 @@ export default function SFD() {
   const [selectedLanguage, setSelectedLanguage] = useState();
 
   return (
-    <View>
+   
+    <View style={styles.formheight}>
       <Picker
         selectedValue={selectedLanguage}
         onValueChange={(itemValue, itemIndex) =>
@@ -141,4 +142,8 @@ const styles = StyleSheet.create({
     borderStyle: "solid",
     borderBottomColor: "#6B6969",
   },
+  formheight:{
+    overflow:"auto",
+    height:200
+  }
 })

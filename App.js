@@ -46,13 +46,13 @@ export default function App() {
           name="Submit"
           component={SubmitShipment}
           options={{ headerShown: false }}
-        /> */}
+        />
         <Stack.Screen
           name="SignUp"
           component={SignUp}
           options={{ headerShown: false }}
         />
-        {/* <Stack.Screen
+        <Stack.Screen
           name="ConfirmEmail"
           component={ConfirmEmail}
           options={{ headerShown: false }}
@@ -63,8 +63,8 @@ export default function App() {
 
 
 
-    // <CreateShipment/>
-   //  <ShipmentInfo/>
+     // <CreateShipment/>
+    //<ShipmentInfo/>
     // <BusinessProfile/>
   
   );
