@@ -135,7 +135,14 @@ const SignIn = ({ navigation }) => {
               )}
               <Text style={styles.fgtPass}>Forget your password?</Text>
 
-              <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+              {/* <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+                <Text style={styles.btntext}>SIGN IN</Text>
+              </TouchableOpacity> */}
+
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() => navigation.navigate("BusinessProfile")}
+              >
                 <Text style={styles.btntext}>SIGN IN</Text>
               </TouchableOpacity>
             </View>

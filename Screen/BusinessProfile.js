@@ -169,13 +169,19 @@ const BusinessProfile = ({ navigation }) => {
                 {errors.year_in_business && (
                   <Text style={styles.errorTxt}>{errors.year_in_business}</Text>
                 )}
-                <TextInput
+                <View style={{ marginLeft: 14, marginRight:14}}>
+                <AnimatedInput
                   style={styles.input}
                   onChangeText={handleChange("contact")}
                   value={values.contact}
                   placeholder="Contact"
                   keyboardType="Years in Business"
+                   styleBodyContent={{
+                    borderBottomWidth: 12,
+                    borderBottomColor: "#cf9e63",
+                  }}
                 />
+                </View>
                 {errors.contact && (
                   <Text style={styles.errorTxt}>{errors.contact}</Text>
                 )}
@@ -227,12 +233,19 @@ const BusinessProfile = ({ navigation }) => {
                 )}
 
                 {copynew.map(() => {
-                  <TextInput
+
+                   <View style={{ marginLeft: 14, marginRight:14}}>
+                <AnimatedInput
                     style={styles.input}
                     onChangeText={handleChange("company_type_other")}
                     value={values.company_type_other}
                     keyboardType="Years in Business"
-                  />;
+                     styleBodyContent={{
+                    borderBottomWidth: 12,
+                    borderBottomColor: "#cf9e63",
+                  }}
+                  />
+                  </View>
                   {
                     errors.company_type_other && (
                       <Text style={styles.errorTxt}>
@@ -242,46 +255,70 @@ const BusinessProfile = ({ navigation }) => {
                   }
                 })}
 
-                <TextInput
+               <View style={{ marginLeft: 14, marginRight:14}}>
+                <AnimatedInput
                   style={styles.input}
                   onChangeText={handleChange("phone")}
                   value={values.phone}
                   placeholder="Phone"
                   keyboardType="Years in Business"
+                  styleBodyContent={{
+                    borderBottomWidth: 12,
+                    borderBottomColor: "#cf9e63",
+                  }}
                 />
+                </View>
                 {errors.phone && (
                   <Text style={styles.errorTxt}>{errors.phone}</Text>
                 )}
 
-                <TextInput
+                <View style={{ marginLeft: 14, marginRight:14}}>
+                <AnimatedInput
                   style={styles.input}
                   onChangeText={handleChange("address")}
                   value={values.address}
                   placeholder="Address"
                   keyboardType="Years in Business"
+                  styleBodyContent={{
+                    borderBottomWidth: 12,
+                    borderBottomColor: "#cf9e63",
+                  }}
                 />
+                </View>
                 {errors.address && (
                   <Text style={styles.errorTxt}>{errors.address}</Text>
                 )}
 
-                <TextInput
+                 <View style={{ marginLeft: 14, marginRight:14}}>
+                <AnimatedInput
                   style={styles.input}
                   onChangeText={handleChange("address_2")}
                   value={values.address_2}
                   placeholder="Address2"
                   keyboardType="Years in Business"
+                  styleBodyContent={{
+                    borderBottomWidth: 12,
+                    borderBottomColor: "#cf9e63",
+                  }}
                 />
+                </View>
                 {errors.address_2 && (
                   <Text style={styles.errorTxt}>{errors.address_2}</Text>
                 )}
 
-                <TextInput
+                 <View style={{ marginLeft: 14, marginRight:14}}>
+                <AnimatedInput
                   style={styles.input}
                   onChangeText={handleChange("fax")}
                   value={values.fax}
                   placeholder="Fax"
                   keyboardType="Years in Business"
+                   styleBodyContent={{
+                    borderBottomWidth: 12,
+                    borderBottomColor: "#cf9e63",
+                  }}
                 />
+                </View>
                 {errors.fax && (
                   <Text style={styles.errorTxt}>{errors.fax}</Text>
                 )}
@@ -299,40 +336,63 @@ const BusinessProfile = ({ navigation }) => {
                   <Picker.Item label="San Jose" value="San Jose" />
                   <Picker.Item label="New York" value="New York" />
                 </Picker>
-                <TextInput
+                <View style={{ marginLeft: 14, marginRight:14}}>
+                <AnimatedInput
                   style={styles.input}
                   onChangeText={handleChange("city")}
                   value={values.city}
                   placeholder="city"
                   keyboardType="Years in Business"
+                  styleBodyContent={{
+                    borderBottomWidth: 12,
+                    borderBottomColor: "#cf9e63",
+                  }}
                 />
+                </View>
                 {errors.city && (
                   <Text style={styles.errorTxt}>{errors.city}</Text>
                 )}
-                <TextInput
+                 <View style={{ marginLeft: 14, marginRight:14}}>
+                <AnimatedInput
                   style={styles.input}
                   onChangeText={handleChange("state")}
                   value={values.state}
                   placeholder="State"
                   keyboardType="Years in Business"
+                  styleBodyContent={{
+                    borderBottomWidth: 12,
+                    borderBottomColor: "#cf9e63",
+                  }}
                 />
+                </View>
                 {errors.state && (
                   <Text style={styles.errorTxt}>{errors.state}</Text>
                 )}
 
-                <TextInput
+                <View style={{ marginLeft: 14, marginRight:14}}>
+                <AnimatedInput
                   style={styles.input}
                   onChangeText={handleChange("zip")}
                   value={values.zip}
                   placeholder="Fax"
                   keyboardType="Years in Business"
+                   styleBodyContent={{
+                    borderBottomWidth: 12,
+                    borderBottomColor: "#cf9e63",
+                  }}
                 />
+                </View>
                 {errors.zip && (
                   <Text style={styles.errorTxt}>{errors.zip}</Text>
                 )}
-                <Pressable style={styles.button} onPress={handleSubmit}>
+                {/* <Pressable style={styles.button} onPress={handleSubmit}>
+                  <Text style={styles.btntext}>GET STATRTED</Text>
+                </Pressable> */}
+
+                <Pressable style={styles.button} onPress={() => navigation.navigate("CreateShipment")}>
                   <Text style={styles.btntext}>GET STATRTED</Text>
                 </Pressable>
+
               </View>
             </View>
           </ScrollView>

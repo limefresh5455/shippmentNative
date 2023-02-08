@@ -254,7 +254,7 @@ const CreateShipment = ({ navigation }) => {
           <View style={styles.flex}>
             <Pressable
               style={styles.button}
-              onPress={() => navigation.navigate("ShipmentInfo")}
+             // onPress={() => navigation.navigate("ShipmentInfo")}
             >
               <Text style={styles.btntext1}>Cancel</Text>
             </Pressable>
@@ -264,7 +264,8 @@ const CreateShipment = ({ navigation }) => {
               onPress={() => navigation.navigate("ShipmentInfo")}
             >
               <Text style={styles.btntext}>Continue</Text>
-            </Pressable>
+            </Pressable> 
+            
           </View>
         </View>
       </ScrollView>

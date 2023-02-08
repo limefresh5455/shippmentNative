@@ -116,12 +116,12 @@ const CreateShipment = ({ navigation }) => {
      
     </SafeAreaView>
     
-     <NavigationContainer>
+     {/* <NavigationContainer> */}
           <Tab.Navigator style={styles.tab}>
             <Tab.Screen name="Ship From Details" component={SFD} />
             <Tab.Screen name="Ship To Information" component={STI} />
           </Tab.Navigator>
-        </NavigationContainer>
+        {/* </NavigationContainer> */}
         </>
   );
 };
