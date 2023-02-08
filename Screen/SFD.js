@@ -1,4 +1,4 @@
-import { View, Text,TextInput,StyleSheet } from "react-native";
+import { View, Text,TextInput,StyleSheet,ScrollView } from "react-native";
 import React,{useState} from "react";
 import { Picker } from "@react-native-picker/picker";
 
@@ -7,7 +7,7 @@ export default function SFD() {
 
   return (
    
-    <View style={styles.formheight}>
+    <ScrollView style={styles.formheight}>
       <Picker
         selectedValue={selectedLanguage}
         onValueChange={(itemValue, itemIndex) =>
@@ -125,7 +125,7 @@ export default function SFD() {
       />
 
       
-    </View>
+    </ScrollView>
   );
 }
 
@@ -143,7 +143,7 @@ const styles = StyleSheet.create({
     borderBottomColor: "#6B6969",
   },
   formheight:{
-    overflow:"auto",
+    overflow:"scroll",
     height:200
   }
 })

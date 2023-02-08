@@ -32,7 +32,7 @@ const CreateShipment = ({ navigation }) => {
     <>
     <SafeAreaView style={styles.container}>
       <Header navigation={navigation} />
-      <KeyboardAwareScrollView>
+      {/* <KeyboardAwareScrollView> */}
         <View style={styles.contentView}>
           <Text style={styles.h1}>Create a new</Text>
           <Text style={styles.h1m}>shipment</Text>
@@ -112,9 +112,11 @@ const CreateShipment = ({ navigation }) => {
             <Text style={styles.formTitleh1}>Shipment info</Text>
           </View>
         </View>
-      </KeyboardAwareScrollView>
+      {/* </KeyboardAwareScrollView> */}
      
     </SafeAreaView>
+
+    
     
      {/* <NavigationContainer> */}
           <Tab.Navigator style={styles.tab}>
@@ -122,6 +124,7 @@ const CreateShipment = ({ navigation }) => {
             <Tab.Screen name="Ship To Information" component={STI} />
           </Tab.Navigator>
         {/* </NavigationContainer> */}
+
         </>
   );
 };
