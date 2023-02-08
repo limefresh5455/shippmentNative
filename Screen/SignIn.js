@@ -28,35 +28,35 @@ const SignupSchema = Yup.object().shape({
 
 const SignIn = ({ navigation }) => {
   const handleSubmit = (values) => {
-    const user = {
-      user_email: values.user_email,
-      user_password: values.user_password,
-    };
-    console.log(JSON.stringify(user));
-    fetch(
-      "https://shipwwt.com/wp-json/wp/v2/shipwwt-login-user-by-email-password/",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(user),
-      }
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.status === true) {
-          alert(data.msg);
-          navigation.navigate("BusinessProfile");
-          // AsyncStorage.setItem('userdata', JSON.stringify(data.data.user_id));
-          //  AsyncStorage.setItem('userdata', 'dfdf');
-        } else {
-          alert(data.data.response);
-        }
-      })
-      .catch((e) => {
-        console.log("errors", e);
-      });
+    // const user = {
+    //   user_email: values.user_email,
+    //   user_password: values.user_password,
+    // };
+    // console.log(JSON.stringify(user));
+    // fetch(
+    //   "https://shipwwt.com/wp-json/wp/v2/shipwwt-login-user-by-email-password/",
+    //   {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify(user),
+    //   }
+    // )
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     if (data.status === true) {
+    //       alert(data.msg);
+    //       navigation.navigate("BusinessProfile");
+    //       // AsyncStorage.setItem('userdata', JSON.stringify(data.data.user_id));
+    //       //  AsyncStorage.setItem('userdata', 'dfdf');
+    //     } else {
+    //       alert(data.data.response);
+    //     }
+    //   })
+    //   .catch((e) => {
+    //     console.log("errors", e);
+    //   });
   };
 
   return (

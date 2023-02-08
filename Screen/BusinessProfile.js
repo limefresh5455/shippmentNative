@@ -57,45 +57,45 @@ const BusinessProfile = ({ navigation }) => {
     // const data =  AsyncStorage.getItem('userdata')
     // alert(JSON.stringify(data))
 
-    const user = {
-      user_id: 97,
-      company_name: values.company_name,
-      year_in_business: values.year_in_business,
-      contact: values.contact,
-      address: values.address,
-      phone: values.phone,
-      address_2: values.address_2,
-      fax: values.fax,
-      country: selectedLanguage2,
-      city: values.city,
-      state: values.state,
-      zip: values.zip,
-      company_type: selectedLanguage1,
-      service_name: selectedLanguage,
-      company_type_other: "",
-    };
+    // const user = {
+    //   user_id: 97,
+    //   company_name: values.company_name,
+    //   year_in_business: values.year_in_business,
+    //   contact: values.contact,
+    //   address: values.address,
+    //   phone: values.phone,
+    //   address_2: values.address_2,
+    //   fax: values.fax,
+    //   country: selectedLanguage2,
+    //   city: values.city,
+    //   state: values.state,
+    //   zip: values.zip,
+    //   company_type: selectedLanguage1,
+    //   service_name: selectedLanguage,
+    //   company_type_other: "",
+    // };
 
-    fetch(
-      "https://shipwwt.com/wp-json/wp/v2/shipwwt-update-business-profile/",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(user),
-      }
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        alert(data.data.response);
-        if (data.status === true) {
-          alert(data.data.response);
-          console.log(data.data.response);
-        }
-      })
-      .catch((e) => {
-        console.log("errors", e);
-      });
+    // fetch(
+    //   "https://shipwwt.com/wp-json/wp/v2/shipwwt-update-business-profile/",
+    //   {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify(user),
+    //   }
+    // )
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     alert(data.data.response);
+    //     if (data.status === true) {
+    //       alert(data.data.response);
+    //       console.log(data.data.response);
+    //     }
+    //   })
+    //   .catch((e) => {
+    //     console.log("errors", e);
+    //   });
 
     // console.log(user)
   };

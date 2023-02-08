@@ -42,38 +42,39 @@ const SignupSchema = Yup.object().shape({
 });
 
 const SignUp = ({ navigation }) => {
+
+  
   const handleSubmit = (values) => {
     // alert("Hii!")
-
-    const user = {
-      user_fname: values.user_fname,
-      user_lname: values.user_lname,
-      user_email: values.user_email,
-      user_phone: values.user_phone,
-      user_password: values.user_password,
-    };
-    fetch(
-      "https://shipwwt.com/wp-json/wp/v2/shipwwt-register-user-by-email-password/",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(user),
-      }
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        alert(data.data.response);
-        if (data.status === true) {
-          navigation.navigate("ConfirmEmail");
-        } else {
-          alert(data.data.response);
-        }
-      })
-      .catch((e) => {
-        console.log("errors", e);
-      });
+    // const user = {
+    //   user_fname: values.user_fname,
+    //   user_lname: values.user_lname,
+    //   user_email: values.user_email,
+    //   user_phone: values.user_phone,
+    //   user_password: values.user_password,
+    // };
+    // fetch(
+    //   "https://shipwwt.com/wp-json/wp/v2/shipwwt-register-user-by-email-password/",
+    //   {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify(user),
+    //   }
+    // )
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     alert(data.data.response);
+    //     if (data.status === true) {
+    //       navigation.navigate("ConfirmEmail");
+    //     } else {
+    //       alert(data.data.response);
+    //     }
+    //   })
+    //   .catch((e) => {
+    //     console.log("errors", e);
+    //   });
   };
 
   return (
