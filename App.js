@@ -22,7 +22,7 @@ export default function App() {
           component={SignIn}
           options={{ headerShown: false }}
         />
-        <Stack.Screen
+        {/* <Stack.Screen
           name="BusinessProfile"
           component={BusinessProfile}
           options={{ headerShown: false }}
@@ -46,17 +46,17 @@ export default function App() {
           name="Submit"
           component={SubmitShipment}
           options={{ headerShown: false }}
-        />
+        /> */}
         <Stack.Screen
           name="SignUp"
           component={SignUp}
           options={{ headerShown: false }}
         />
-        <Stack.Screen
+        {/* <Stack.Screen
           name="ConfirmEmail"
           component={ConfirmEmail}
           options={{ headerShown: false }}
-        />
+        /> */}
       </Stack.Navigator>
     </NavigationContainer>
     

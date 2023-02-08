@@ -246,7 +246,7 @@ const CreateShipment = ({ navigation }) => {
 
             <View style={styles.flex}>
               <View style={styles.slide}>
-                {/* <Slideshow position={position} dataSource={data} style={styles.imagess}/> */}  
+                <Slideshow position={position} dataSource={data} style={styles.imagess}/>
               </View>
             </View>
           </View>
