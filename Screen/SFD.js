@@ -7,7 +7,7 @@ export default function SFD() {
 
   return (
    
-    <ScrollView style={styles.formheight}>
+    <ScrollView>
       <Picker
         selectedValue={selectedLanguage}
         onValueChange={(itemValue, itemIndex) =>
@@ -142,8 +142,5 @@ const styles = StyleSheet.create({
     borderStyle: "solid",
     borderBottomColor: "#6B6969",
   },
-  formheight:{
-    overflow:"scroll",
-    height:200
-  }
+  
 })

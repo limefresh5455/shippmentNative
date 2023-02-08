@@ -174,7 +174,7 @@ const styles = StyleSheet.create({
     // lineHeight: 1.15
   },
   contentView: {
-    paddingTop: 120,
+    paddingTop: 110,
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "center",
@@ -308,7 +308,7 @@ const styles = StyleSheet.create({
   iconAligen: {
     flexDirection: "row",
     justifyContent: "space-around",
-    marginTop: 25,
+    marginTop: 2,
   },
   label: {
     paddingLeft: 10,
