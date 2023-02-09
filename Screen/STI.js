@@ -1,198 +1,371 @@
-import { View, Text, TextInput, StyleSheet, ScrollView,Pressable } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  ScrollView,
+  Pressable,
+} from "react-native";
 import React, { useState } from "react";
-import RadioGroup from 'react-native-radio-buttons-group';
+import RadioGroup from "react-native-radio-buttons-group";
 import { Picker } from "@react-native-picker/picker";
+import AnimatedInput from "react-native-animated-input";
+import { CheckBox } from "@rneui/themed";
 
 export default function STI() {
   const [selectedLanguage, setSelectedLanguage] = useState();
 
-  const [radioButtons, setRadioButtons] = useState([
-        {
-            id: '1', // acts as primary key, should be unique and non-empty string
-            label: 'Option 1',
-            value: 'option1'
-        },
-        {
-            id: '2',
-            label: 'Option 2',
-            value: 'option2'
-        }
-    ]);
+  const [checked, setChecked] = React.useState(true);
+  const toggleCheckbox = () => setChecked(!checked);
 
-     function onPressRadioButton(radioButtonsArray) {
-        setRadioButtons(radioButtonsArray);
-    }
+  const [radioButtons, setRadioButtons] = useState([
+    {
+      id: "1",
+      label: "Option 1",
+      value: "option1",
+    },
+    {
+      id: "2",
+      label: "Option 2",
+      value: "option2",
+    },
+  ]);
+
+  function onPressRadioButton(radioButtonsArray) {
+    setRadioButtons(radioButtonsArray);
+  }
 
   return (
     <ScrollView>
-      <View style={{backgroundColor:"white"}}>
-      <Text style={{ marginLeft: 16, marginTop: 20, color: "#8d9092" }}>
-        Address Book
-      </Text>
-      <Picker
-        selectedValue={selectedLanguage}
-        onValueChange={(itemValue, itemIndex) => setSelectedLanguage(itemValue)}
-        style={{ marginLeft: 8 }}
-        //   onChangeText={handleChange("company_type")}
-        //   value={values.company_type}
-      >
-        <Picker.Item label="Please Select a value" value="" />
-        <Picker.Item label="Partnership" value="Partnership" />
-        <Picker.Item label="Corporation" value="Corporation" />
-        <Picker.Item label="S corporation" value="S corporation" />
-        <Picker.Item label="LLC" value="LLC" />
-        <Picker.Item label="United Kingdom" value="United Kingdom" />
-        <Picker.Item label="Star8ship" value="Star8ship" />
-      </Picker>
-      <Text style={styles.inputs}></Text>
+      <View style={{ backgroundColor: "white" }}>
+        <Text style={{ marginLeft: 16, marginTop: 20, color: "#8d9092" }}>
+          Address Book
+        </Text>
+        <Picker
+          selectedValue={selectedLanguage}
+          onValueChange={(itemValue, itemIndex) =>
+            setSelectedLanguage(itemValue)
+          }
+          style={{ marginLeft: 8 }}
+          //   onChangeText={handleChange("company_type")}
+          //   value={values.company_type}
+        >
+          <Picker.Item label="Please Select a value" value="" />
+          <Picker.Item label="Partnership" value="Partnership" />
+          <Picker.Item label="Corporation" value="Corporation" />
+          <Picker.Item label="S corporation" value="S corporation" />
+          <Picker.Item label="LLC" value="LLC" />
+          <Picker.Item label="United Kingdom" value="United Kingdom" />
+          <Picker.Item label="Star8ship" value="Star8ship" />
+        </Picker>
+        <Text style={styles.inputs}></Text>
 
-      <Text style={{ marginLeft: 16, marginTop: 18, color: "#8d9092" }}>
-        Country
-      </Text>
-      <Picker
-        selectedValue={selectedLanguage}
-        onValueChange={(itemValue, itemIndex) => setSelectedLanguage(itemValue)}
-        style={{ marginLeft: 8 }}
-        //   onChangeText={handleChange("company_type")}
-        //   value={values.company_type}
-      >
-        <Picker.Item label="Please Select a value" value="" />
-        <Picker.Item label="USA" value="USA" />
-        <Picker.Item label="San Jose" value="San Jose" />
-        <Picker.Item label="New York" value="New York" />
-        {/* <Picker.Item label="Other" value="Other" onChangeText={handle} /> */}
-      </Picker>
-      <Text style={styles.inputs}></Text>
+        <Text style={{ marginLeft: 16, marginTop: 18, color: "#8d9092" }}>
+          Country
+        </Text>
+        <Picker
+          selectedValue={selectedLanguage}
+          onValueChange={(itemValue, itemIndex) =>
+            setSelectedLanguage(itemValue)
+          }
+          style={{ marginLeft: 8 }}
+          //   onChangeText={handleChange("company_type")}
+          //   value={values.company_type}
+        >
+          <Picker.Item label="Please Select a value" value="" />
+          <Picker.Item label="USA" value="USA" />
+          <Picker.Item label="San Jose" value="San Jose" />
+          <Picker.Item label="New York" value="New York" />
+          {/* <Picker.Item label="Other" value="Other" onChangeText={handle} /> */}
+        </Picker>
+        <Text style={styles.inputs}></Text>
 
-      <Text style={{ marginLeft: 16, marginTop: 20, color: "#8d9092" }}>
-        Company
-      </Text>
-      <TextInput
-        style={styles.input}
-        //   onChangeText={handleChange("address")}
-        //   value={values.address}
-        keyboardType="Years in Business"
-      />
-
-      <Text style={{ marginLeft: 16, marginTop: 20, color: "#8d9092" }}>
-        First Name
-      </Text>
-      <TextInput
-        style={styles.input}
-        //   onChangeText={handleChange("address")}
-        //   value={values.address}
-        keyboardType="Years in Business"
-      />
-
-      <Text style={{ marginLeft: 16, marginTop: 20, color: "#8d9092" }}>
-        Last Name
-      </Text>
-      <TextInput
-        style={styles.input}
-        //   onChangeText={handleChange("address")}
-        //   value={values.address}
-        keyboardType="Years in Business"
-      />
-
-      <Text style={{ marginLeft: 16, marginTop: 20, color: "#8d9092" }}>
-        Address
-      </Text>
-      <TextInput
-        style={styles.input}
-        //   onChangeText={handleChange("address")}
-        //   value={values.address}
-        keyboardType="Years in Business"
-      />
-
-      <Text style={{ marginLeft: 16, marginTop: 20, color: "#8d9092" }}>
-        Address2
-      </Text>
-      <TextInput
-        style={styles.input}
-        //   onChangeText={handleChange("address")}
-        //   value={values.address}
-        keyboardType="Years in Business"
-      />
-
-      <Text style={{ marginLeft: 16, marginTop: 20, color: "#8d9092" }}>
-        City
-      </Text>
-      <TextInput
-        style={styles.input}
-        //   onChangeText={handleChange("address")}
-        //   value={values.address}
-        keyboardType="Years in Business"
-      />
-
-      <Text style={{ marginLeft: 16, marginTop: 20, color: "#8d9092" }}>
-        State
-      </Text>
-      <TextInput
-        style={styles.input}
-        //   onChangeText={handleChange("address")}
-        //   value={values.address}
-        keyboardType="Years in Business"
-      />
-
-      <Text style={{ marginLeft: 16, marginTop: 20, color: "#8d9092" }}>
-        Zip
-      </Text>
-      <TextInput
-        style={styles.input}
-        //   onChangeText={handleChange("address")}
-        //   value={values.address}
-        keyboardType="Years in Business"
-      />
-
-      <Text style={{ marginLeft: 16, marginTop: 20, color: "#8d9092" }}>
-        Phone
-      </Text>
-      <TextInput
-        style={styles.input}
-        //   onChangeText={handleChange("address")}
-        //   value={values.address}
-        keyboardType="Years in Business"
-      />
-
-      <Text style={{ marginLeft: 16, marginTop: 20, color: "#8d9092" }}>
-        Email
-      </Text>
-      <TextInput
-        style={styles.input}
-        //   onChangeText={handleChange("address")}
-        //   value={values.address}
-        keyboardType="Years in Business"
-      />
-
-        <RadioGroup 
-            radioButtons={radioButtons} 
-            onPress={onPressRadioButton} 
-            layout='row'
+        <Text style={{ marginLeft: 16, marginTop: 20, color: "#8d9092" }}>
+          Company
+        </Text>
+        <TextInput
+          style={styles.input}
+          //   onChangeText={handleChange("address")}
+          //   value={values.address}
+          keyboardType="Years in Business"
         />
 
-       <View style={styles.flex}>
-            <Pressable
-              style={styles.button}
-             // onPress={() => navigation.navigate("ShipmentInfo")}
-            >
-              <Text style={styles.btntext1}>Previous</Text>
-            </Pressable>
+        <Text style={{ marginLeft: 16, marginTop: 20, color: "#8d9092" }}>
+          First Name
+        </Text>
+        <TextInput
+          style={styles.input}
+          //   onChangeText={handleChange("address")}
+          //   value={values.address}
+          keyboardType="Years in Business"
+        />
 
-            <Pressable
-              style={styles.button1}
-              onPress={() => navigation.navigate("ShipmentInfo")}
-            >
-              <Text style={styles.btntext}>Next</Text>
-            </Pressable> 
-          </View>
+        <Text style={{ marginLeft: 16, marginTop: 20, color: "#8d9092" }}>
+          Last Name
+        </Text>
+        <TextInput
+          style={styles.input}
+          //   onChangeText={handleChange("address")}
+          //   value={values.address}
+          keyboardType="Years in Business"
+        />
 
-        
-          </View>
+        <Text style={{ marginLeft: 16, marginTop: 20, color: "#8d9092" }}>
+          Address
+        </Text>
+        <TextInput
+          style={styles.input}
+          //   onChangeText={handleChange("address")}
+          //   value={values.address}
+          keyboardType="Years in Business"
+        />
+
+        <Text style={{ marginLeft: 16, marginTop: 20, color: "#8d9092" }}>
+          Address2
+        </Text>
+        <TextInput
+          style={styles.input}
+          //   onChangeText={handleChange("address")}
+          //   value={values.address}
+          keyboardType="Years in Business"
+        />
+
+        <Text style={{ marginLeft: 16, marginTop: 20, color: "#8d9092" }}>
+          City
+        </Text>
+        <TextInput
+          style={styles.input}
+          //   onChangeText={handleChange("address")}
+          //   value={values.address}
+          keyboardType="Years in Business"
+        />
+
+        <Text style={{ marginLeft: 16, marginTop: 20, color: "#8d9092" }}>
+          State
+        </Text>
+        <TextInput
+          style={styles.input}
+          //   onChangeText={handleChange("address")}
+          //   value={values.address}
+          keyboardType="Years in Business"
+        />
+
+        <Text style={{ marginLeft: 16, marginTop: 20, color: "#8d9092" }}>
+          Zip
+        </Text>
+        <TextInput
+          style={styles.input}
+          //   onChangeText={handleChange("address")}
+          //   value={values.address}
+          keyboardType="Years in Business"
+        />
+
+        <Text style={{ marginLeft: 16, marginTop: 20, color: "#8d9092" }}>
+          Phone
+        </Text>
+        <TextInput
+          style={styles.input}
+          //   onChangeText={handleChange("address")}
+          //   value={values.address}
+          keyboardType="Years in Business"
+        />
+
+        <Text style={{ marginLeft: 16, marginTop: 20, color: "#8d9092" }}>
+          Email
+        </Text>
+        <TextInput
+          style={styles.input}
+          //   onChangeText={handleChange("address")}
+          //   value={values.address}
+          keyboardType="Years in Business"
+        />
+
+        <View style={{ marginBottom: 10 }}>
+          <Text style={{ fontSize: 22, marginLeft: 15 }}>Location Type</Text>
+          <RadioGroup
+            radioButtons={radioButtons}
+            onPress={onPressRadioButton}
+            layout="row"
+            style={styles.rad}
+          />
+        </View>
+
+        <View>
+          <Text style={{ fontSize: 22, marginLeft: 15 }}>Special Services</Text>
+          <RadioGroup
+            radioButtons={radioButtons}
+            onPress={onPressRadioButton}
+            layout="row"
+            style={styles.rad}
+          />
+        </View>
+
+        <View
+          style={{
+            borderBottomWidth: 1,
+            borderBottomColor: "black",
+            width: 335,
+            marginLeft: 13,
+            marginTop: 20,
+          }}
+        />
+
+        <Text style={{ fontSize: 22, marginLeft: 15, marginTop: 10 }}>
+          FedEx ShipAlert®-Express
+        </Text>
+
+        <Text style={{ marginLeft: 16, marginTop: 30, color: "#8d9092" }}>
+          Sender
+        </Text>
+        <TextInput
+          style={styles.input}
+          //   onChangeText={handleChange("address")}
+          //   value={values.address}
+          keyboardType="Years in Business"
+        />
+
+        <View style={{flexDirection:"row", marginLeft:-8, marginRight:20}} >
+          <CheckBox
+            checked={checked}
+            onPress={toggleCheckbox}
+            iconType="material-community"
+            checkedIcon="checkbox-marked"
+            uncheckedIcon="checkbox-blank-outline"
+            checkedColor="blue"
+            title="Ship"
+          />
+          <CheckBox
+            checked={checked}
+            onPress={toggleCheckbox}
+            iconType="material-community"
+            checkedIcon="checkbox-marked"
+            uncheckedIcon="checkbox-blank-outline"
+            checkedColor="blue"
+            title="Exception"
+            style={styles.check}
+          />
+          <CheckBox
+            checked={checked}
+            onPress={toggleCheckbox}
+            iconType="material-community"
+            checkedIcon="checkbox-marked"
+            uncheckedIcon="checkbox-blank-outline"
+            checkedColor="blue"
+            title="Delivery"
+          />
+        </View>
+
+        <Text style={{ marginLeft: 16, marginTop: 30, color: "#8d9092" }}>
+          Recipient
+        </Text>
+        <TextInput
+          style={styles.input}
+          //   onChangeText={handleChange("address")}
+          //   value={values.address}
+          keyboardType="Years in Business"
+        />
+
+          <View style={{flexDirection:"row", marginLeft:-8, marginRight:20}} >
+          <CheckBox
+            checked={checked}
+            onPress={toggleCheckbox}
+            iconType="material-community"
+            checkedIcon="checkbox-marked"
+            uncheckedIcon="checkbox-blank-outline"
+            checkedColor="blue"
+            title="Ship"
+          />
+          <CheckBox
+            checked={checked}
+            onPress={toggleCheckbox}
+            iconType="material-community"
+            checkedIcon="checkbox-marked"
+            uncheckedIcon="checkbox-blank-outline"
+            checkedColor="blue"
+            title="Exception"
+            style={styles.check}
+          />
+          <CheckBox
+            checked={checked}
+            onPress={toggleCheckbox}
+            iconType="material-community"
+            checkedIcon="checkbox-marked"
+            uncheckedIcon="checkbox-blank-outline"
+            checkedColor="blue"
+            title="Delivery"
+          />
+        </View>
+
+
+        <Text style={{ marginLeft: 16, marginTop: 30, color: "#8d9092" }}>
+          Other
+        </Text>
+        <TextInput
+          style={styles.input}
+          //   onChangeText={handleChange("address")}
+          //   value={values.address}
+          keyboardType="Years in Business"
+        />
+
+
+          <View style={{flexDirection:"row", marginLeft:-8, marginRight:20}} >
+          <CheckBox
+            checked={checked}
+            onPress={toggleCheckbox}
+            iconType="material-community"
+            checkedIcon="checkbox-marked"
+            uncheckedIcon="checkbox-blank-outline"
+            checkedColor="blue"
+            title="Ship"
+          />
+          <CheckBox
+            checked={checked}
+            onPress={toggleCheckbox}
+            iconType="material-community"
+            checkedIcon="checkbox-marked"
+            uncheckedIcon="checkbox-blank-outline"
+            checkedColor="blue"
+            title="Exception"
+            style={styles.check}
+          />
+          <CheckBox
+            checked={checked}
+            onPress={toggleCheckbox}
+            iconType="material-community"
+            checkedIcon="checkbox-marked"
+            uncheckedIcon="checkbox-blank-outline"
+            checkedColor="blue"
+            title="Delivery"
+          />
+        </View>
+
+        <View style={styles.flex}>
+          <Pressable
+            style={styles.button}
+            // onPress={() => navigation.navigate("ShipmentInfo")}
+          >
+            <Text style={styles.btntext1}>Previous</Text>
+          </Pressable>
+
+          <Pressable
+            style={styles.button1}
+            onPress={() => navigation.navigate("ShipmentInfo")}
+          >
+            <Text style={styles.btntext}>Next</Text>
+          </Pressable>
+        </View>
+      </View>
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
+
+
+  check:{
+     marginLeft:-100
+  },
+
   input: {
     height: 40,
     margin: 12,
@@ -220,18 +393,17 @@ const styles = StyleSheet.create({
     borderStyle: "solid",
     borderBottomColor: "#c7bdbd",
   },
-   btntext1: {
+  btntext1: {
     fontSize: 16,
     lineHeight: 21,
     fontWeight: "bold",
     letterSpacing: 0.25,
     color: "white",
-    backgroundColor:"#616161",
+    backgroundColor: "#616161",
     width: 100,
     height: 50,
     textAlign: "center",
     paddingTop: 15,
-  
   },
 
   btntext: {
@@ -240,19 +412,19 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     letterSpacing: 0.25,
     color: "white",
-    backgroundColor:"#d89d68",
+    backgroundColor: "#d89d68",
     width: 100,
     height: 50,
     textAlign: "center",
     paddingTop: 15,
   },
 
-   flex: {
+  flex: {
     display: "flex",
     flexDirection: "row",
     flexWrap: "wrap",
-    // marginLeft: 15,
-    // marginRight: 15,
+    marginLeft: 10,
+    marginRight: 5,
     justifyContent: "space-between",
     margin: 20,
   },

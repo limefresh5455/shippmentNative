@@ -214,34 +214,22 @@ const CreateShipment = ({ navigation }) => {
             </Picker>
             <Text style={styles.inputs}></Text>
 
-            <AnimatedInput
+            <TextInput
               style={styles.input}
               placeholder="Avg. weight"
               keyboardType="Years in Business"
-              styleBodyContent={{
-                borderBottomWidth: 8,
-                borderBottomColor: "#57bdff",
-              }}
             />
 
-            <AnimatedInput
+            <TextInput
               style={styles.input}
               placeholder="Ship date"
               keyboardType="Years in Business"
-              styleBodyContent={{
-                borderBottomWidth: 8,
-                borderBottomColor: "#57bdff",
-              }}
             />
 
-            <AnimatedInput
+            <TextInput
               style={styles.input}
               placeholder="Reference"
               keyboardType="Years in Business"
-              styleBodyContent={{
-                borderBottomWidth: 8,
-                borderBottomColor: "#57bdff",
-              }}
             />
 
             <Text style={{ marginLeft: 16, marginTop: 20, color: "#8d9092" }}>
@@ -260,14 +248,10 @@ const CreateShipment = ({ navigation }) => {
             </Picker>
             <Text style={styles.inputs}></Text>
 
-            <AnimatedInput
+            <TextInput
               style={styles.input}
               placeholder="Insured value of package"
               keyboardType="Years in Business"
-              styleBodyContent={{
-                borderBottomWidth: 8,
-                borderBottomColor: "#57bdff",
-              }}
             />
 
             <View style={styles.flex}>
@@ -376,8 +360,8 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     borderStyle: "solid",
     borderBottomColor: "#6B6969",
-    marginLeft: 40,
-    marginRight: 20,
+    marginLeft: 14,
+    marginRight: 13,
   },
   businessForm: {
     backgroundColor: "white",
