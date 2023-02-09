@@ -40,11 +40,11 @@ const Header = ({ navigation }) => {
 };
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    ///backgroundColor: "#ffffff",
+    flex: 1
     
   },
   header: {
+    width:'100%',
     display: "flex",
     flexDirection: "row",
     marginTop: 20,
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
 },
   SquareShapeView: {
     marginTop: 20,
-    width: 380,
+    width: '100%',
     height: 80,
     borderRadius: 12,
     borderWidth: 0.5,

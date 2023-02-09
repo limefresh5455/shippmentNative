@@ -18,6 +18,7 @@ import Icon from "react-native-vector-icons/FontAwesome";
 // import {  Text, View } from 'react-native';
 // import Carousel from 'react-native-reanimated-carousel';
 import { Card } from "react-native-shadow-cards";
+import AnimatedInput from "react-native-animated-input";
 import Header from "./Header";
 // import { Avatar, Button, Card, Text } from 'react-native-paper';
 
@@ -162,6 +163,9 @@ const CreateShipment = ({ navigation }) => {
           </View>
 
           <View>
+            <Text style={{ marginLeft: 16, marginTop: 20, color: "#8d9092" }}>
+              Service Type
+            </Text>
             <Picker
               selectedValue={selectedLanguage}
               onValueChange={(itemValue, itemIndex) =>
@@ -173,7 +177,11 @@ const CreateShipment = ({ navigation }) => {
               <Picker.Item label="FedEx Priority" value="FedEx Priority" />
               <Picker.Item label="FedEx Standard" value="FedEx Standard" />
             </Picker>
+            <Text style={styles.inputs}></Text>
 
+            <Text style={{ marginLeft: 16, marginTop: 20, color: "#8d9092" }}>
+              Packaging
+            </Text>
             <Picker
               selectedValue={selectedLanguage}
               onValueChange={(itemValue, itemIndex) =>
@@ -188,7 +196,11 @@ const CreateShipment = ({ navigation }) => {
               <Picker.Item label="FedEx Demo" value="FedEx Standard" />
               <Picker.Item label="FedEx Box" value="FedEx Standard" />
             </Picker>
+            <Text style={styles.inputs}></Text>
 
+            <Text style={{ marginLeft: 16, marginTop: 20, color: "#8d9092" }}>
+              Number of Package
+            </Text>
             <Picker
               selectedValue={selectedLanguage}
               onValueChange={(itemValue, itemIndex) =>
@@ -200,25 +212,41 @@ const CreateShipment = ({ navigation }) => {
               <Picker.Item label="Single" value="FedEx Priority" />
               <Picker.Item label="Multi" value="FedEx Standard" />
             </Picker>
+            <Text style={styles.inputs}></Text>
 
-            <TextInput
+            <AnimatedInput
               style={styles.input}
               placeholder="Avg. weight"
               keyboardType="Years in Business"
+              styleBodyContent={{
+                borderBottomWidth: 8,
+                borderBottomColor: "#57bdff",
+              }}
             />
 
-            <TextInput
+            <AnimatedInput
               style={styles.input}
               placeholder="Ship date"
               keyboardType="Years in Business"
+              styleBodyContent={{
+                borderBottomWidth: 8,
+                borderBottomColor: "#57bdff",
+              }}
             />
 
-            <TextInput
+            <AnimatedInput
               style={styles.input}
               placeholder="Reference"
               keyboardType="Years in Business"
+              styleBodyContent={{
+                borderBottomWidth: 8,
+                borderBottomColor: "#57bdff",
+              }}
             />
 
+            <Text style={{ marginLeft: 16, marginTop: 20, color: "#8d9092" }}>
+              Address Book
+            </Text>
             <Picker
               selectedValue={selectedLanguage}
               onValueChange={(itemValue, itemIndex) =>
@@ -230,11 +258,16 @@ const CreateShipment = ({ navigation }) => {
               <Picker.Item label="Single" value="FedEx Priority" />
               <Picker.Item label="Multi" value="FedEx Standard" />
             </Picker>
+            <Text style={styles.inputs}></Text>
 
-            <TextInput
+            <AnimatedInput
               style={styles.input}
               placeholder="Insured value of package"
               keyboardType="Years in Business"
+              styleBodyContent={{
+                borderBottomWidth: 8,
+                borderBottomColor: "#57bdff",
+              }}
             />
 
             <View style={styles.flex}>
@@ -246,7 +279,11 @@ const CreateShipment = ({ navigation }) => {
 
             <View style={styles.flex}>
               <View style={styles.slide}>
-                <Slideshow position={position} dataSource={data} style={styles.imagess}/>
+                <Slideshow
+                  position={position}
+                  dataSource={data}
+                  style={styles.imagess}
+                />
               </View>
             </View>
           </View>
@@ -254,7 +291,7 @@ const CreateShipment = ({ navigation }) => {
           <View style={styles.flex}>
             <Pressable
               style={styles.button}
-             // onPress={() => navigation.navigate("ShipmentInfo")}
+              // onPress={() => navigation.navigate("ShipmentInfo")}
             >
               <Text style={styles.btntext1}>Cancel</Text>
             </Pressable>
@@ -264,8 +301,7 @@ const CreateShipment = ({ navigation }) => {
               onPress={() => navigation.navigate("ShipmentInfo")}
             >
               <Text style={styles.btntext}>Continue</Text>
-            </Pressable> 
-            
+            </Pressable>
           </View>
         </View>
       </ScrollView>
@@ -286,6 +322,19 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     paddingLeft: -60,
     borderRadius: 10,
+  },
+  inputs: {
+    height: 40,
+    margin: 12,
+    borderWidth: 1,
+    padding: 10,
+    borderTopWidth: 0,
+    borderRightWidth: 0,
+    borderLeftWidth: 0,
+    marginTop: -48,
+    borderStyle: "solid",
+    borderBottomColor: "#c7bdbd",
+    
   },
   companyLogo: {
     width: 100,
@@ -327,7 +376,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     borderStyle: "solid",
     borderBottomColor: "#6B6969",
-    marginLeft: 16,
+    marginLeft: 40,
     marginRight: 20,
   },
   businessForm: {
@@ -467,11 +516,11 @@ const styles = StyleSheet.create({
     backgroundColor: "rgb(255,250,240)",
     // paddingLeft:20,
   },
-  imagess:{
-     justifyContent : "space-between"
+  imagess: {
+    justifyContent: "space-between",
   },
-  slide :{
-    justifyContent : "space-between"
+  slide: {
+    justifyContent: "space-between",
   },
   header: {
     display: "flex",

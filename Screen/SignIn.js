@@ -161,7 +161,7 @@ const SignIn = ({ navigation }) => {
                   height: 1,
                   backgroundColor: "black",
                   marginLeft: 35,
-                  paddingRight: 80,
+                  paddingRight: 120,
                 }}
               />
               <View>
@@ -180,8 +180,8 @@ const SignIn = ({ navigation }) => {
                 style={{
                   height: 1,
                   backgroundColor: "black",
-                  paddingLeft: 75,
-                  paddinRight: 100,
+                  paddingLeft: 120,
+                  //  paddinRight: 150,
                 }}
               />
             </View>
@@ -298,7 +298,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#cf9e63",
     marginTop: 28,
     marginLeft: 6,
-    width: 300,
+    width: "100%",
   },
   btntext: {
     fontSize: 16,

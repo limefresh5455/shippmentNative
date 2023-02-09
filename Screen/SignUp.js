@@ -231,7 +231,7 @@ const styles = StyleSheet.create({
   //   marginHorizontal: 8,
   // },
   SquareShapeView: {
-    width: 380,
+    width: "100%",
     height: 80,
     borderRadius: 10,
     borderWidth: 0.5,
@@ -243,17 +243,17 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
+    
   },
   companyLogo: {
     width: 100,
     height: 60,
     resizeMode: "contain",
     backgroundColor: "fbf1e6",
-    // marginLeft: 15
   },
   text: {
     color: "#d89d68",
-    marginRight: 70,
+  //  marginRight: 70,
     fontSize: 17,
     fontWeight: "400",
   },

@@ -2,7 +2,6 @@ import {
   Text,
   TextInput,
   Button,
-  Image,
   Linking,
   Pressable,
   SafeAreaView,
@@ -24,15 +23,28 @@ import SFD from "./SFD";
 import STI from "./STI";
 
 const Tab = createMaterialTopTabNavigator();
-
+const screenOptionStyle = {
+  tabBarStyle: [
+    {
+      borderRadius: 99,
+      borderBottom: "none",
+      marginLeft: 10,
+      marginRight: 10,
+      shadowOffset: { width: -2, height: 4 },
+      shadowColor: "#171717",
+      shadowOpacity: 0.2,
+      shadowRadius: 3,
+    },
+  ],
+};
 const CreateShipment = ({ navigation }) => {
   const [selectedLanguage, setSelectedLanguage] = useState();
 
   return (
     <>
-    <SafeAreaView style={styles.container}>
-      <Header navigation={navigation} />
-      {/* <KeyboardAwareScrollView> */}
+      <SafeAreaView style={styles.container}>
+        <Header navigation={navigation} />
+        {/* <KeyboardAwareScrollView> */}
         <View style={styles.contentView}>
           <Text style={styles.h1}>Create a new</Text>
           <Text style={styles.h1m}>shipment</Text>
@@ -93,7 +105,7 @@ const CreateShipment = ({ navigation }) => {
 
             <Text
               style={{
-                paddingRight: 38,
+                paddingRight: 2,
                 color: "#b1aeae",
               }}
             >
@@ -101,7 +113,7 @@ const CreateShipment = ({ navigation }) => {
             </Text>
             <Text
               style={{
-                paddingRight: 70,
+                paddingRight: 80,
                 color: "#b1aeae",
               }}
             >
@@ -112,20 +124,16 @@ const CreateShipment = ({ navigation }) => {
             <Text style={styles.formTitleh1}>Shipment info</Text>
           </View>
         </View>
-      {/* </KeyboardAwareScrollView> */}
-     
-    </SafeAreaView>
+        {/* </KeyboardAwareScrollView> */}
+      </SafeAreaView>
 
-    
-    
-     {/* <NavigationContainer> */}
-          <Tab.Navigator style={styles.tab}>
-            <Tab.Screen name="Ship From Details" component={SFD} />
-            <Tab.Screen name="Ship To Information" component={STI} />
-          </Tab.Navigator>
-        {/* </NavigationContainer> */}
-
-        </>
+      {/* <NavigationContainer> */}
+        <Tab.Navigator screenOptions={screenOptionStyle}>
+          <Tab.Screen name="Ship From Details" component={SFD} />
+          <Tab.Screen name="Ship To Information" component={STI} />
+        </Tab.Navigator>
+      {/* </NavigationContainer> */}
+    </>
   );
 };
 
@@ -287,7 +295,7 @@ const styles = StyleSheet.create({
   },
 
   formTitle: {
-    paddingTop: 30,
+    paddingTop: 20,
     flexDirection: "row",
     flexWrap: "wrap",
     paddingLeft: 15,
@@ -309,6 +317,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     marginTop: 2,
+    paddingLeft: 16,
+    paddingRight: 16,
   },
   label: {
     paddingLeft: 10,
@@ -319,6 +329,10 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     // marginBottom:10
+    marginLeft: 20,
+    // marginRight: 20,
+    // paddingLeft: 20,
+    // paddingRight: 20,
   },
   SquareShapeView: {
     marginTop: 20,
