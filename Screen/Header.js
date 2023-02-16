@@ -6,6 +6,7 @@ import {
   StyleSheet,
   Image,
   Linking,
+  TouchableOpacity,
   Pressable,
   SafeAreaView,
   ScrollView,
@@ -13,15 +14,16 @@ import {
 import React, { useState } from "react";
 import Icon from "react-native-vector-icons/FontAwesome";
 
-const Header = () => {
+const Header = ({ navigation }) => {
   return (
     <>
     <SafeAreaView>
       <ScrollView style={styles.SquareShapeView}>
         <View style={styles.header}>
-          <Text style={{ paddingLeft: 20 ,paddingTop:15 }} onPress={() => navigation.goBack()}>
-            <Icon name="arrow-left" size={20} color="#b1aeae"/>
-          </Text>
+          <TouchableOpacity  style={{ paddingLeft: 20 ,paddingTop:15 }} onPress={()=>navigation.goBack()}>
+            <Icon name="arrow-left" size={20} color="#b1aeae"
+            />
+          </TouchableOpacity>
           <Image 
             style={styles.companyLogo}
             source={{

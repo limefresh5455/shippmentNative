@@ -97,7 +97,7 @@ const SignIn = ({ navigation }) => {
                 <Text style={styles.title}>your</Text>
               </View>
               <Text style={styles.titles}>account</Text>
-              <View style={{ marginLeft: 14, marginTop: 15 }}>
+              <View style={{ marginLeft: 14, marginTop: 15}}>
                 <AnimatedInput
                   style={styles.input}
                   onChangeText={handleChange("user_email")}
@@ -235,7 +235,7 @@ const styles = StyleSheet.create({
     marginLeft: 5,
   },
   input: {
-    paddingHorizontal: 20,
+    paddingHorizontal: 100,
     paddingLeft: 100,
     marginLeft: 150,
     marginRight: 20,

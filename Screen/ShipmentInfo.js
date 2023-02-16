@@ -34,7 +34,7 @@ const screenOptionStyle = {
       shadowOffset: { width: -2, height: 4 },
       shadowColor: "#171717",
       shadowOpacity: 0.2,
-      shadowRadius: 3,
+      shadowRadius: 3
       
     },
   ],
@@ -52,7 +52,7 @@ const ShipmentInfo = () => {
       {/* </ScrollView> */}
     {/* <ScrollView > */}
       {/* <NavigationContainer> */}
-        <Tab.Navigator style={{minHeight:1720}} screenOptions={screenOptionStyle}>
+        <Tab.Navigator style={{minHeight:1800}} screenOptions={screenOptionStyle}>
           <Tab.Screen name="Ship From Details" component={SFD} />
           <Tab.Screen name="Ship To Information" component={STI} />
         </Tab.Navigator>
