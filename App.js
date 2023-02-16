@@ -4,13 +4,15 @@ import SignIn from "./Screen/SignIn";
 import BusinessProfile from "./Screen/BusinessProfile";
 import ConfirmEmail from "./Screen/ConfirmEmail";
 import SignUp from "./Screen/SignUp";
-import ShipmentInfo from "./Screen/ShipmentInfo";
-import CreateShipment from "./Screen/CreateShipment";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import ConfirmShipment from "./Screen/ConfirmShipment";
 import SubmitShipment from "./Screen/SubmitShipment";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import DownloadShipment from "./Screen/DownloadShipment";
+ import Header from "./Screen/Header";
+import ShipmentProgressStep from "./Screen/ShipmentProgressStep";
+import ShipmentInfo from "./Screen/ShipmentInfo";
 
 // import Tabs from './Screen/Tabs';
 export default function App() {
@@ -26,20 +28,25 @@ export default function App() {
             options={{ headerShown: false }}
           />
           <Stack.Screen
+            name="SignUp"
+            component={SignUp}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
             name="BusinessProfile"
             component={BusinessProfile}
             options={{ headerShown: false }}
           />
           <Stack.Screen
-            name="CreateShipment"
-            component={CreateShipment}
+            name="ShipmentProgressStep"
+            component={ShipmentProgressStep}
             options={{ headerShown: false }}
           />
-          <Stack.Screen
+          {/* <Stack.Screen
             name="ShipmentInfo"
             component={ShipmentInfo}
             options={{ headerShown: false }}
-          />
+          /> */}
           <Stack.Screen
             name="ConfirmShipment"
             component={ConfirmShipment}
@@ -51,11 +58,6 @@ export default function App() {
             options={{ headerShown: false }}
           />
           <Stack.Screen
-            name="SignUp"
-            component={SignUp}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
             name="ConfirmEmail"
             component={ConfirmEmail}
             options={{ headerShown: false }}
@@ -64,10 +66,13 @@ export default function App() {
       </NavigationContainer>
     </SafeAreaProvider>
 
-    // <SignIn/>
-    // <ShipmentInfo/>
-   //  <CreateShipment/>
-    // <BusinessProfile/>
+
+  // <ShipmentProgressStep/>
+  // <ShipmentInfo/>
+
+ // <DownloadShipment/>
+
+ 
   );
 }
 

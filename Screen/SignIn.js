@@ -9,8 +9,6 @@ import {
   TouchableOpacity,
   Pressable,
 } from "react-native";
-// import { AsyncStorage } from '@react-native-async-storage/async-storage';
-// import {AsyncStorage} from 'react-native';
 import AnimatedInput from "react-native-animated-input";
 import React from "react";
 import { Formik } from "formik";
@@ -160,7 +158,7 @@ const SignIn = ({ navigation }) => {
                 style={{
                   height: 1,
                   backgroundColor: "black",
-                  marginLeft: 35,
+                  marginLeft: 1,
                   paddingRight: 120,
                 }}
               />

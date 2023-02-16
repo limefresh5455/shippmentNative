@@ -338,22 +338,6 @@ export default function STI() {
             title="Delivery"
           />
         </View>
-
-        <View style={styles.flex}>
-          <Pressable
-            style={styles.button}
-            // onPress={() => navigation.navigate("ShipmentInfo")}
-          >
-            <Text style={styles.btntext1}>Previous</Text>
-          </Pressable>
-
-          <Pressable
-            style={styles.button1}
-            onPress={() => navigation.navigate("ShipmentInfo")}
-          >
-            <Text style={styles.btntext}>Next</Text>
-          </Pressable>
-        </View>
       </View>
     </ScrollView>
   );

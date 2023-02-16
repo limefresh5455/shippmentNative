@@ -7,7 +7,7 @@ export default function SFD() {
 
   return (
     <ScrollView>
-      <View style={{backgroundColor:"white"}}>
+      <View style={{backgroundColor:"white", minHeight:2000}}>
       <Text style={{ marginLeft: 16, marginTop: 20, color: "#8d9092" }}>
         Address Book
       </Text>
@@ -147,21 +147,6 @@ export default function SFD() {
         keyboardType="Years in Business"
       />
 
-       <View style={styles.flex}>
-            <Pressable
-              style={styles.button}
-             // onPress={() => navigation.navigate("ShipmentInfo")}
-            >
-              <Text style={styles.btntext1}>Previous</Text>
-            </Pressable>
-
-            <Pressable
-              style={styles.button1}
-              onPress={() => navigation.navigate("ShipmentInfo")}
-            >
-              <Text style={styles.btntext}>Next</Text>
-            </Pressable> 
-          </View>
           </View>
     </ScrollView>
   );

@@ -15,25 +15,24 @@ import Slideshow from "react-native-image-slider-show";
 import React, { useState, useEffect } from "react";
 import { Picker } from "@react-native-picker/picker";
 import Icon from "react-native-vector-icons/FontAwesome";
-// import {  Text, View } from 'react-native';
-// import Carousel from 'react-native-reanimated-carousel';
 import { Card } from "react-native-shadow-cards";
 import AnimatedInput from "react-native-animated-input";
-import Header from "./Header";
-// import { Avatar, Button, Card, Text } from 'react-native-paper';
+// import Header from "./Header";
+import Carousel from "react-native-snap-carousel";
+import CarouselCardItem, { SLIDER_WIDTH, ITEM_WIDTH } from "./CarouselCardItem";
 
 const data = [
   {
-    title: "Credit Card",
-    url: "https://www.sbicard.com/sbi-card-en/assets/media/images/personal/credit-cards/value-savings/card-faces/simplyclick-card-face.webp",
+    imgUrl:
+      "https://www.axisbank.com/images/default-source/default-album/ace-credit-card.jpg",
   },
   {
-    title: "Credit Card",
-    url: "https://www.sbicard.com/sbi-card-en/assets/media/images/personal/credit-cards/value-savings/card-faces/simplyclick-card-face.webp",
+    imgUrl:
+      "https://1.bp.blogspot.com/-vbR02D5OHjs/XTxr17QOLaI/AAAAAAAAARE/11BvbYw9ZI84U-Jwjs2Z29Z3aWLwgNp7wCLcBGAs/s1600/Axis%2BBank%2BRewards%2BPlus.jpg",
   },
 ];
 
-const CreateShipment = ({ navigation }) => {
+const CreateShipment = () => {
   const [selectedLanguage, setSelectedLanguage] = useState();
   const [position, setPosition] = useState(0);
 
@@ -45,87 +44,12 @@ const CreateShipment = ({ navigation }) => {
     return () => clearInterval(toggle);
   });
 
-  // const width = Dimensions.get('window').width;
+  const isCarousel = React.useRef(null);
 
   return (
     <SafeAreaView style={styles.container}>
-      <Header navigation={navigation} />
       <ScrollView style={styles.scrollView}>
-        <View style={styles.contentView}>
-          <Text style={styles.h1}>Create a new</Text>
-          <Text style={styles.h1m}> shipment</Text>
-        </View>
         <View style={styles.businessForm}>
-          <View style={styles.iconAligen}>
-            <View
-              style={{
-                flex: 1,
-                width: 5,
-                height: 2,
-                backgroundColor: "#cf9e63",
-                marginTop: 25,
-                marginRight: -30,
-                marginLeft: 5,
-              }}
-            />
-            <Icon name="circle" size={45} color="#cf9e63" s />
-
-            <View
-              style={{
-                flex: 1,
-                height: 2,
-                backgroundColor: "#cf9e63",
-                marginTop: 25,
-              }}
-            />
-            <Icon name="circle" size={45} color="#b1aeae" s />
-            <View
-              style={{
-                flex: 1,
-                height: 2,
-                backgroundColor: "#b1aeae",
-                marginTop: 25,
-                paddingRight: -20,
-              }}
-            />
-            <Icon name="circle" size={45} color="#b1aeae" s />
-            <View
-              style={{
-                flex: 1,
-                height: 2,
-                backgroundColor: "#b1aeae",
-                marginTop: 25,
-                marginRight: 20,
-              }}
-            />
-          </View>
-          <View style={styles.labelHead}>
-            <Text
-              style={{
-                // marginTop: 5,
-                color: "#cf9e63",
-              }}
-            >
-              Package & {"\n"}Payments {"\n"} Info
-            </Text>
-
-            <Text
-              style={{
-                paddingRight: 38,
-                color: "#b1aeae",
-              }}
-            >
-              shipment{"\n"} Info
-            </Text>
-            <Text
-              style={{
-                paddingRight: 70,
-                color: "#b1aeae",
-              }}
-            >
-              Done
-            </Text>
-          </View>
           <View style={styles.formTitle}>
             <Text style={styles.formTitleh1}>Package info</Text>
           </View>
@@ -261,31 +185,20 @@ const CreateShipment = ({ navigation }) => {
               </Text>
             </View>
 
-            <View style={styles.flex}>
-              <View style={styles.slide}>
-                <Slideshow
-                  position={position}
-                  dataSource={data}
-                  style={styles.imagess}
-                />
-              </View>
+            <View style={styles.slide}>
+              <Carousel
+                layout="default"
+                layoutCardOffset={9}
+                ref={isCarousel}
+                data={data}
+                renderItem={CarouselCardItem}
+                sliderWidth={340}
+                itemWidth={330}
+                inactiveSlideShift={0}
+                useScrollView={true}
+                style={{ position: "absolute" }}
+              />
             </View>
-          </View>
-
-          <View style={styles.flex}>
-            <Pressable
-              style={styles.button}
-              // onPress={() => navigation.navigate("ShipmentInfo")}
-            >
-              <Text style={styles.btntext1}>Cancel</Text>
-            </Pressable>
-
-            <Pressable
-              style={styles.button1}
-              onPress={() => navigation.navigate("ShipmentInfo")}
-            >
-              <Text style={styles.btntext}>Continue</Text>
-            </Pressable>
           </View>
         </View>
       </ScrollView>
@@ -301,11 +214,11 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     marginTop: 5,
-    // marginHorizontal: 90,
     paddingLeft: 20,
     justifyContent: "space-between",
     paddingLeft: -60,
     borderRadius: 10,
+    paddingRight: 15,
   },
   inputs: {
     height: 40,
@@ -318,36 +231,15 @@ const styles = StyleSheet.create({
     marginTop: -48,
     borderStyle: "solid",
     borderBottomColor: "#c7bdbd",
-    
   },
   companyLogo: {
     width: 100,
     height: 60,
     resizeMode: "contain",
-    // paddingLeft:20
   },
   scrollView: {
-    // marginHorizontal: 20,
-    marginTop: 110,
+    marginTop: -30,
     padding: 10,
-  },
-  h1: {
-    fontSize: 30,
-    marginBottom: 28,
-    color: "#b1aeae",
-    fontWeight: "400",
-  },
-  h1m: {
-    fontSize: 30,
-    marginBottom: 28,
-    fontWeight: "400",
-    // lineHeight: 1.15
-  },
-  contentView: {
-    paddingTop: 30,
-    flexDirection: "row",
-    flexWrap: "wrap",
-    justifyContent: "center",
   },
   input: {
     height: 40,
@@ -368,59 +260,11 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     paddingBottom: 26,
   },
-  button: {
-    alignItems: "center",
-    justifyContent: "center",
-    // elevation: 3,
-    borderRadius: 1,
-    borderWidth: 1,
-    borderColor: "#c97e3b",
-    marginTop: 28,
-    width: 100,
-    height: 50,
-    textAlign: "center",
-  },
-  button1: {
-    alignItems: "center",
-    justifyContent: "center",
-    elevation: 3,
-    backgroundColor: "#cf9e63",
-    marginTop: 28,
-    width: 100,
-    height: 50,
-    textAlign: "center",
-  },
-
-  btntext1: {
-    fontSize: 16,
-    lineHeight: 21,
-    fontWeight: "bold",
-    letterSpacing: 0.25,
-    color: "#cf9e63",
-    width: 100,
-    height: 50,
-    textAlign: "center",
-    paddingTop: 15,
-  },
-
-  btntext: {
-    fontSize: 16,
-    lineHeight: 21,
-    fontWeight: "bold",
-    letterSpacing: 0.25,
-    color: "white",
-    width: 100,
-    height: 50,
-    textAlign: "center",
-    paddingTop: 15,
-  },
 
   flex: {
     display: "flex",
     flexDirection: "row",
     flexWrap: "wrap",
-    // marginLeft: 15,
-    // marginRight: 15,
     justifyContent: "space-between",
     margin: 20,
   },
@@ -464,8 +308,6 @@ const styles = StyleSheet.create({
   },
   formTitleh1: {
     fontSize: 30,
-    // marginBottom: ,
-    // color: "#cf9e63",
     fontWeight: "500",
   },
   formTitleh2: {
@@ -488,7 +330,6 @@ const styles = StyleSheet.create({
   labelHead: {
     flexDirection: "row",
     justifyContent: "space-around",
-    // marginBottom:10
   },
   SquareShapeView: {
     marginTop: 20,
@@ -498,21 +339,12 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
     borderColor: "#FFFFFF",
     backgroundColor: "rgb(255,250,240)",
-    // paddingLeft:20,
   },
   imagess: {
     justifyContent: "space-between",
   },
   slide: {
     justifyContent: "space-between",
-  },
-  header: {
-    display: "flex",
-    flexDirection: "row",
-    marginTop: 25,
-    paddingRight: 15,
-    justifyContent: "space-between",
-    paddingLeft: -65,
   },
 });
 

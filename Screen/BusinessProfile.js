@@ -389,7 +389,7 @@ const BusinessProfile = ({ navigation }) => {
                   <Text style={styles.btntext}>GET STATRTED</Text>
                 </Pressable> */}
 
-                <Pressable style={styles.button} onPress={() => navigation.navigate("CreateShipment")}>
+                <Pressable style={styles.button} onPress={() => navigation.navigate("ShipmentProgressStep")}>
                   <Text style={styles.btntext}>GET STATRTED</Text>
                 </Pressable>
 
@@ -407,8 +407,6 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   scrollView: {
-    // marginHorizontal: 20,
-    marginTop: 110,
     padding: 10,
   },
   h1: {
