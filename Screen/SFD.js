@@ -6,8 +6,8 @@ export default function SFD() {
   const [selectedLanguage, setSelectedLanguage] = useState();
 
   return (
-    <ScrollView style={{minHeight:120}}>
-      <View style={{backgroundColor:"white", minHeight:2000}}>
+    <ScrollView >
+      <View style={{backgroundColor:"white"}}>
       <Text style={{ marginLeft: 16, marginTop: 20, color: "#8d9092" }}>
         Address Book
       </Text>

@@ -9,6 +9,7 @@ import {
   Pressable,
   SafeAreaView,
   ScrollView,
+  TouchableOpacity
 } from "react-native";
 // import {AsyncStorage} from 'react-native';
 import React, { useState } from "react";
@@ -25,10 +26,10 @@ const phoneRegExp =
 
 const SignupSchema = Yup.object().shape({
   // company_name: Yup.string().required("Company is required"),
-  // year_in_business: Yup.string().required("Year of buisness is required"),
+  // year_in_business: Yup.string().required("Year of business is required"),
   // contact: Yup.string().required("Contact Name is required"),
-  //  service_name: Yup.string().required("please select a value"),
-  //  company_type: Yup.string().required("please select a value"),
+   //service_name: Yup.string().required("please select a value"),
+  // company_type: Yup.string().required("please select a value"),
   // phone: Yup.string()
   //   .matches(phoneRegExp, "Phone number is not valid")
   //   .required("Phone Number is Required"),
@@ -53,9 +54,15 @@ const BusinessProfile = ({ navigation }) => {
     // setCopynew(abc);
   };
 
+
+  
+
   const handleSubmit = (values) => {
-    const data =  AsyncStorage.getItem('userdata')
-    alert(JSON.stringify(data))
+
+  console.log(values)
+
+    // const data =  AsyncStorage.getItem('userdata')
+    // alert(JSON.stringify(data))
 
     const user = {
       user_id: 97,
@@ -96,7 +103,6 @@ const BusinessProfile = ({ navigation }) => {
       .catch((e) => {
         console.log("errors", e);
       });
-
     console.log(user)
   };
 
@@ -144,9 +150,10 @@ const BusinessProfile = ({ navigation }) => {
                     value={values.company_name}
                     placeholder="Company"
                     styleBodyContent={{
-                    borderBottomWidth: 12,
-                    borderBottomColor: "#cf9e63",
+                    borderBottomWidth: 8,
+                    borderBottomColor: "#57bdff",
                   }}
+                  styleInput={{ height:22}}
                   />
                 </View>
                 {errors.company_name && (
@@ -161,9 +168,10 @@ const BusinessProfile = ({ navigation }) => {
                   placeholder="Years in Business"
                   keyboardType="Years in Business"
                   styleBodyContent={{
-                    borderBottomWidth: 12,
-                    borderBottomColor: "#cf9e63",
+                    borderBottomWidth: 8,
+                    borderBottomColor: "#57bdff",
                   }}
+                  styleInput={{ height:22}}
                 />
                 </View>
                 {errors.year_in_business && (
@@ -176,10 +184,11 @@ const BusinessProfile = ({ navigation }) => {
                   value={values.contact}
                   placeholder="Contact"
                   keyboardType="Years in Business"
-                   styleBodyContent={{
-                    borderBottomWidth: 12,
-                    borderBottomColor: "#cf9e63",
+                  styleBodyContent={{
+                    borderBottomWidth: 8,
+                    borderBottomColor: "#57bdff",
                   }}
+                  styleInput={{ height:22}}
                 />
                 </View>
                 {errors.contact && (
@@ -240,10 +249,11 @@ const BusinessProfile = ({ navigation }) => {
                     onChangeText={handleChange("company_type_other")}
                     value={values.company_type_other}
                     keyboardType="Years in Business"
-                     styleBodyContent={{
-                    borderBottomWidth: 12,
-                    borderBottomColor: "#cf9e63",
+                    styleBodyContent={{
+                    borderBottomWidth: 8,
+                    borderBottomColor: "#57bdff",
                   }}
+                  styleInput={{ height:22}}
                   />
                   </View>
                   {
@@ -263,9 +273,10 @@ const BusinessProfile = ({ navigation }) => {
                   placeholder="Phone"
                   keyboardType="Years in Business"
                   styleBodyContent={{
-                    borderBottomWidth: 12,
-                    borderBottomColor: "#cf9e63",
+                    borderBottomWidth: 8,
+                    borderBottomColor: "#57bdff",
                   }}
+                  styleInput={{ height:22}}
                 />
                 </View>
                 {errors.phone && (
@@ -280,9 +291,10 @@ const BusinessProfile = ({ navigation }) => {
                   placeholder="Address"
                   keyboardType="Years in Business"
                   styleBodyContent={{
-                    borderBottomWidth: 12,
-                    borderBottomColor: "#cf9e63",
+                    borderBottomWidth: 8,
+                    borderBottomColor: "#57bdff",
                   }}
+                  styleInput={{ height:22}}
                 />
                 </View>
                 {errors.address && (
@@ -297,9 +309,10 @@ const BusinessProfile = ({ navigation }) => {
                   placeholder="Address2"
                   keyboardType="Years in Business"
                   styleBodyContent={{
-                    borderBottomWidth: 12,
-                    borderBottomColor: "#cf9e63",
+                    borderBottomWidth: 8,
+                    borderBottomColor: "#57bdff",
                   }}
+                  styleInput={{ height:22}}
                 />
                 </View>
                 {errors.address_2 && (
@@ -313,10 +326,11 @@ const BusinessProfile = ({ navigation }) => {
                   value={values.fax}
                   placeholder="Fax"
                   keyboardType="Years in Business"
-                   styleBodyContent={{
-                    borderBottomWidth: 12,
-                    borderBottomColor: "#cf9e63",
+                  styleBodyContent={{
+                    borderBottomWidth: 8,
+                    borderBottomColor: "#57bdff",
                   }}
+                  styleInput={{ height:22}}
                 />
                 </View>
                 {errors.fax && (
@@ -344,9 +358,10 @@ const BusinessProfile = ({ navigation }) => {
                   placeholder="city"
                   keyboardType="Years in Business"
                   styleBodyContent={{
-                    borderBottomWidth: 12,
-                    borderBottomColor: "#cf9e63",
+                    borderBottomWidth: 8,
+                    borderBottomColor: "#57bdff",
                   }}
+                  styleInput={{ height:22}}
                 />
                 </View>
                 {errors.city && (
@@ -360,9 +375,10 @@ const BusinessProfile = ({ navigation }) => {
                   placeholder="State"
                   keyboardType="Years in Business"
                   styleBodyContent={{
-                    borderBottomWidth: 12,
-                    borderBottomColor: "#cf9e63",
+                    borderBottomWidth: 8,
+                    borderBottomColor: "#57bdff",
                   }}
+                  styleInput={{ height:22}}
                 />
                 </View>
                 {errors.state && (
@@ -376,22 +392,23 @@ const BusinessProfile = ({ navigation }) => {
                   value={values.zip}
                   placeholder="Fax"
                   keyboardType="Years in Business"
-                   styleBodyContent={{
-                    borderBottomWidth: 12,
-                    borderBottomColor: "#cf9e63",
+                  styleBodyContent={{
+                    borderBottomWidth: 8,
+                    borderBottomColor: "#57bdff",
                   }}
+                  styleInput={{ height:22}}
                 />
                 </View>
                 {errors.zip && (
                   <Text style={styles.errorTxt}>{errors.zip}</Text>
                 )}
-                {/* <Pressable style={styles.button} onPress={handleSubmit}>
+                <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+                  <Text style={styles.btntext}>GET STATRTED</Text>
+                </TouchableOpacity>
+
+                {/* <Pressable style={styles.button} onPress={() => navigation.navigate("ShipmentProgressStep")}>
                   <Text style={styles.btntext}>GET STATRTED</Text>
                 </Pressable> */}
-
-                <Pressable style={styles.button} onPress={() => navigation.navigate("ShipmentProgressStep")}>
-                  <Text style={styles.btntext}>GET STATRTED</Text>
-                </Pressable>
 
               </View>
             </View>

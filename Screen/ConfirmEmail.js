@@ -8,8 +8,8 @@ const ConfirmEmail = ({ navigation }) => {
 
 
     const showMessage =() => {
-          //  navigation.navigate("SignIn");
-          alert("hii...")
+         navigation.navigate("SignIn");
+         // alert("hii...")
     }
 
   return (
@@ -48,7 +48,7 @@ const ConfirmEmail = ({ navigation }) => {
           </Text>
         </View>
       </View>
-      <View >
+      <View>
         <Text
          style={styles.skipContent}
         onPress={showMessage}  

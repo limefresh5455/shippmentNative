@@ -45,7 +45,7 @@ const SignUp = ({ navigation }) => {
 
   
   const handleSubmit = (values) => {
-    alert("Hii!")
+    // alert("Hii!")
     const user = {
       user_fname: values.user_fname,
       user_lname: values.user_lname,
@@ -131,6 +131,11 @@ const SignUp = ({ navigation }) => {
                     value={values.user_fname}
                     placeholder="First name"
                     keyboardType="Years in Business"
+                    styleBodyContent={{
+                    borderBottomWidth: 8,
+                    borderBottomColor: "#57bdff",
+                  }}
+                  styleInput={{ height:22}}
                   />
                 </View>
                 {errors.user_fname && (
@@ -144,6 +149,11 @@ const SignUp = ({ navigation }) => {
                     value={values.user_lname}
                     placeholder="Last name"
                     keyboardType="Years in Business"
+                    styleBodyContent={{
+                    borderBottomWidth: 8,
+                    borderBottomColor: "#57bdff",
+                  }}
+                  styleInput={{ height:22}}
                   />
                 </View>
                 {errors.user_lname && (
@@ -157,6 +167,11 @@ const SignUp = ({ navigation }) => {
                     value={values.user_email}
                     placeholder="Email"
                     keyboardType="Years in Business"
+                    styleBodyContent={{
+                    borderBottomWidth: 8,
+                    borderBottomColor: "#57bdff",
+                  }}
+                  styleInput={{ height:22}}
                   />
                 </View>
                 {errors.user_email && (
@@ -170,6 +185,11 @@ const SignUp = ({ navigation }) => {
                     value={values.user_phone}
                     placeholder="Phone number"
                     keyboardType="Years in Business"
+                    styleBodyContent={{
+                    borderBottomWidth: 8,
+                    borderBottomColor: "#57bdff",
+                  }}
+                  styleInput={{ height:22}}
                   />
                 </View>
                 {errors.user_phone && (
@@ -187,6 +207,11 @@ const SignUp = ({ navigation }) => {
                     autoCorrect={false}
                     secureTextEntry
                     enablesReturnKeyAutomatically
+                    styleBodyContent={{
+                    borderBottomWidth: 8,
+                    borderBottomColor: "#57bdff",
+                  }}
+                  styleInput={{ height:22}}
                   />
                 </View>
                 {errors.user_password && (
@@ -204,6 +229,11 @@ const SignUp = ({ navigation }) => {
                     autoCorrect={false}
                     secureTextEntry
                     enablesReturnKeyAutomatically
+                    styleBodyContent={{
+                    borderBottomWidth: 8,
+                    borderBottomColor: "#57bdff",
+                  }}
+                  styleInput={{ height:22}}
                   />
                 </View>
                 {errors.user_cpassword && (

@@ -46,6 +46,8 @@ export default function ShipmentProgressStep({ navigation }) {
           completedProgressBarColor="#d89d68"
           completedStepIconColor="#d89d68"
           activeStepIconBorderColor="#d89d68"
+          labelColor="#d89d68"
+          activeLabelColor="#d89d68"
         >
           <ProgressStep
             label="Package & Payments info"
@@ -68,7 +70,7 @@ export default function ShipmentProgressStep({ navigation }) {
             nextBtnTextStyle={styles.btntext}
             previousBtnStyle={styles.btton}
             previousBtnTextStyle={styles.bttext}
-            scrollViewProps={defaultScrollViewProps}
+            scrollViewProps={defaultScrollViewProps} 
           >
             {/* <View style={{alignItems: 'center'}}> */}
             <ShipmentInfo />
@@ -78,7 +80,7 @@ export default function ShipmentProgressStep({ navigation }) {
             label="Done"
             onSubmit={onSubmitSteps}
             scrollViewProps={defaultScrollViewProps}
-            removeBtnRow="false"
+            removeBtnRow={disable}
           >
             <View style={{ alignItems: "center" }}>
               <DownloadShipment />
@@ -111,7 +113,7 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     borderRadius: 18,
     backgroundColor: "#cf9e63",
-    marginTop: 28,
+    marginTop: 45,
     marginLeft: 35,
     width: "100%",
   },

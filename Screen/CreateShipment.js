@@ -10,6 +10,7 @@ import {
   SafeAreaView,
   Dimensions,
   ScrollView,
+  TouchableOpacity,
 } from "react-native";
 import Slideshow from "react-native-image-slider-show";
 import React, { useState, useEffect } from "react";
@@ -35,6 +36,65 @@ const data = [
 const CreateShipment = () => {
   const [selectedLanguage, setSelectedLanguage] = useState();
   const [position, setPosition] = useState(0);
+  const [serviceDetails, setserviceDetails] = useState([]);
+  const [selectedValue, setSelectedValue] = useState("");
+  const [packagingDetails, setpackagingDetails] = useState([]);
+  const [selectedValue1, setSelectedValue1] = useState("");
+
+  const handlePress = (value) => {
+    // console.log(value)
+    fetch(
+      "https://api.goshippo.com/carrier_accounts/?carrier=" +
+        value +
+        "&service_levels=1",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization:
+            "ShippoToken shippo_test_385ed1b28f50d525d8b9088ac3cbaed1bc9b8ff2",
+        },
+      }
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        setserviceDetails(data.results[0].service_levels);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+
+    fetch("https://api.goshippo.com/parcel-templates?carrier=" + value, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization:
+          "ShippoToken shippo_test_385ed1b28f50d525d8b9088ac3cbaed1bc9b8ff2",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("data", data.results);
+        setpackagingDetails(data.results);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  };
+
+  const serviceList = () => {
+    // console.log(serviceDetails)
+    return serviceDetails.map((service) => {
+      return <Picker.Item label={service.name} value={service} />;
+    });
+  };
+
+  const packageList = () => {
+    // console.log("asddjfdjfd")
+    return packagingDetails.map((service) => {
+      return <Picker.Item label={service.name} value={service} />;
+    });
+  };
 
   useEffect(() => {
     const toggle = setInterval(() => {
@@ -55,35 +115,71 @@ const CreateShipment = () => {
           </View>
 
           <View style={styles.flex}>
-            <Card style={styles.cards}>
-              <View style={styles.card}>
-                <Image
-                  source={require("../assets/img/ups.png")}
-                  style={styles.img}
-                />
-                <Text style={styles.text}>USPS</Text>
-              </View>
-            </Card>
+            <TouchableOpacity
+              onPress={() => handlePress("usps")}
+              style={{
+                borderColor: "black",
+                borderBottomWidth: 1,
+                borderRightWidth: 1,
+                borderTopWidth: 1,
+                borderLeftWidth: 1,
+                borderRadius: 9,
+              }}
+            >
+              <Card style={styles.cards}>
+                <View style={styles.card}>
+                  <Image
+                    source={require("../assets/img/ups.png")}
+                    style={styles.img}
+                  />
+                  <Text style={styles.text}>USPS</Text>
+                </View>
+              </Card>
+            </TouchableOpacity>
 
-            <Card style={styles.cards}>
-              <View style={styles.card}>
-                <Image
-                  source={require("../assets/img/ups.png")}
-                  style={styles.img}
-                />
-                <Text style={styles.text}>UPS</Text>
-              </View>
-            </Card>
+            <TouchableOpacity
+              onPress={() => handlePress("ups")}
+              style={{
+                borderColor: "black",
+                borderBottomWidth: 1,
+                borderRightWidth: 1,
+                borderTopWidth: 1,
+                borderLeftWidth: 1,
+                borderRadius: 9,
+              }}
+            >
+              <Card style={styles.cards}>
+                <View style={styles.card}>
+                  <Image
+                    source={require("../assets/img/ups.png")}
+                    style={styles.img}
+                  />
+                  <Text style={styles.text}>UPS</Text>
+                </View>
+              </Card>
+            </TouchableOpacity>
 
-            <Card style={styles.cards}>
-              <View style={styles.card}>
-                <Image
-                  source={require("../assets/img/ups.png")}
-                  style={styles.img}
-                />
-                <Text style={styles.text}>FedEx</Text>
-              </View>
-            </Card>
+            <TouchableOpacity
+              onPress={() => handlePress("fedex")}
+              style={{
+                borderColor: "black",
+                borderBottomWidth: 1,
+                borderRightWidth: 1,
+                borderTopWidth: 1,
+                borderLeftWidth: 1,
+                borderRadius: 9,
+              }}
+            >
+              <Card style={styles.cards}>
+                <View style={styles.card}>
+                  <Image
+                    source={require("../assets/img/ups.png")}
+                    style={styles.img}
+                  />
+                  <Text style={styles.text}>FedEx</Text>
+                </View>
+              </Card>
+            </TouchableOpacity>
           </View>
 
           <View>
@@ -91,15 +187,14 @@ const CreateShipment = () => {
               Service Type
             </Text>
             <Picker
-              selectedValue={selectedLanguage}
+              selectedValue={selectedValue}
               onValueChange={(itemValue, itemIndex) =>
-                setSelectedLanguage(itemValue)
+                setSelectedValue(itemValue)
               }
               style={{ marginLeft: 8, borderColor: "black" }}
             >
               <Picker.Item label="Select Service type" value="" />
-              <Picker.Item label="FedEx Priority" value="FedEx Priority" />
-              <Picker.Item label="FedEx Standard" value="FedEx Standard" />
+              {serviceList()}
             </Picker>
             <Text style={styles.inputs}></Text>
 
@@ -107,18 +202,14 @@ const CreateShipment = () => {
               Packaging
             </Text>
             <Picker
-              selectedValue={selectedLanguage}
+              selectedValue={selectedValue1}
               onValueChange={(itemValue, itemIndex) =>
-                setSelectedLanguage(itemValue)
+                setSelectedValue1(itemValue)
               }
               style={{ marginLeft: 8, borderColor: "black" }}
             >
               <Picker.Item label="Select Packaging" value="" />
-              <Picker.Item label="FedEx Demo" value="FedEx Priority" />
-              <Picker.Item label="FedEx Demo" value="FedEx Standard" />
-              <Picker.Item label="FedEx Demo" value="FedEx Priority" />
-              <Picker.Item label="FedEx Demo" value="FedEx Standard" />
-              <Picker.Item label="FedEx Box" value="FedEx Standard" />
+              {packageList()}
             </Picker>
             <Text style={styles.inputs}></Text>
 

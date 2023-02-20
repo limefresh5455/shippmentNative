@@ -97,7 +97,7 @@ const SignIn = ({ navigation }) => {
                 <Text style={styles.title}>your</Text>
               </View>
               <Text style={styles.titles}>account</Text>
-              <View style={{ marginLeft: 14, marginTop: 15}}>
+              <View style={{ marginLeft: 14, marginTop: 10}}>
                 <AnimatedInput
                   style={styles.input}
                   onChangeText={handleChange("user_email")}
@@ -107,12 +107,13 @@ const SignIn = ({ navigation }) => {
                     borderBottomWidth: 8,
                     borderBottomColor: "#57bdff",
                   }}
+                  styleInput={{ height:22}}
                 />
               </View>
               {errors.user_email && (
                 <Text style={styles.errorTxt}>{errors.user_email}</Text>
               )}
-              <View style={{ marginLeft: 14, marginTop: 1 }}>
+              <View style={{ marginLeft: 14, marginTop: 10 }}>
                 <AnimatedInput
                   style={styles.input}
                   placeholder="Password"
@@ -126,6 +127,7 @@ const SignIn = ({ navigation }) => {
                     borderBottomWidth: 8,
                     borderBottomColor: "#57bdff",
                   }}
+                  styleInput={{ height:22}}
                 />
               </View>
               {errors.user_password && (
@@ -133,16 +135,16 @@ const SignIn = ({ navigation }) => {
               )}
               <Text style={styles.fgtPass}>Forget your password?</Text>
 
-              {/* <TouchableOpacity style={styles.button} onPress={handleSubmit}>
+              <TouchableOpacity style={styles.button} onPress={handleSubmit}>
                 <Text style={styles.btntext}>SIGN IN</Text>
-              </TouchableOpacity> */}
+              </TouchableOpacity>
 
-              <TouchableOpacity
+              {/* <TouchableOpacity
                 style={styles.button}
                 onPress={() => navigation.navigate("BusinessProfile")}
               >
                 <Text style={styles.btntext}>SIGN IN</Text>
-              </TouchableOpacity>
+              </TouchableOpacity> */}
             </View>
             {/*<Text style={styles.heading1}>Or Continus with</Text>*/}
             <View
@@ -228,7 +230,7 @@ const styles = StyleSheet.create({
   header: {
     display: "flex",
     flexDirection: "row",
-    marginTop: 25,
+    marginTop: 18,
     padding: 18,
     marginRight: 10,
     justifyContent: "space-between",
@@ -252,7 +254,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     textAlign: "right",
     marginBottom: 15,
-    marginRight: 12,
+    marginRight: -5,
     marginTop: 9,
   },
   logo: {
