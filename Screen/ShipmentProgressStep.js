@@ -1,10 +1,11 @@
-import { View, Text, ScrollView, StyleSheet } from "react-native";
+import { View, Text, ScrollView, StyleSheet,TouchableOpacity } from "react-native";
 import React, { useState } from "react";
 import { ProgressSteps, ProgressStep } from "react-native-progress-steps";
 import CreateShipment from "./CreateShipment";
 import Header from "./Header";
 import ShipmentInfo from "./ShipmentInfo";
 import DownloadShipment from "./DownloadShipment";
+import { Button } from "@rneui/base";
 
 export default function ShipmentProgressStep({ navigation }) {
   const [disable, setDisable] = useState(false);
@@ -33,6 +34,32 @@ export default function ShipmentProgressStep({ navigation }) {
     alert("Succesfull...");
   };
 
+
+  function handleSubmit(){
+
+    const token = shippo_test_385ed1b28f50d525d8b9088ac3cbaed1bc9b8ff2;
+
+     fetch(
+      "https://api.goshippo.com/shipments/",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `ShippoToken ${token}`
+        },
+        body: JSON.stringify(user),
+      }
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data)
+      })
+      .catch((e) => {
+        console.log("errors", e);
+      });
+
+  }
+
   return (
     <>
       <Header navigation={navigation} />
@@ -41,7 +68,6 @@ export default function ShipmentProgressStep({ navigation }) {
           <Text style={styles.h1s}>Create a new</Text>
           <Text style={styles.h1ms}> shipment</Text>
         </View>
-
         <ProgressSteps
           completedProgressBarColor="#d89d68"
           completedStepIconColor="#d89d68"
@@ -65,16 +91,16 @@ export default function ShipmentProgressStep({ navigation }) {
             onNext={onNextStep}
             onPrevious={onPrevStep}
             previousBtnDisabled={disable}
-            //scrollable="false"
             nextBtnStyle={styles.button}
             nextBtnTextStyle={styles.btntext}
             previousBtnStyle={styles.btton}
             previousBtnTextStyle={styles.bttext}
             scrollViewProps={defaultScrollViewProps} 
           >
-            {/* <View style={{alignItems: 'center'}}> */}
             <ShipmentInfo />
-            {/* </View> */}
+             <TouchableOpacity style={styles.rates} onPress={handleSubmit}>
+                <Text style={styles.rates1}>Create Shipment And Get Rates</Text>
+             </TouchableOpacity> 
           </ProgressStep>
           <ProgressStep
             label="Done"
@@ -112,7 +138,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingVertical: 12,
     borderRadius: 18,
-    backgroundColor: "#cf9e63",
+    backgroundColor: "#CE9D62",
     marginTop: 45,
     marginLeft: 35,
     width: "100%",
@@ -144,4 +170,22 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     padding: 8,
   },
+  rates: {
+    backgroundColor: "#cf9e63", 
+    padding:12,
+    marginLeft:20,
+    marginRight:20,
+    borderRadius:3
+  },
+  rates1: {
+    fontSize: 16,
+    lineHeight: 21,
+    fontWeight: "bold",
+    letterSpacing: 0.25,
+    color: "white",
+    justifyContent: "center",
+    padding: 8,   
+    textAlign:"center"
+  }
+
 });

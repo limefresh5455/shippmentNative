@@ -66,14 +66,12 @@ export default function App() {
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>
-
-//  <BusinessProfile/>
-  // <ShipmentProgressStep/>
-  //   <ShipmentInfo/>
-
- // <DownloadShipment/>
-
- 
+     //   <BusinessProfile/>
+    //  <ShipmentProgressStep/>
+    // <BusinessProfile1/>
+    // <ShipmentInfo/>
+    // <DownloadShipment/>
+    //  <SignIn/>
   );
 }
 

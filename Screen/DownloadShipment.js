@@ -16,7 +16,7 @@ export default function DownloadShipment({ navigation }) {
           textAlign: "center",
           alignSelf: "center",
           justifyContent: "center",
-          alignItems: "center",
+          alignItems: "center",       
           textAlignVertical: "center",
           alignContent: "center",
           width: 280,
@@ -34,9 +34,11 @@ export default function DownloadShipment({ navigation }) {
       >
         Cancel
       </Text> */}
+      
     </View>
   );
 }
+
 
 const styles = StyleSheet.create({
   top: {

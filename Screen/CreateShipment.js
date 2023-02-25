@@ -18,6 +18,7 @@ import { Picker } from "@react-native-picker/picker";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { Card } from "react-native-shadow-cards";
 import AnimatedInput from "react-native-animated-input";
+import DatePicker from "react-native-datepicker";
 // import Header from "./Header";
 import Carousel from "react-native-snap-carousel";
 import CarouselCardItem, { SLIDER_WIDTH, ITEM_WIDTH } from "./CarouselCardItem";
@@ -113,12 +114,10 @@ const CreateShipment = () => {
           <View style={styles.formTitle}>
             <Text style={styles.formTitleh1}>Package info</Text>
           </View>
-
           <View style={styles.flex}>
             <TouchableOpacity
               onPress={() => handlePress("usps")}
               style={{
-                borderColor: "black",
                 borderBottomWidth: 1,
                 borderRightWidth: 1,
                 borderTopWidth: 1,
@@ -213,7 +212,7 @@ const CreateShipment = () => {
             </Picker>
             <Text style={styles.inputs}></Text>
 
-            <Text style={{ marginLeft: 16, marginTop: 20, color: "#8d9092" }}>
+            {/* <Text style={{ marginLeft: 16, marginTop: 20, color: "#8d9092" }}>
               Number of Package
             </Text>
             <Picker
@@ -227,18 +226,52 @@ const CreateShipment = () => {
               <Picker.Item label="Single" value="FedEx Priority" />
               <Picker.Item label="Multi" value="FedEx Standard" />
             </Picker>
-            <Text style={styles.inputs}></Text>
+            <Text style={styles.inputs}></Text> */}
 
             <TextInput
-              style={styles.input}
+              style={styles.input1}
               placeholder="Avg. weight"
-              keyboardType="Years in Business"
+              keyboardType="numeric"
             />
+            <Picker
+              selectedValue={selectedLanguage}
+              onValueChange={(itemValue, itemIndex) =>
+                setSelectedLanguage(itemValue)
+              }
+              style={{
+                marginLeft: 8,
+                borderColor: "black",
+                marginBottom: 25,
+                marginTop: -25,
+              }}
+            >
+              <Picker.Item label="Select Mass Unit" value="" />
+              <Picker.Item label="lb" value="FedEx Priority" />
+              <Picker.Item label="oz" value="FedEx Standard" />
+              <Picker.Item label="g" value="FedEx Priority" />
+              <Picker.Item label="kg" value="FedEx Standard" />
+            </Picker>
 
-            <TextInput
-              style={styles.input}
-              placeholder="Ship date"
-              keyboardType="Years in Business"
+            <DatePicker
+              defaultDate={new Date(2018, 4, 4)}
+              minimumDate={new Date(2018, 1, 1)}
+              maximumDate={new Date(2018, 12, 31)}
+              locale={"en"}
+              timeZoneOffsetInMinutes={undefined}
+              modalTransparent={false}
+              animationType={"fade"}
+              androidMode={"default"}
+              placeHolderText="Select date"
+              textStyle={{ color: "green" }}
+              style={{
+                marginLeft: 16,
+                borderBottomColor: "#c7bdbd",
+                borderWidth: 1,
+                borderStyle: "solid",
+              }}
+              placeHolderTextStyle={{ color: "#d3d3d3" }}
+              // onDateChange={(date) => setDate(date)}
+              disabled={false}
             />
 
             <TextInput
@@ -248,7 +281,7 @@ const CreateShipment = () => {
             />
 
             <Text style={{ marginLeft: 16, marginTop: 20, color: "#8d9092" }}>
-              Address Book
+              Delivery confirmation
             </Text>
             <Picker
               selectedValue={selectedLanguage}
@@ -258,15 +291,15 @@ const CreateShipment = () => {
               style={{ marginLeft: 8, borderColor: "black" }}
             >
               <Picker.Item label="Select No. of packages" value="" />
-              <Picker.Item label="Single" value="FedEx Priority" />
-              <Picker.Item label="Multi" value="FedEx Standard" />
+              <Picker.Item label="Signature required" value="FedEx Priority" />
+              <Picker.Item label="Demo" value="FedEx Standard" />
             </Picker>
             <Text style={styles.inputs}></Text>
 
             <TextInput
               style={styles.input}
-              placeholder="Insured value of package"
-              keyboardType="Years in Business"
+              placeholder="$ 1.00"
+              keyboardType="numeric"
             />
 
             <View style={styles.flex}>
@@ -320,7 +353,7 @@ const styles = StyleSheet.create({
     borderRightWidth: 0,
     borderLeftWidth: 0,
     marginTop: -48,
-    borderStyle: "solid",
+
     borderBottomColor: "#c7bdbd",
   },
   companyLogo: {
@@ -345,6 +378,21 @@ const styles = StyleSheet.create({
     borderBottomColor: "#6B6969",
     marginLeft: 14,
     marginRight: 13,
+  },
+  input1: {
+    height: 40,
+    margin: 12,
+    padding: 10,
+    marginBottom: 20,
+    borderStyle: "solid",
+    borderBottomColor: "#6B6969",
+    borderWidth: 1,
+    borderTopWidth: 1,
+    borderRightWidth: 1,
+    borderLeftWidth: 1,
+    marginLeft: 14,
+    marginRight: 13,
+    marginTop: 28,
   },
   businessForm: {
     backgroundColor: "white",

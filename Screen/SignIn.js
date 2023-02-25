@@ -10,6 +10,7 @@ import {
   Pressable,
 } from "react-native";
 import AnimatedInput from "react-native-animated-input";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import React from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
@@ -25,7 +26,7 @@ const SignupSchema = Yup.object().shape({
 });
 
 const SignIn = ({ navigation }) => {
-  const handleSubmit = (values) => {
+  function handleSubmit(values) {
     const user = {
       user_email: values.user_email,
       user_password: values.user_password,
@@ -42,12 +43,14 @@ const SignIn = ({ navigation }) => {
       }
     )
       .then((response) => response.json())
-      .then((data) => {
+      .then(async (data) => {
         if (data.status === true) {
           alert(data.msg);
-          navigation.navigate("BusinessProfile");
-          // AsyncStorage.setItem('userdata', JSON.stringify(data.data.user_id));
-          //  AsyncStorage.setItem('userdata', 'dfdf');
+          navigation.navigate("ShipmentProgressStep");
+          await AsyncStorage.setItem(
+            "userdata",
+            JSON.stringify(data.data.user_id)
+          );
         } else {
           alert(data.data.response);
         }
@@ -55,7 +58,7 @@ const SignIn = ({ navigation }) => {
       .catch((e) => {
         console.log("errors", e);
       });
-  };
+  }
 
   return (
     <Formik
@@ -92,12 +95,18 @@ const SignIn = ({ navigation }) => {
             </View>
             <View style={styles.signUpLink}></View>
             <View style={styles.loginForm}>
+              <Text
+                style={styles.bp}
+                onPress={() => navigation.navigate("BusinessProfile")}
+              >
+                Business Profile
+              </Text>
               <View style={styles.contentView}>
                 <Text style={styles.title1}>Sign in to </Text>
                 <Text style={styles.title}>your</Text>
               </View>
               <Text style={styles.titles}>account</Text>
-              <View style={{ marginLeft: 14, marginTop: 10}}>
+              <View style={{ marginLeft: 14, marginTop: 10 }}>
                 <AnimatedInput
                   style={styles.input}
                   onChangeText={handleChange("user_email")}
@@ -107,7 +116,7 @@ const SignIn = ({ navigation }) => {
                     borderBottomWidth: 8,
                     borderBottomColor: "#57bdff",
                   }}
-                  styleInput={{ height:22}}
+                  styleInput={{ height: 22 }}
                 />
               </View>
               {errors.user_email && (
@@ -127,7 +136,7 @@ const SignIn = ({ navigation }) => {
                     borderBottomWidth: 8,
                     borderBottomColor: "#57bdff",
                   }}
-                  styleInput={{ height:22}}
+                  styleInput={{ height: 22 }}
                 />
               </View>
               {errors.user_password && (
@@ -181,7 +190,7 @@ const SignIn = ({ navigation }) => {
                   height: 1,
                   backgroundColor: "black",
                   paddingLeft: 120,
-                  //  paddinRight: 150,
+                  // paddinRight: 150,
                 }}
               />
             </View>
@@ -209,6 +218,14 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fbf1e6",
     padding: 9,
+  },
+    bp: {
+    color: "#cf9e63",
+    fontSize: 15,
+    textAlign: "left",
+    marginTop:-55,
+    marginBottom:40,
+    marginLeft:13
   },
   title1: {
     fontSize: 28,
@@ -295,7 +312,7 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     borderRadius: 18,
     // elevation: 3,
-    backgroundColor: "#cf9e63",
+    backgroundColor: "#CE9D62",
     marginTop: 28,
     marginLeft: 6,
     width: "100%",

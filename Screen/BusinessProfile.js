@@ -9,9 +9,9 @@ import {
   Pressable,
   SafeAreaView,
   ScrollView,
-  TouchableOpacity
+  TouchableOpacity,
 } from "react-native";
-// import {AsyncStorage} from 'react-native';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { useState } from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
@@ -20,26 +20,25 @@ import { Picker } from "@react-native-picker/picker";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import Header from "./Header";
+import { useEffect } from "react";
 
 const phoneRegExp =
   /^(\+?\d{0,4})?\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{3}\)?)\s?-?\s?(\(?\d{4}\)?)$/;
 
 const SignupSchema = Yup.object().shape({
-  // company_name: Yup.string().required("Company is required"),
-  // year_in_business: Yup.string().required("Year of business is required"),
-  // contact: Yup.string().required("Contact Name is required"),
-   //service_name: Yup.string().required("please select a value"),
-  // company_type: Yup.string().required("please select a value"),
-  // phone: Yup.string()
-  //   .matches(phoneRegExp, "Phone number is not valid")
-  //   .required("Phone Number is Required"),
-  // address: Yup.string().required("please fill the address"),
-  // address_2: Yup.string().required("please again fill the address"),
-  // fax: Yup.number().required("please fill the fax"),
-  //  country: Yup.string().required("please select a value"),
-  // city: Yup.string().required("city is required"),
-  // state: Yup.string().required("state is required"),
-  // zip: Yup.number().required("zip is required"),
+  company_name: Yup.string().required("Company is required"),
+  year_in_business: Yup.string().required("Year of business is required"),
+  contact: Yup.string().required("Contact Name is required"),
+  phone: Yup.string()
+    .matches(phoneRegExp, "Phone number is not valid")
+    .required("Phone Number is Required"),
+  address: Yup.string().required("please fill the address"),
+  address_2: Yup.string().required("please again fill the address"),
+  fax: Yup.number().required("please fill the fax"),
+   country: Yup.string().required("please select a value"),
+  city: Yup.string().required("city is required"),
+  state: Yup.string().required("state is required"),
+  zip: Yup.number().required("zip is required"),
 });
 
 const BusinessProfile = ({ navigation }) => {
@@ -47,6 +46,7 @@ const BusinessProfile = ({ navigation }) => {
   const [selectedLanguage1, setSelectedLanguage1] = useState();
   const [selectedLanguage2, setSelectedLanguage2] = useState();
   const [copynew, setCopynew] = useState([]);
+  const [business, setBusiness] = useState("");
 
   const handle = () => {
     alert("hiii!");
@@ -54,18 +54,39 @@ const BusinessProfile = ({ navigation }) => {
     // setCopynew(abc);
   };
 
+  useEffect(() => {
+    const timer = setTimeout(async  () => {
+      const data = await AsyncStorage.getItem("userdata");
 
-  
+      fetch(
+        `https://shipwwt.com/wp-json/wp/v2/shipwwt-get-business-profile?user_id=${data}`,
+        {
+          method: "Get",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          setBusiness(data.data);
+          setSelectedLanguage(data.data.service_name);
+          setSelectedLanguage1(data.data.company_type);
+          setSelectedLanguage2(data.data.user_country);
+        })
+        .catch((e) => {
+          console.log("errors", e);
+        });
+    }, 3000);
+    return () => clearTimeout(timer);
+  });
 
-  const handleSubmit = (values) => {
 
-  console.log(values)
-
-    // const data =  AsyncStorage.getItem('userdata')
-    // alert(JSON.stringify(data))
-
+  async function handleSubmit(values) {
+    const data = await AsyncStorage.getItem("userdata");
+    
     const user = {
-      user_id: 97,
+      user_id: data,
       company_name: values.company_name,
       year_in_business: values.year_in_business,
       contact: values.contact,
@@ -103,28 +124,28 @@ const BusinessProfile = ({ navigation }) => {
       .catch((e) => {
         console.log("errors", e);
       });
-    console.log(user)
-  };
+  }
 
   return (
     <Formik
       initialValues={{
-        company_name: "",
-        year_in_business: "",
-        contact: "",
-        service_name: "",
-        company_type: "",
-        phone: "",
-        address: "",
-        address_2: "",
-        fax: "",
-        country: "",
-        city: "",
-        state: "",
-        zip: "",
+        company_name: business.company_name,
+        year_in_business: business.year_in_business,
+        contact: business.contact,
+        service_name: business.service_name,
+        company_type: business.company_type,
+        phone: business.phone_number,
+        address: business.user_address,
+        address_2: business.address_2,
+        fax: business.user_fax,
+        country: business.user_country,
+        city: business.user_city,
+        state: business.user_state,
+        zip: business.user_zip,
       }}
       validationSchema={SignupSchema}
       onSubmit={handleSubmit}
+      enableReinitialize={true}
     >
       {({
         values,
@@ -142,54 +163,55 @@ const BusinessProfile = ({ navigation }) => {
                 <Text style={styles.h1}>Business</Text>
                 <Text style={styles.h1m}>profile</Text>
               </View>
+
               <View style={styles.businessForm}>
-                <View style={{ marginLeft: 14, marginRight:14}}>
+                <View style={{ marginLeft: 14, marginRight: 14 }}>
                   <AnimatedInput
                     style={styles.input}
                     onChangeText={handleChange("company_name")}
                     value={values.company_name}
                     placeholder="Company"
                     styleBodyContent={{
-                    borderBottomWidth: 8,
-                    borderBottomColor: "#57bdff",
-                  }}
-                  styleInput={{ height:22}}
-                  />
+                      borderBottomWidth: 8,
+                      borderBottomColor: "#57bdff",
+                    }}
+                    styleInput={{ height: 22 }}
+                  ></AnimatedInput>
                 </View>
                 {errors.company_name && (
                   <Text style={styles.errorTxt}>{errors.company_name}</Text>
                 )}
 
-                <View style={{ marginLeft: 14, marginRight:14}}>
-                <AnimatedInput
-                  style={styles.input}
-                  onChangeText={handleChange("year_in_business")}
-                  value={values.year_in_business}
-                  placeholder="Years in Business"
-                  keyboardType="Years in Business"
-                  styleBodyContent={{
-                    borderBottomWidth: 8,
-                    borderBottomColor: "#57bdff",
-                  }}
-                  styleInput={{ height:22}}
-                />
+                <View style={{ marginLeft: 14, marginRight: 14 }}>
+                  <AnimatedInput
+                    style={styles.input}
+                    onChangeText={handleChange("year_in_business")}
+                    value={values.year_in_business}
+                    placeholder="Years in Business"
+                    keyboardType="Years in Business"
+                    styleBodyContent={{
+                      borderBottomWidth: 8,
+                      borderBottomColor: "#57bdff",
+                    }}
+                    styleInput={{ height: 22 }}
+                  />
                 </View>
                 {errors.year_in_business && (
                   <Text style={styles.errorTxt}>{errors.year_in_business}</Text>
                 )}
-                <View style={{ marginLeft: 14, marginRight:14}}>
-                <AnimatedInput
-                  style={styles.input}
-                  onChangeText={handleChange("contact")}
-                  value={values.contact}
-                  placeholder="Contact"
-                  keyboardType="Years in Business"
-                  styleBodyContent={{
-                    borderBottomWidth: 8,
-                    borderBottomColor: "#57bdff",
-                  }}
-                  styleInput={{ height:22}}
-                />
+                <View style={{ marginLeft: 14, marginRight: 14 }}>
+                  <AnimatedInput
+                    style={styles.input}
+                    onChangeText={handleChange("contact")}
+                    value={values.contact}
+                    placeholder="Contact"
+                    keyboardType="Years in Business"
+                    styleBodyContent={{
+                      borderBottomWidth: 8,
+                      borderBottomColor: "#57bdff",
+                    }}
+                    styleInput={{ height: 22 }}
+                  />
                 </View>
                 {errors.contact && (
                   <Text style={styles.errorTxt}>{errors.contact}</Text>
@@ -242,20 +264,19 @@ const BusinessProfile = ({ navigation }) => {
                 )}
 
                 {copynew.map(() => {
-
-                   <View style={{ marginLeft: 14, marginRight:14}}>
-                <AnimatedInput
-                    style={styles.input}
-                    onChangeText={handleChange("company_type_other")}
-                    value={values.company_type_other}
-                    keyboardType="Years in Business"
-                    styleBodyContent={{
-                    borderBottomWidth: 8,
-                    borderBottomColor: "#57bdff",
-                  }}
-                  styleInput={{ height:22}}
-                  />
-                  </View>
+                  <View style={{ marginLeft: 14, marginRight: 14 }}>
+                    <AnimatedInput
+                      style={styles.input}
+                      onChangeText={handleChange("company_type_other")}
+                      value={values.company_type_other}
+                      keyboardType="Years in Business"
+                      styleBodyContent={{
+                        borderBottomWidth: 8,
+                        borderBottomColor: "#57bdff",
+                      }}
+                      styleInput={{ height: 22 }}
+                    />
+                  </View>;
                   {
                     errors.company_type_other && (
                       <Text style={styles.errorTxt}>
@@ -265,73 +286,73 @@ const BusinessProfile = ({ navigation }) => {
                   }
                 })}
 
-               <View style={{ marginLeft: 14, marginRight:14}}>
-                <AnimatedInput
-                  style={styles.input}
-                  onChangeText={handleChange("phone")}
-                  value={values.phone}
-                  placeholder="Phone"
-                  keyboardType="Years in Business"
-                  styleBodyContent={{
-                    borderBottomWidth: 8,
-                    borderBottomColor: "#57bdff",
-                  }}
-                  styleInput={{ height:22}}
-                />
+                <View style={{ marginLeft: 14, marginRight: 14 }}>
+                  <AnimatedInput
+                    style={styles.input}
+                    onChangeText={handleChange("phone")}
+                    value={values.phone}
+                    placeholder="Phone"
+                    keyboardType="Years in Business"
+                    styleBodyContent={{
+                      borderBottomWidth: 8,
+                      borderBottomColor: "#57bdff",
+                    }}
+                    styleInput={{ height: 22 }}
+                  />
                 </View>
                 {errors.phone && (
                   <Text style={styles.errorTxt}>{errors.phone}</Text>
                 )}
 
-                <View style={{ marginLeft: 14, marginRight:14}}>
-                <AnimatedInput
-                  style={styles.input}
-                  onChangeText={handleChange("address")}
-                  value={values.address}
-                  placeholder="Address"
-                  keyboardType="Years in Business"
-                  styleBodyContent={{
-                    borderBottomWidth: 8,
-                    borderBottomColor: "#57bdff",
-                  }}
-                  styleInput={{ height:22}}
-                />
+                <View style={{ marginLeft: 14, marginRight: 14 }}>
+                  <AnimatedInput
+                    style={styles.input}
+                    onChangeText={handleChange("address")}
+                    value={values.address}
+                    placeholder="Address"
+                    keyboardType="Years in Business"
+                    styleBodyContent={{
+                      borderBottomWidth: 8,
+                      borderBottomColor: "#57bdff",
+                    }}
+                    styleInput={{ height: 22 }}
+                  />
                 </View>
                 {errors.address && (
                   <Text style={styles.errorTxt}>{errors.address}</Text>
                 )}
 
-                 <View style={{ marginLeft: 14, marginRight:14}}>
-                <AnimatedInput
-                  style={styles.input}
-                  onChangeText={handleChange("address_2")}
-                  value={values.address_2}
-                  placeholder="Address2"
-                  keyboardType="Years in Business"
-                  styleBodyContent={{
-                    borderBottomWidth: 8,
-                    borderBottomColor: "#57bdff",
-                  }}
-                  styleInput={{ height:22}}
-                />
+                <View style={{ marginLeft: 14, marginRight: 14 }}>
+                  <AnimatedInput
+                    style={styles.input}
+                    onChangeText={handleChange("address_2")}
+                    value={values.address_2}
+                    placeholder="Address2"
+                    keyboardType="Years in Business"
+                    styleBodyContent={{
+                      borderBottomWidth: 8,
+                      borderBottomColor: "#57bdff",
+                    }}
+                    styleInput={{ height: 22 }}
+                  />
                 </View>
                 {errors.address_2 && (
                   <Text style={styles.errorTxt}>{errors.address_2}</Text>
                 )}
 
-                 <View style={{ marginLeft: 14, marginRight:14}}>
-                <AnimatedInput
-                  style={styles.input}
-                  onChangeText={handleChange("fax")}
-                  value={values.fax}
-                  placeholder="Fax"
-                  keyboardType="Years in Business"
-                  styleBodyContent={{
-                    borderBottomWidth: 8,
-                    borderBottomColor: "#57bdff",
-                  }}
-                  styleInput={{ height:22}}
-                />
+                <View style={{ marginLeft: 14, marginRight: 14 }}>
+                  <AnimatedInput
+                    style={styles.input}
+                    onChangeText={handleChange("fax")}
+                    value={values.fax}
+                    placeholder="Fax"
+                    keyboardType="Years in Business"
+                    styleBodyContent={{
+                      borderBottomWidth: 8,
+                      borderBottomColor: "#57bdff",
+                    }}
+                    styleInput={{ height: 22 }}
+                  />
                 </View>
                 {errors.fax && (
                   <Text style={styles.errorTxt}>{errors.fax}</Text>
@@ -342,62 +363,62 @@ const BusinessProfile = ({ navigation }) => {
                     setSelectedLanguage2(itemValue)
                   }
                   style={{ marginLeft: 10 }}
-                  onChangeText={handleChange("company_type")}
-                  value={values.company_type}
+                  onChangeText={handleChange("country")}
+                  value={business.country}
                 >
                   <Picker.Item label="Please Select a value" value="" />
                   <Picker.Item label="USA" value="USA" />
                   <Picker.Item label="San Jose" value="San Jose" />
                   <Picker.Item label="New York" value="New York" />
                 </Picker>
-                <View style={{ marginLeft: 14, marginRight:14}}>
-                <AnimatedInput
-                  style={styles.input}
-                  onChangeText={handleChange("city")}
-                  value={values.city}
-                  placeholder="city"
-                  keyboardType="Years in Business"
-                  styleBodyContent={{
-                    borderBottomWidth: 8,
-                    borderBottomColor: "#57bdff",
-                  }}
-                  styleInput={{ height:22}}
-                />
+                <View style={{ marginLeft: 14, marginRight: 14 }}>
+                  <AnimatedInput
+                    style={styles.input}
+                    onChangeText={handleChange("city")}
+                    value={values.city}
+                    placeholder="city"
+                    keyboardType="Years in Business"
+                    styleBodyContent={{
+                      borderBottomWidth: 8,
+                      borderBottomColor: "#57bdff",
+                    }}
+                    styleInput={{ height: 22 }}
+                  />
                 </View>
                 {errors.city && (
                   <Text style={styles.errorTxt}>{errors.city}</Text>
                 )}
-                 <View style={{ marginLeft: 14, marginRight:14}}>
-                <AnimatedInput
-                  style={styles.input}
-                  onChangeText={handleChange("state")}
-                  value={values.state}
-                  placeholder="State"
-                  keyboardType="Years in Business"
-                  styleBodyContent={{
-                    borderBottomWidth: 8,
-                    borderBottomColor: "#57bdff",
-                  }}
-                  styleInput={{ height:22}}
-                />
+                <View style={{ marginLeft: 14, marginRight: 14 }}>
+                  <AnimatedInput
+                    style={styles.input}
+                    onChangeText={handleChange("state")}
+                    value={values.state}
+                    placeholder="State"
+                    keyboardType="Years in Business"
+                    styleBodyContent={{
+                      borderBottomWidth: 8,
+                      borderBottomColor: "#57bdff",
+                    }}
+                    styleInput={{ height: 22 }}
+                  />
                 </View>
                 {errors.state && (
                   <Text style={styles.errorTxt}>{errors.state}</Text>
                 )}
 
-                <View style={{ marginLeft: 14, marginRight:14}}>
-                <AnimatedInput
-                  style={styles.input}
-                  onChangeText={handleChange("zip")}
-                  value={values.zip}
-                  placeholder="Fax"
-                  keyboardType="Years in Business"
-                  styleBodyContent={{
-                    borderBottomWidth: 8,
-                    borderBottomColor: "#57bdff",
-                  }}
-                  styleInput={{ height:22}}
-                />
+                <View style={{ marginLeft: 14, marginRight: 14 }}>
+                  <AnimatedInput
+                    style={styles.input}
+                    onChangeText={handleChange("zip")}
+                    value={values.zip}
+                    placeholder="Fax"
+                    keyboardType="Years in Business"
+                    styleBodyContent={{
+                      borderBottomWidth: 8,
+                      borderBottomColor: "#57bdff",
+                    }}
+                    styleInput={{ height: 22 }}
+                  />
                 </View>
                 {errors.zip && (
                   <Text style={styles.errorTxt}>{errors.zip}</Text>
@@ -409,7 +430,6 @@ const BusinessProfile = ({ navigation }) => {
                 {/* <Pressable style={styles.button} onPress={() => navigation.navigate("ShipmentProgressStep")}>
                   <Text style={styles.btntext}>GET STATRTED</Text>
                 </Pressable> */}
-
               </View>
             </View>
           </ScrollView>
