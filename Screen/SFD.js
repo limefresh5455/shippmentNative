@@ -1,12 +1,13 @@
-import { View, Text, TextInput, StyleSheet, ScrollView,Pressable } from "react-native";
+import { View, Text, TextInput, StyleSheet, ScrollView, Pressable } from "react-native";
 import React, { useState } from "react";
 import { Picker } from "@react-native-picker/picker";
 
 export default function SFD() {
+
   const [selectedLanguage, setSelectedLanguage] = useState();
 
   return (
-    <ScrollView >
+    <ScrollView>
       <View style={{backgroundColor:"white"}}>
       <Text style={{ marginLeft: 16, marginTop: 20, color: "#8d9092" }}>
         Address Book
@@ -39,9 +40,19 @@ export default function SFD() {
         //   value={values.company_type}
       >
         <Picker.Item label="Please Select a value" value="" />
-        <Picker.Item label="USA" value="USA" />
-        <Picker.Item label="San Jose" value="San Jose" />
-        <Picker.Item label="New York" value="New York" />
+        <Picker.Item label="Afghanistan" value="Afghanistan"/>
+        <Picker.Item label="Åland Islands" value="Åland Islands"/>
+        <Picker.Item label="Albania" value="Albania"/>
+        <Picker.Item label="Algeria" value="Algeria"/>
+        <Picker.Item label="American Samoa" value="American Samoa"/>
+        <Picker.Item label="Andorra" value="Andorra"/>
+        <Picker.Item label="Angola" value="Angola"/>
+        <Picker.Item label="Anguilla" value="Anguilla"/>
+        <Picker.Item label="Antarctica" value="Antarctica"/>
+        <Picker.Item label="Uganda" value="Uganda"/>
+        <Picker.Item label="United Kingdom" value="United Kingdom"/>
+        <Picker.Item label="United States" value="United States"/>
+         
         {/* <Picker.Item label="Other" value="Other" onChangeText={handle} /> */}
       </Picker>
       <Text style={styles.inputs}></Text>
@@ -106,15 +117,33 @@ export default function SFD() {
         keyboardType="Years in Business"
       />
 
-      <Text style={{ marginLeft: 16, marginTop: 20, color: "#8d9092" }}>
+      <Text style={{ marginLeft: 16, marginTop: 18, color: "#8d9092" }}>
         State
       </Text>
-      <TextInput
-        style={styles.input}
-        //   onChangeText={handleChange("address")}
-        //   value={values.address}
-        keyboardType="Years in Business"
-      />
+      <Picker
+        selectedValue={selectedLanguage}
+        onValueChange={(itemValue, itemIndex) => setSelectedLanguage(itemValue)}
+        style={{ marginLeft: 8 }}
+        //   onChangeText={handleChange("company_type")}
+        //   value={values.company_type}
+      >
+        <Picker.Item label="Please Select a value" value="" />
+        <Picker.Item label="Alabama" value="Alabama"/>
+        <Picker.Item label="Alaska" value="Alaska"/>
+        <Picker.Item label="Arizona" value="Arizona"/>
+        <Picker.Item label="Arkansas" value="Arkansas"/>
+        <Picker.Item label="California" value="California"/>
+        <Picker.Item label="Kentucky" value="Kentucky"/>
+        <Picker.Item label="Maine" value="Maine"/>
+        <Picker.Item label="Massachusetts" value="Massachusetts"/>
+        <Picker.Item label="Mississippi" value="Mississippi"/>
+        <Picker.Item label="Montana" value="Montana"/>
+        <Picker.Item label="Nevada" value="Nevada"/>
+        <Picker.Item label="New York" value="New York"/>
+         
+        {/* <Picker.Item label="Other" value="Other" onChangeText={handle} /> */}
+      </Picker>
+      <Text style={styles.inputs}></Text>
 
       <Text style={{ marginLeft: 16, marginTop: 20, color: "#8d9092" }}>
         Zip

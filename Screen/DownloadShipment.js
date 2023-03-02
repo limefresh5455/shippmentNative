@@ -4,6 +4,11 @@ import React from "react";
 import { NavigationContainer } from '@react-navigation/native';
 
 export default function DownloadShipment({ navigation }) {
+
+ const handle = () =>{
+    alert("Download Image Succesfully Please check you Files...")
+ }
+
   return (
     <View style={styles.top}>
       <Image
@@ -25,7 +30,7 @@ export default function DownloadShipment({ navigation }) {
         Download or Send Label and take the package to the shipping point
       </Text>
 
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button} onPress={handle}>
         <Text style={styles.btntext}>DOWNLOAD LABEL</Text>
       </TouchableOpacity>
 

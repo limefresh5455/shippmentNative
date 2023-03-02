@@ -39,7 +39,10 @@ const screenOptionStyle = {
   ],
 };
 const ShipmentInfo = () => {
+  
   const [minHeight, setMinHeight] = useState(1075)
+  
+  
   return (
     <>
     {/* // <SafeAreaView style={styles.container}> */}

@@ -13,6 +13,8 @@ import DownloadShipment from "./Screen/DownloadShipment";
  import Header from "./Screen/Header";
 import ShipmentProgressStep from "./Screen/ShipmentProgressStep";
 import ShipmentInfo from "./Screen/ShipmentInfo";
+import CreateShipment from "./Screen/CreateShipment";
+import Trial from "./Screen/Trial";
 
 // import Tabs from './Screen/Tabs';
 export default function App() {
@@ -66,12 +68,19 @@ export default function App() {
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>
+
+
+
      //   <BusinessProfile/>
-    //  <ShipmentProgressStep/>
+      //  <ShipmentProgressStep/>
+      //  <Trial/>
+    //    <CreateShipment/>
     // <BusinessProfile1/>
-    // <ShipmentInfo/>
-    // <DownloadShipment/>
+    //   <ShipmentInfo/>
+    //   <DownloadShipment/>
     //  <SignIn/>
+
+
   );
 }
 
