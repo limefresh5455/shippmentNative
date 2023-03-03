@@ -1,10 +1,79 @@
 import { View, Text, TextInput, StyleSheet, ScrollView, Pressable } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Picker } from "@react-native-picker/picker";
 
 export default function SFD() {
 
-  const [selectedLanguage, setSelectedLanguage] = useState();
+   const [selectedLanguage, setSelectedLanguage] = useState();
+  const [countryData, setCountryData] = useState([]);
+  const [selectedValue, setSelectedValue] = useState();
+  const [stateData, setStateData] = useState([]);
+  const [selectedValue1, setSelectedValue1] = useState();
+
+
+  useEffect(() => {
+
+   // Dynamic Country Data 
+
+    fetch(
+      "https://shipwwt.com/wp-json/wp/v2/shipwwt-get-all-countries",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    )
+      .then((response) => response.json())
+      .then((data) => {
+         setCountryData(data.data);
+       // console.log("countryData",data.data)
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+
+
+  // Dynamic Data States
+
+      fetch(
+      "https://shipwwt.com/wp-json/wp/v2/shipwwt-get-states-from-country?country_code=US",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    )
+      .then((response) => response.json())
+      .then((data) => {
+         setStateData(data.data);
+       // console.log("statedata",data.data)
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+
+  });
+
+
+  const countryList = () => {
+    // console.log("expected data",countryData)
+    return countryData.map((country) => {
+      // console.log("country",country)
+        return <Picker.Item label={country.name} value={country.name} />;
+    });
+  };
+
+
+    const stateList = () => {
+    // console.log("expected data",stateData)
+    return stateData.map((state) => {
+      // console.log("state",state)
+        return <Picker.Item label={state.name} value={state.name} />;
+    });
+  };
+
 
   return (
     <ScrollView>
@@ -14,7 +83,10 @@ export default function SFD() {
       </Text>
       <Picker
         selectedValue={selectedLanguage}
-        onValueChange={(itemValue, itemIndex) => setSelectedLanguage(itemValue)}
+        onValueChange={(itemValue, itemIndex) =>{
+           
+          setSelectedLanguage(itemValue)
+        } }
         style={{ marginLeft: 8 }}
         //   onChangeText={handleChange("company_type")}
         //   value={values.company_type}
@@ -33,27 +105,14 @@ export default function SFD() {
         Country
       </Text>
       <Picker
-        selectedValue={selectedLanguage}
-        onValueChange={(itemValue, itemIndex) => setSelectedLanguage(itemValue)}
+        selectedValue={selectedValue}
+        onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
         style={{ marginLeft: 8 }}
         //   onChangeText={handleChange("company_type")}
         //   value={values.company_type}
       >
-        <Picker.Item label="Please Select a value" value="" />
-        <Picker.Item label="Afghanistan" value="Afghanistan"/>
-        <Picker.Item label="Åland Islands" value="Åland Islands"/>
-        <Picker.Item label="Albania" value="Albania"/>
-        <Picker.Item label="Algeria" value="Algeria"/>
-        <Picker.Item label="American Samoa" value="American Samoa"/>
-        <Picker.Item label="Andorra" value="Andorra"/>
-        <Picker.Item label="Angola" value="Angola"/>
-        <Picker.Item label="Anguilla" value="Anguilla"/>
-        <Picker.Item label="Antarctica" value="Antarctica"/>
-        <Picker.Item label="Uganda" value="Uganda"/>
-        <Picker.Item label="United Kingdom" value="United Kingdom"/>
-        <Picker.Item label="United States" value="United States"/>
-         
-        {/* <Picker.Item label="Other" value="Other" onChangeText={handle} /> */}
+        <Picker.Item label="Please Select a Country" value="" />
+      {countryList()} 
       </Picker>
       <Text style={styles.inputs}></Text>
 
@@ -121,27 +180,14 @@ export default function SFD() {
         State
       </Text>
       <Picker
-        selectedValue={selectedLanguage}
-        onValueChange={(itemValue, itemIndex) => setSelectedLanguage(itemValue)}
+        selectedValue={selectedValue1}
+        onValueChange={(itemValue, itemIndex) => setSelectedValue1(itemValue)}
         style={{ marginLeft: 8 }}
         //   onChangeText={handleChange("company_type")}
         //   value={values.company_type}
       >
-        <Picker.Item label="Please Select a value" value="" />
-        <Picker.Item label="Alabama" value="Alabama"/>
-        <Picker.Item label="Alaska" value="Alaska"/>
-        <Picker.Item label="Arizona" value="Arizona"/>
-        <Picker.Item label="Arkansas" value="Arkansas"/>
-        <Picker.Item label="California" value="California"/>
-        <Picker.Item label="Kentucky" value="Kentucky"/>
-        <Picker.Item label="Maine" value="Maine"/>
-        <Picker.Item label="Massachusetts" value="Massachusetts"/>
-        <Picker.Item label="Mississippi" value="Mississippi"/>
-        <Picker.Item label="Montana" value="Montana"/>
-        <Picker.Item label="Nevada" value="Nevada"/>
-        <Picker.Item label="New York" value="New York"/>
-         
-        {/* <Picker.Item label="Other" value="Other" onChangeText={handle} /> */}
+        <Picker.Item label="Please Select a state" value="" />
+       {stateList()}
       </Picker>
       <Text style={styles.inputs}></Text>
 

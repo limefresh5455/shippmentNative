@@ -54,7 +54,7 @@ const ShipmentInfo = () => {
         </View>
       {/* </ScrollView> */}
     {/* <ScrollView > */}
-      {/* <NavigationContainer> */}
+      <NavigationContainer>
         <Tab.Navigator style={{minHeight:minHeight}} screenOptions={screenOptionStyle}>
           <Tab.Screen name="Ship From Details" component={SFD} listeners={{
           tabPress: e => {
@@ -67,7 +67,7 @@ const ShipmentInfo = () => {
           },
         }} />
         </Tab.Navigator>
-      {/* </NavigationContainer> */}
+      </NavigationContainer>
       {/* </ScrollView> */}
     {/* </SafeAreaView> */}
     </>

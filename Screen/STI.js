@@ -6,7 +6,7 @@ import {
   ScrollView,
   Pressable,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import RadioGroup from "react-native-radio-buttons-group";
 import { Picker } from "@react-native-picker/picker";
 import AnimatedInput from "react-native-animated-input";
@@ -14,6 +14,75 @@ import { CheckBox } from "@rneui/themed";
 
 export default function STI() {
   const [selectedLanguage, setSelectedLanguage] = useState();
+  const [countryData, setCountryData] = useState([]);
+  const [selectedValue, setSelectedValue] = useState();
+  const [stateData, setStateData] = useState([]);
+  const [selectedValue1, setSelectedValue1] = useState();
+
+
+   useEffect(() => {
+
+   // Dynamic Country Data 
+
+    fetch(
+      "https://shipwwt.com/wp-json/wp/v2/shipwwt-get-all-countries",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    )
+      .then((response) => response.json())
+      .then((data) => {
+         setCountryData(data.data);
+       // console.log("countryData",data.data)
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+
+
+  // Dynamic Data States
+
+      fetch(
+      "https://shipwwt.com/wp-json/wp/v2/shipwwt-get-states-from-country?country_code=US",
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    )
+      .then((response) => response.json())
+      .then((data) => {
+         setStateData(data.data);
+       // console.log("statedata",data.data)
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+
+  });
+
+
+    const countryList = () => {
+    // console.log("expected data",countryData)
+    return countryData.map((country) => {
+      // console.log("country",country)
+        return <Picker.Item label={country.name} value={country.name} />;
+    });
+  };
+
+
+    const stateList = () => {
+    // console.log("expected data",stateData)
+    return stateData.map((state) => {
+      // console.log("state",state)
+        return <Picker.Item label={state.name} value={state.name} />;
+    });
+  };
+
 
   const [checked, setChecked] = React.useState(true);
   const toggleCheckbox = () => setChecked(!checked);
@@ -64,19 +133,16 @@ export default function STI() {
           Country
         </Text>
         <Picker
-          selectedValue={selectedLanguage}
+          selectedValue={selectedValue}
           onValueChange={(itemValue, itemIndex) =>
-            setSelectedLanguage(itemValue)
+            setSelectedValue(itemValue)
           }
           style={{ marginLeft: 8 }}
           //   onChangeText={handleChange("company_type")}
           //   value={values.company_type}
         >
-          <Picker.Item label="Please Select a value" value="" />
-          <Picker.Item label="USA" value="USA" />
-          <Picker.Item label="San Jose" value="San Jose" />
-          <Picker.Item label="New York" value="New York" />
-          {/* <Picker.Item label="Other" value="Other" onChangeText={handle} /> */}
+           <Picker.Item label="Please Select a Country" value="" />
+           {countryList()} 
         </Picker>
         <Text style={styles.inputs}></Text>
 
@@ -140,15 +206,20 @@ export default function STI() {
           keyboardType="Years in Business"
         />
 
-        <Text style={{ marginLeft: 16, marginTop: 20, color: "#8d9092" }}>
-          State
-        </Text>
-        <TextInput
-          style={styles.input}
-          //   onChangeText={handleChange("address")}
-          //   value={values.address}
-          keyboardType="Years in Business"
-        />
+        <Text style={{ marginLeft: 16, marginTop: 18, color: "#8d9092" }}>
+        State
+      </Text>
+      <Picker
+        selectedValue={selectedValue1}
+        onValueChange={(itemValue, itemIndex) => setSelectedValue1(itemValue)}
+        style={{ marginLeft: 8 }}
+        //   onChangeText={handleChange("company_type")}
+        //   value={values.company_type}
+      >
+        <Picker.Item label="Please Select a state" value="" />
+       {stateList()}
+      </Picker>
+      <Text style={styles.inputs}></Text>
 
         <Text style={{ marginLeft: 16, marginTop: 20, color: "#8d9092" }}>
           Zip
