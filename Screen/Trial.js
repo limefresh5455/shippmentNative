@@ -104,7 +104,7 @@ const Trial = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("data", data.results);
+        // console.log("data - ", data.results);
         setpackagingDetails(data.results);
       })
       .catch((error) => {
@@ -115,32 +115,28 @@ const Trial = () => {
 
   const serviceList = () => {
     // console.log(serviceDetails)
-    return serviceDetails.map((service) => {
-      return <Picker.Item label={service.name} value={service.name} />;
+    return serviceDetails.map((service,i) => {
+      return <Picker.Item key={i} label={service.name} value={service.name} />;
     });
   };
 
   const packageList = () => {
     // console.log("asddjfdjfd")
-    return packagingDetails.map((service) => {
-      return <Picker.Item label={service.name} value={service.name} />;
+    return packagingDetails.map((service,i) => {
+      return <Picker.Item key={i} label={service.name} value={service.name} />;
     });
   };
-
-
+useEffect( ()=>{
+  AsyncStorage.setItem('user',JSON.stringify(formData)); 
+ console.log("formdata",formData);
+},[formData])
+  // const fieldData = async () =>{
   
-
-
-  const fieldData = () =>{
-    AsyncStorage.setItem('user',JSON.stringify(formData)); 
-    console.log("formdata",formData);
-  }
-
-   
-
+    
+  // }
   useEffect(() => {
 
-      fieldData()
+      // fieldData()
 
     const toggle = setInterval(() => {
       setPosition(position === data.length - 1 ? 0 : position + 1);
@@ -150,6 +146,14 @@ const Trial = () => {
   });
 
   const isCarousel = React.useRef(null);
+
+const packagingOnchange = (value, index) => {
+   AsyncStorage.setItem(
+     "packaging",
+     JSON.stringify(packagingDetails[index - 1])
+   );
+  setSelectedValue1(value);
+};
 
   return (
     <SafeAreaView style={styles.container}>
@@ -162,13 +166,13 @@ const Trial = () => {
           <View style={styles.flex}>
             <TouchableOpacity
               onPress={() => handlePress("usps")}
-              style={{
-                borderBottomWidth: 1,
-                borderRightWidth: 1,
-                borderTopWidth: 1,
-                borderLeftWidth: 1,
-                borderRadius: 9,
-              }}
+              // style={{
+              //   borderBottomWidth: 1,
+              //   borderRightWidth: 1,
+              //   borderTopWidth: 1,
+              //   borderLeftWidth: 1,
+              //   borderRadius: 9,
+              // }}
             >
               <Card style={styles.cards}>
                 <View style={styles.card}>
@@ -183,14 +187,14 @@ const Trial = () => {
 
             <TouchableOpacity
               onPress={() => handlePress("ups")}
-              style={{
-                borderColor: "black",
-                borderBottomWidth: 1,
-                borderRightWidth: 1,
-                borderTopWidth: 1,
-                borderLeftWidth: 1,
-                borderRadius: 9,
-              }}
+              // style={{
+              //   borderColor: "black",
+              //   borderBottomWidth: 1,
+              //   borderRightWidth: 1,
+              //   borderTopWidth: 1,
+              //   borderLeftWidth: 1,
+              //   borderRadius: 9,
+              // }}
             >
               <Card style={styles.cards}>
                 <View style={styles.card}>
@@ -205,14 +209,14 @@ const Trial = () => {
 
             <TouchableOpacity
               onPress={() => handlePress("fedex")}
-              style={{
-                borderColor: "black",
-                borderBottomWidth: 1,
-                borderRightWidth: 1,
-                borderTopWidth: 1,
-                borderLeftWidth: 1,
-                borderRadius: 9,
-              }}
+              // style={{
+              //   borderColor: "black",
+              //   borderBottomWidth: 1,
+              //   borderRightWidth: 1,
+              //   borderTopWidth: 1,
+              //   borderLeftWidth: 1,
+              //   borderRadius: 9,
+              // }}
             >
               <Card style={styles.cards}>
                 <View style={styles.card}>
@@ -234,7 +238,6 @@ const Trial = () => {
               selectedValue={selectedValue}
               onValueChange={(itemValue, itemIndex) => {
                 setSelectedValue(itemValue);
-                console.log("serviceValue", itemValue);
                 setFormData({ ...formData, service:itemValue });
               }}
               style={{ marginLeft: 8, borderColor: "black" }}
@@ -251,7 +254,7 @@ const Trial = () => {
             <Picker
               selectedValue={selectedValue1}
               onValueChange={(itemValue, itemIndex) => {
-                setSelectedValue1(itemValue)
+                packagingOnchange(itemValue, itemIndex);
                 setFormData({ ...formData, packaging:itemValue });
             }
               }

@@ -112,7 +112,7 @@ const CreateShipment = () => {
   });
 
   const handleSubmit = (values) => {
-    console.log("values", values);
+    console.log("values--", values);
   };
 
   const isCarousel = React.useRef(null);

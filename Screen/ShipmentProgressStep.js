@@ -19,11 +19,27 @@ import Header from "./Header";
 import ShipmentInfo from "./ShipmentInfo";
 import DownloadShipment from "./DownloadShipment";
 import Trial from "./Trial";
-// import { Button } from "@rneui/base";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import TextBox from "react-native-password-eye";
 
+// import { Button } from "@rneui/base";
+let getData;
+let addrFromData;
+let toaddressData;
+let packagingData;
 export default function ShipmentProgressStep({ navigation }) {
   const [disable, setDisable] = useState(false);
-  const [ rates, setRates ] = useState('')
+  const [rates, setRates] = useState([]);
+  const [rateId, setRateId] = useState();
+
+  const GetData = async () => {
+    getData = await AsyncStorage.getItem("user");
+    addrFromData = await AsyncStorage.getItem("addressFrom");
+    toaddressData = await AsyncStorage.getItem("addressTo");
+    packagingData = await AsyncStorage.getItem("packaging");
+  };
+
+  GetData();
 
   const defaultScrollViewProps = {
     keyboardShouldPersistTaps: "handled",
@@ -47,45 +63,83 @@ export default function ShipmentProgressStep({ navigation }) {
 
   const onSubmitSteps = () => {
     alert("Succesfull...");
+    navigation.navigate("SignIn");
   };
 
-  function handleSubmit1() {
+  const handleSubmit1 = () => {
+    let v = JSON.parse(addrFromData);
+    let g = JSON.parse(getData);
+    let t = JSON.parse(toaddressData);
+    let p = JSON.parse(packagingData);
 
     const data = {
       address_to: {
-        name: "Mr Hippo",
-        street1: "965 Mission St #572",
-        city: "San Francisco",
-        state: "CA",
-        zip: "94103",
-        country: "US",
-        phone: "4151234567",
-        email: "mrhippo@goshippo.com",
+        name: t.firstname + " " + t.lastname,
+        street1: t.address,
+        city: t.city,
+        state: t.state,
+        zip: t.zip,
+        country: t.country,
+        phone: t.phone,
+        email: t.email,
       },
-
       address_from: {
-        name: "Mrs Hippo",
-        street1: "1092 Indian Summer Ct",
-        city: "San Jose",
-        state: "CA",
-        zip: "95122",
-        country: "US",
-        phone: "4159876543",
-        email: "mrshippo@goshippo.com",
+        name: v.firstname + " " + v.lastname,
+        street1: v.address,
+        city: v.city,
+        state: v.state,
+        zip: v.zip,
+        country: v.country,
+        phone: v.phone,
+        email: v.email,
       },
       parcels: [
         {
-          length: "38",
-          width: "6",
-          height: "6",
-          distance_unit: "in",
-          weight: "10",
-          mass_unit: "lb",
+          length: p.length,
+          width: p.width,
+          height: p.height,
+          distance_unit: p.distance_unit,
+          weight: g.weight,
+          mass_unit: g.mass,
         },
       ],
     };
 
-    const token = 'shippo_test_385ed1b28f50d525d8b9088ac3cbaed1bc9b8ff2';
+    // const data = {
+    //   address_to: {
+    //     name: "Mr Hippo",
+    //     street1: "965 Mission St #572",
+    //     city: "San Francisco",
+    //     state: "CA",
+    //     zip: "94103",
+    //     country: "US",
+    //     phone: "4151234567",
+    //     email: "mrhippo@goshippo.com",
+    //   },
+    //   address_from: {
+    //     name: "Mrs Hippo",
+    //     street1: "1092 Indian Summer Ct",
+    //     city: "San Jose",
+    //     state: "CA",
+    //     zip: "95122",
+    //     country: "US",
+    //     phone: "4159876543",
+    //     email: "mrshippo@goshippo.com",
+    //   },
+    //   parcels: [
+    //     {
+    //       length: "38",
+    //       width: "6",
+    //       height: "6",
+    //       distance_unit: "in",
+    //       weight: "10",
+    //       mass_unit: "lb",
+    //     },
+    //   ],
+    // };
+    console.log("data -----::::: " + JSON.stringify(data));
+
+    const token = "shippo_test_385ed1b28f50d525d8b9088ac3cbaed1bc9b8ff2";
 
     fetch("https://api.goshippo.com/shipments/", {
       method: "POST",
@@ -97,13 +151,18 @@ export default function ShipmentProgressStep({ navigation }) {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("rates",data.rates[0].amount);
-        setRates(data.rates[0].amount)
+        let rate = data.rates;
+        setRates(rate);
       })
       .catch((e) => {
         console.log("errors", e);
       });
-  }
+  };
+
+  useEffect(() => {
+    AsyncStorage.setItem("rate_id", rateId);
+    console.log("id -----:::::" + rateId);
+  }, [rateId]);
 
   return (
     <>
@@ -138,7 +197,7 @@ export default function ShipmentProgressStep({ navigation }) {
             onNext={onNextStep}
             onPrevious={onPrevStep}
             previousBtnDisabled={disable}
-            nextBtnStyle={styles.button}
+            nextBtnStyle={rates.length == 0 ? styles.btntextt : styles.button}
             nextBtnTextStyle={styles.btntext}
             previousBtnStyle={styles.btton}
             previousBtnTextStyle={styles.bttext}
@@ -149,9 +208,32 @@ export default function ShipmentProgressStep({ navigation }) {
               <Text style={styles.rates1}>Create Shipment And Get Rates</Text>
             </TouchableOpacity>
 
-            <View style={{display:"flex", flexDirection:"row", justifyContent:"space-between", marginLeft:140, marginRight:25, marginBottom:25}}>
-              <Text style={{fontSize:25}}>Total</Text>
-              <Text style={{fontSize:25}}>{rates}</Text>
+            <View
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
+                marginLeft: 140,
+                marginRight: 25,
+                marginBottom: 25,
+              }}
+            >
+              <Text style={{ fontSize: 25 }}>Total</Text>
+              {rates.map((data, i) => {
+                return (
+                  <Text
+                    onPress={() => setRateId(data.object_id)}
+                    key={i}
+                    style={
+                      rateId === data.object_id
+                        ? styles.rateIdHigh
+                        : styles.rateId
+                    }
+                  >
+                    {data.amount}
+                  </Text>
+                );
+              })}
             </View>
           </ProgressStep>
 
@@ -170,13 +252,19 @@ export default function ShipmentProgressStep({ navigation }) {
     </>
   );
 }
-
 const styles = StyleSheet.create({
   contentViews: {
     paddingTop: 0,
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "center",
+  },
+  rateId: {
+    fontSize: 25,
+  },
+  rateIdHigh: {
+    backgroundColor: "#CE9D62",
+    fontSize: 25,
   },
   h1s: {
     fontSize: 30,
@@ -204,6 +292,9 @@ const styles = StyleSheet.create({
     color: "white",
     justifyContent: "center",
     padding: 8,
+  },
+  btntextt: {
+    display: "none",
   },
   btton: {
     fontSize: 16,

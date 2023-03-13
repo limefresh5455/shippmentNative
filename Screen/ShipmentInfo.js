@@ -21,6 +21,7 @@ import { createMaterialTopTabNavigator } from "@react-navigation/material-top-ta
 import { NavigationContainer } from "@react-navigation/native";
 import SFD from "./SFD";
 import STI from "./STI";
+import Trial from "./Trial";
 
 const Tab = createMaterialTopTabNavigator();
 const screenOptionStyle = {
@@ -38,11 +39,10 @@ const screenOptionStyle = {
     },
   ],
 };
-const ShipmentInfo = () => {
+const ShipmentInfo =  () => {
   
   const [minHeight, setMinHeight] = useState(1075)
-  
-  
+
   return (
     <>
     {/* // <SafeAreaView style={styles.container}> */}
@@ -54,7 +54,7 @@ const ShipmentInfo = () => {
         </View>
       {/* </ScrollView> */}
     {/* <ScrollView > */}
-      <NavigationContainer>
+      {/* <NavigationContainer> */}
         <Tab.Navigator style={{minHeight:minHeight}} screenOptions={screenOptionStyle}>
           <Tab.Screen name="Ship From Details" component={SFD} listeners={{
           tabPress: e => {
@@ -67,7 +67,7 @@ const ShipmentInfo = () => {
           },
         }} />
         </Tab.Navigator>
-      </NavigationContainer>
+      {/* </NavigationContainer> */}
       {/* </ScrollView> */}
     {/* </SafeAreaView> */}
     </>
