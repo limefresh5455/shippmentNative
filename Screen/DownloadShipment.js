@@ -15,45 +15,43 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 let rateId;
 export default function DownloadShipment({ navigation }) {
-  const [image, setImage] = useState();
+ //  const [image, setImage] = useState();
 
-  const handle = () => {
-    alert("Download Image Succesfully Please check you Files...");
-  };
+ 
   const GetData = async () => {
     rateId = await AsyncStorage.getItem("rate_id");
   };
   GetData();
 
-  useEffect(() => {
-    let data = {
-      rate: rateId,
-      label_file_type: "PDF",
-      test: true,
-      order: "",
-      async: false,
-    };
-    const token = "shippo_test_385ed1b28f50d525d8b9088ac3cbaed1bc9b8ff2";
-    console.log("get rate id - " + JSON.stringify(rateId));
+  // useEffect(() => {
+  //   let data = {
+  //     rate: rateId,
+  //     label_file_type: "PDF",
+  //     test: true,
+  //     order: "",
+  //     async: false,
+  //   };
+  //   const token = "shippo_test_385ed1b28f50d525d8b9088ac3cbaed1bc9b8ff2";
+  //   console.log("get rate id - " + JSON.stringify(rateId));
 
-    fetch("https://api.goshippo.com/transactions/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `ShippoToken ${token}`,
-      },
-      body: JSON.stringify(data),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setImage(data.label_url);
-        console.log("data.label_url", data);
-      })
-      .catch((e) => {
-        console.log("errors", e);
-      });
-  }, []);
-  console.log("image path ---------- " + image);
+  //   fetch("https://api.goshippo.com/transactions/", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       Authorization: `ShippoToken ${token}`,
+  //     },
+  //     body: JSON.stringify(data),
+  //   })
+  //     .then((response) => response.json())
+  //     .then((data) => {
+  //       setImage(data.label_url);
+  //       console.log("data.label_url", data);
+  //     })
+  //     .catch((e) => {
+  //       console.log("errors", e);
+  //     });
+  // }, []);
+ // console.log("image path ---------- " + image);
 
   // const fileUrl =
   //   "https://www.techup.co.in/wp-content/uploads/2020/01/techup_logo_72-scaled.jpg";
@@ -110,7 +108,7 @@ export default function DownloadShipment({ navigation }) {
   //   return /[.]/.exec(fileUrl) ? /[^.]+$/.exec(fileUrl) : undefined;
   // };
 
-  // Static Download pdf
+  //----------- Static Download pdf ------------//
   const handleDownload = async () => {
     try {
       const granted = await PermissionsAndroid.request(
