@@ -10,7 +10,7 @@ import ConfirmShipment from "./Screen/ConfirmShipment";
 import SubmitShipment from "./Screen/SubmitShipment";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import DownloadShipment from "./Screen/DownloadShipment";
- import Header from "./Screen/Header";
+import Header from "./Screen/Header";
 import ShipmentProgressStep from "./Screen/ShipmentProgressStep";
 import ShipmentInfo from "./Screen/ShipmentInfo";
 import CreateShipment from "./Screen/CreateShipment";
@@ -21,60 +21,60 @@ export default function App() {
   const Stack = createNativeStackNavigator();
 
   return (
-    <SafeAreaProvider>
-      <NavigationContainer>
-        <Stack.Navigator initialRouteName="SignIn">
-          <Stack.Screen
-            name="SignIn"
-            component={SignIn}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="SignUp"
-            component={SignUp}
-            options={{ headerShown: false, headerBackTitleVisible: false }}
+    // <SafeAreaProvider>
+    //   <NavigationContainer>
+    //     <Stack.Navigator initialRouteName="SignIn">
+    //       <Stack.Screen
+    //         name="SignIn"
+    //         component={SignIn}
+    //         options={{ headerShown: false }}
+    //       />
+    //       <Stack.Screen
+    //         name="SignUp"
+    //         component={SignUp}
+    //         options={{ headerShown: false, headerBackTitleVisible: false }}
             
-          />
-          <Stack.Screen
-            name="BusinessProfile"
-            component={BusinessProfile}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="ShipmentProgressStep"
-            component={ShipmentProgressStep}
-            options={{ headerShown: false }}
-          />
-          {/* <Stack.Screen
-            name="ShipmentInfo"
-            component={ShipmentInfo}
-            options={{ headerShown: false }}
-          /> */}
-          <Stack.Screen
-            name="ConfirmShipment"
-            component={ConfirmShipment}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="Submit"
-            component={SubmitShipment}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="ConfirmEmail"
-            component={ConfirmEmail}
-            options={{ headerShown: false }}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </SafeAreaProvider>
+    //       />
+    //       <Stack.Screen
+    //         name="BusinessProfile"
+    //         component={BusinessProfile}
+    //         options={{ headerShown: false }}
+    //       />
+    //       <Stack.Screen
+    //         name="ShipmentProgressStep"
+    //         component={ShipmentProgressStep}
+    //         options={{ headerShown: false }}
+    //       />
+    //       {/* <Stack.Screen
+    //         name="ShipmentInfo"
+    //         component={ShipmentInfo}
+    //         options={{ headerShown: false }}
+    //       /> */}
+    //       <Stack.Screen
+    //         name="ConfirmShipment"
+    //         component={ConfirmShipment}
+    //         options={{ headerShown: false }}
+    //       />
+    //       <Stack.Screen
+    //         name="Submit"
+    //         component={SubmitShipment}
+    //         options={{ headerShown: false }}
+    //       />
+    //       <Stack.Screen
+    //         name="ConfirmEmail"
+    //         component={ConfirmEmail}
+    //         options={{ headerShown: false }}
+    //       />
+    //     </Stack.Navigator>
+    //   </NavigationContainer>
+    // </SafeAreaProvider>
 
 
 
     //  <BusinessProfile/>
-    //  <ShipmentProgressStep/>
+        <ShipmentProgressStep/>
     //  <Trial/>
-    //  <CreateShipment/>
+    //   <CreateShipment/>
     //  <BusinessProfile1/>
     //    <ShipmentInfo/>
     //    <DownloadShipment/>

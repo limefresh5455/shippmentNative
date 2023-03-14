@@ -72,71 +72,75 @@ export default function ShipmentProgressStep({ navigation }) {
     let t = JSON.parse(toaddressData);
     let p = JSON.parse(packagingData);
 
-    const data = {
-      address_to: {
-        name: t.firstname + " " + t.lastname,
-        street1: t.address,
-        city: t.city,
-        state: t.state,
-        zip: t.zip,
-        country: t.country,
-        phone: t.phone,
-        email: t.email,
-      },
-      address_from: {
-        name: v.firstname + " " + v.lastname,
-        street1: v.address,
-        city: v.city,
-        state: v.state,
-        zip: v.zip,
-        country: v.country,
-        phone: v.phone,
-        email: v.email,
-      },
-      parcels: [
-        {
-          length: p.length,
-          width: p.width,
-          height: p.height,
-          distance_unit: p.distance_unit,
-          weight: g.weight,
-          mass_unit: g.mass,
-        },
-      ],
-    };
-
     // const data = {
     //   address_to: {
-    //     name: "Mr Hippo",
-    //     street1: "965 Mission St #572",
-    //     city: "San Francisco",
-    //     state: "CA",
-    //     zip: "94103",
-    //     country: "US",
-    //     phone: "4151234567",
-    //     email: "mrhippo@goshippo.com",
+    //     name: t.firstname + " " + t.lastname,
+    //     street1: t.address,
+    //     city: t.city,
+    //     state: t.state,
+    //     zip: t.zip,
+    //     country: t.country,
+    //     phone: t.phone,
+    //     email: t.email,
     //   },
     //   address_from: {
-    //     name: "Mrs Hippo",
-    //     street1: "1092 Indian Summer Ct",
-    //     city: "San Jose",
-    //     state: "CA",
-    //     zip: "95122",
-    //     country: "US",
-    //     phone: "4159876543",
-    //     email: "mrshippo@goshippo.com",
+    //     name: v.firstname + " " + v.lastname,
+    //     street1: v.address,
+    //     city: v.city,
+    //     state: v.state,
+    //     zip: v.zip,
+    //     country: v.country,
+    //     phone: v.phone,
+    //     email: v.email,
     //   },
     //   parcels: [
     //     {
-    //       length: "38",
-    //       width: "6",
-    //       height: "6",
-    //       distance_unit: "in",
-    //       weight: "10",
-    //       mass_unit: "lb",
+    //       length: p.length,
+    //       width: p.width,
+    //       height: p.height,
+    //       distance_unit: p.distance_unit,
+    //       weight: g.weight,
+    //       mass_unit: g.mass,
     //     },
     //   ],
+    //   carrier_accounts: ["f0b7919bcfe0476e859b5f38416bb426"],
+    //   async: false,
     // };
+
+    const data = {
+      address_to: {
+        name: "Mr Hippo",
+        street1: "965 Mission St #572",
+        city: "San Francisco",
+        state: "CA",
+        zip: "94103",
+        country: "US",
+        phone: "4151234567",
+        email: "mrhippo@goshippo.com",
+      },
+      address_from: {
+        name: "Mrs Hippo",
+        street1: "1092 Indian Summer Ct",
+        city: "San Jose",
+        state: "CA",
+        zip: "95122",
+        country: "US",
+        phone: "4159876543",
+        email: "mrshippo@goshippo.com",
+      },
+      parcels: [
+        {
+          length: "38",
+          width: "6",
+          height: "6",
+          distance_unit: "in",
+          weight: "10",
+          mass_unit: "lb",
+        },
+      ],
+       carrier_accounts: ["f0b7919bcfe0476e859b5f38416bb426"],
+       async: false
+    };
     console.log("data -----::::: " + JSON.stringify(data));
 
     const token = "shippo_test_385ed1b28f50d525d8b9088ac3cbaed1bc9b8ff2";
@@ -213,12 +217,12 @@ export default function ShipmentProgressStep({ navigation }) {
                 display: "flex",
                 flexDirection: "row",
                 justifyContent: "space-between",
-                marginLeft: 140,
+                marginLeft: 20,
                 marginRight: 25,
                 marginBottom: 25,
               }}
             >
-              <Text style={{ fontSize: 25 }}>Total</Text>
+              <Text style={{ fontSize: 25 }}>Total : </Text>
               {rates.map((data, i) => {
                 return (
                   <Text
@@ -230,6 +234,7 @@ export default function ShipmentProgressStep({ navigation }) {
                         : styles.rateId
                     }
                   >
+                    {i > 0 && ", "}
                     {data.amount}
                   </Text>
                 );

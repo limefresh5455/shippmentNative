@@ -1,55 +1,55 @@
-import { View, Text, TextInput, StyleSheet, ScrollView, Pressable } from "react-native";
+import {
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  ScrollView,
+  Pressable,
+} from "react-native";
 import React, { useState, useEffect } from "react";
 import { Picker } from "@react-native-picker/picker";
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function SFD() {
-
-   const [selectedLanguage, setSelectedLanguage] = useState();
+  const [selectedLanguage, setSelectedLanguage] = useState();
   const [countryData, setCountryData] = useState([]);
   const [selectedValue, setSelectedValue] = useState();
   const [stateData, setStateData] = useState([]);
   const [selectedValue1, setSelectedValue1] = useState();
   const [mainData, setMainData] = useState({
-    company_name:'',
-    firstname:'',
-    lastname:'',
-    address:'',
-    address2:'',
-    city:'',
-    zip:'',
-    phone:'',
-    email:'',
-    country:'',
-    state:''
-  })
-
+    company_name: "",
+    firstname: "",
+    lastname: "",
+    address: "",
+    address2: "",
+    city: "",
+    zip: "",
+    phone: "",
+    email: "",
+    country: "",
+    state: "",
+  });
 
   useEffect(() => {
+    // Dynamic Country Data
 
-   // Dynamic Country Data 
-
-    fetch(
-      "https://shipwwt.com/wp-json/wp/v2/shipwwt-get-all-countries",
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    )
+    fetch("https://shipwwt.com/wp-json/wp/v2/shipwwt-get-all-countries", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
       .then((response) => response.json())
       .then((data) => {
-         setCountryData(data.data);
+        setCountryData(data.data);
       })
       .catch((error) => {
         console.error("Error:", error);
       });
-
-},[]);
+  }, []);
   // Dynamic Data States
-useEffect(()=>{
-      fetch(
+  useEffect(() => {
+    fetch(
       `https://shipwwt.com/wp-json/wp/v2/shipwwt-get-states-from-country?country_code=${selectedValue}`,
       {
         method: "GET",
@@ -60,35 +60,31 @@ useEffect(()=>{
     )
       .then((response) => response.json())
       .then((data) => {
-         setStateData(data.data);
+        setStateData(data.data);
       })
       .catch((error) => {
         console.error("Error:", error);
       });
-
-  },[selectedValue]);
-
+  }, [selectedValue]);
 
   const countryList = () => {
-    return countryData.map((country,i) => {
-        return <Picker.Item key={i}  label={country.name} value={country.code} />;
+    return countryData.map((country, i) => {
+      return <Picker.Item key={i} label={country.name} value={country.code} />;
     });
   };
 
-
-    const stateList = () => {
-    return stateData.map((state,i) => {
-        return <Picker.Item key={i} label={state.name} value={state.name} />;
+  const stateList = () => {
+    return stateData.map((state, i) => {
+      return <Picker.Item key={i} label={state.name} value={state.name} />;
     });
   };
-useEffect(()=>{
-setMainData({ ...mainData, ['country']: selectedValue
-});
-},[selectedValue])
-useEffect(()=>{
-setMainData({ ...mainData, ['state']: selectedValue1
-});
-},[selectedValue1])
+  
+  useEffect(() => {
+    setMainData({ ...mainData, ["country"]: selectedValue });
+  }, [selectedValue]);
+  useEffect(() => {
+    setMainData({ ...mainData, ["state"]: selectedValue1 });
+  }, [selectedValue1]);
   const handleChange = (name, value) => {
     setMainData({
       ...mainData,
@@ -96,14 +92,12 @@ setMainData({ ...mainData, ['state']: selectedValue1
     });
   };
 
-
-const fieldData = async () =>{
-   await AsyncStorage.setItem('addressFrom',JSON.stringify(mainData)); 
-  }
-  useEffect(()=>{
-fieldData();
-  },[mainData])
-
+  const fieldData = async () => {
+    await AsyncStorage.setItem("addressFrom", JSON.stringify(mainData));
+  };
+  useEffect(() => {
+    fieldData();
+  }, [mainData]);
 
   return (
     <ScrollView>
@@ -293,18 +287,17 @@ const styles = StyleSheet.create({
     borderStyle: "solid",
     borderBottomColor: "#c7bdbd",
   },
-   btntext1: {
+  btntext1: {
     fontSize: 16,
     lineHeight: 21,
     fontWeight: "bold",
     letterSpacing: 0.25,
     color: "white",
-    backgroundColor:"#616161",
+    backgroundColor: "#616161",
     width: 100,
     height: 50,
     textAlign: "center",
     paddingTop: 15,
-  
   },
 
   btntext: {
@@ -313,14 +306,14 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     letterSpacing: 0.25,
     color: "white",
-    backgroundColor:"#d89d68",
+    backgroundColor: "#d89d68",
     width: 100,
     height: 50,
     textAlign: "center",
     paddingTop: 15,
   },
 
-   flex: {
+  flex: {
     display: "flex",
     flexDirection: "row",
     flexWrap: "wrap",

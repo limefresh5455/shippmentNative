@@ -81,7 +81,7 @@ const CreateShipment = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log("data", data.results);
+        //console.log("data", data.results);
         setpackagingDetails(data.results);
       })
       .catch((error) => {
@@ -112,7 +112,7 @@ const CreateShipment = () => {
   });
 
   const handleSubmit = (values) => {
-    console.log("values--", values);
+   // console.log("values--", values);
   };
 
   const isCarousel = React.useRef(null);
@@ -223,7 +223,7 @@ const CreateShipment = () => {
                   selectedValue={selectedValue}
                   onValueChange={(itemValue, itemIndex) => {
                     setSelectedValue(itemValue);
-                    console.log("serviceValue", itemValue);
+                   // console.log("serviceValue", itemValue);
                   }}
                   style={{ marginLeft: 8, borderColor: "black" }}
                   value={values.service}

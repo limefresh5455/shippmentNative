@@ -32,20 +32,9 @@ export default function STI() {
     country: "",
     state: "",
   });
+  
   useEffect(() => {
-    setMainData({ ...mainData, ["country"]: selectedValue });
-  }, [selectedValue]);
-  useEffect(() => {
-    setMainData({ ...mainData, ["state"]: selectedValue1 });
-  }, [selectedValue1]);
-  const handleChange = (name, value) => {
-    setMainData({
-      ...mainData,
-      [name]: value,
-    });
-  };
-  useEffect(() => {
-
+    // Dynamic Country Data
     fetch("https://shipwwt.com/wp-json/wp/v2/shipwwt-get-all-countries", {
       method: "GET",
       headers: {
@@ -93,6 +82,19 @@ export default function STI() {
     });
   };
 
+  useEffect(() => {
+    setMainData({ ...mainData, ["country"]: selectedValue });
+  }, [selectedValue]);
+  useEffect(() => {
+    setMainData({ ...mainData, ["state"]: selectedValue1 });
+  }, [selectedValue1]);
+  const handleChange = (name, value) => {
+    setMainData({
+      ...mainData,
+      [name]: value,
+    });
+  };
+
   const [checked, setChecked] = React.useState(true);
   const toggleCheckbox = () => setChecked(!checked);
 
@@ -115,6 +117,8 @@ export default function STI() {
  
 
   const fieldData = async () => {
+        console.log("(mainData):", JSON.stringify(mainData));
+
     await AsyncStorage.setItem("addressTo", JSON.stringify(mainData));
    
   };
