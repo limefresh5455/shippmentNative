@@ -5,11 +5,11 @@ import {
   StyleSheet,
   TouchableOpacity,
   PermissionsAndroid,
-  Linking 
+  Linking,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 // import { Ticket } from "../assets/img/ticket.png";
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 // import RNFetchBlob from "rn-fetch-blob";
 
@@ -18,20 +18,18 @@ export default function DownloadShipment({ navigation }) {
   const [image, setImage] = useState();
 
 
- useEffect(async() => {
+  useEffect(() => {
+    rateId = AsyncStorage.getItem("rate_id");
 
-   rateId = await AsyncStorage.getItem("rate_id");
+    let data = {
+      rate: rateId,
+      label_file_type: "PDF",
+      test: true,
+      order: "",
+      async: false,
+    };
 
-   let data = {
-     rate: rateId,
-     label_file_type: "PDF",
-     test: true,
-     order: "",
-     async: false,
-   };
-
-
-  // set static data
+    // set static data
     // let data = {
     //   rate: "363eda578b5341a484f9cd3a458daf71",
     //   label_file_type: "PDF",
@@ -40,31 +38,31 @@ export default function DownloadShipment({ navigation }) {
     //   async: false,
     // };
 
-   console.log("rateid",data.rate)
+    console.log("rateid", data.rate);
 
-   const token = "shippo_test_385ed1b28f50d525d8b9088ac3cbaed1bc9b8ff2";
+    const token = "shippo_test_385ed1b28f50d525d8b9088ac3cbaed1bc9b8ff2";
 
-   fetch("https://api.goshippo.com/transactions/", {
-     method: "POST",
-     headers: {
-       "Content-Type": "application/json",
-       Authorization: `ShippoToken ${token}`,
-     },
-     body: JSON.stringify(data),
-   })
-     .then((response) => response.json())
-     .then((data) => {
+    fetch("https://api.goshippo.com/transactions/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `ShippoToken ${token}`,
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.status == SUCCESS){
+          
+        } 
         setImage(data.label_url);
-       console.log("data.label_url", data);
-     })
-     .catch((e) => {
-       console.log("errors", e);
-     });
- }, []);
- console.log("image path ---------- "+image)
-
-
-
+        console.log("data.label_url", data);
+      })
+      .catch((e) => {
+        console.log("errors", e);
+      });
+  }, []);
+  console.log("image path ---------- " + image);
 
   // Dynamic Download pdf
   const handleDownload = async () => {
@@ -81,7 +79,6 @@ export default function DownloadShipment({ navigation }) {
       console.log(err);
     }
   };
-
 
   return (
     <View style={styles.top}>
@@ -116,7 +113,6 @@ export default function DownloadShipment({ navigation }) {
     </View>
   );
 }
-
 
 const styles = StyleSheet.create({
   top: {

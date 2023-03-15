@@ -76,7 +76,7 @@ export default function App() {
     //  <Trial/>
     //   <CreateShipment/>
     //  <BusinessProfile1/>
-    //    <ShipmentInfo/>
+    //   <ShipmentInfo/>
     //    <DownloadShipment/>
     //  <SignIn/>
 

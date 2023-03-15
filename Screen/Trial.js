@@ -41,6 +41,7 @@ const Trial = () => {
   const [serviceDetails, setserviceDetails] = useState([]);
   const [selectedValue1, setSelectedValue1] = useState();
   const [packagingDetails, setpackagingDetails] = useState([]);
+  const [objectId, setObjectId] = useState([]);
   const [weight, setWeight] = useState("");
   const [mass, setMass] = useState("");
   const [deliveryConfirmation, setDeliveryConfirmation] = useState("");
@@ -54,6 +55,10 @@ const Trial = () => {
     signature: "",
     USdollar: "",
   });
+
+  console.log("objectid", objectId);
+
+  AsyncStorage.setItem("objectid", JSON.stringify(objectId));
 
   const handleWeightChange = (weight) =>{
       setFormData({ ...formData, weight });
@@ -89,6 +94,8 @@ const Trial = () => {
       .then((response) => response.json())
       .then((data) => {
         setserviceDetails(data.results[0].service_levels);
+       // console.log(data.results[data.results.length-1].object_id);
+        setObjectId(data.results[data.results.length - 1].object_id);
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -165,8 +172,9 @@ const packagingOnchange = (value, index) => {
 
           <View style={styles.flex}>
             <TouchableOpacity
-              onPress={() => handlePress("usps")}
+              onPress={() => handlePress("fedex")}
               // style={{
+              //   borderColor: "black",
               //   borderBottomWidth: 1,
               //   borderRightWidth: 1,
               //   borderTopWidth: 1,
@@ -180,7 +188,7 @@ const packagingOnchange = (value, index) => {
                     source={require("../assets/img/ups.png")}
                     style={styles.img}
                   />
-                  <Text style={styles.text}>USPS</Text>
+                  <Text style={styles.text}>FedEx</Text>
                 </View>
               </Card>
             </TouchableOpacity>
@@ -208,9 +216,8 @@ const packagingOnchange = (value, index) => {
             </TouchableOpacity>
 
             <TouchableOpacity
-              onPress={() => handlePress("fedex")}
+              onPress={() => handlePress("usps")}
               // style={{
-              //   borderColor: "black",
               //   borderBottomWidth: 1,
               //   borderRightWidth: 1,
               //   borderTopWidth: 1,
@@ -224,7 +231,7 @@ const packagingOnchange = (value, index) => {
                     source={require("../assets/img/ups.png")}
                     style={styles.img}
                   />
-                  <Text style={styles.text}>FedEx</Text>
+                  <Text style={styles.text}>USPS</Text>
                 </View>
               </Card>
             </TouchableOpacity>
@@ -238,7 +245,7 @@ const packagingOnchange = (value, index) => {
               selectedValue={selectedValue}
               onValueChange={(itemValue, itemIndex) => {
                 setSelectedValue(itemValue);
-                setFormData({ ...formData, service:itemValue });
+                setFormData({ ...formData, service: itemValue });
               }}
               style={{ marginLeft: 8, borderColor: "black" }}
               value={formData.service}
@@ -255,9 +262,8 @@ const packagingOnchange = (value, index) => {
               selectedValue={selectedValue1}
               onValueChange={(itemValue, itemIndex) => {
                 packagingOnchange(itemValue, itemIndex);
-                setFormData({ ...formData, packaging:itemValue });
-            }
-              }
+                setFormData({ ...formData, packaging: itemValue });
+              }}
               style={{ marginLeft: 8, borderColor: "black" }}
               value={formData.packaging}
             >
@@ -275,11 +281,10 @@ const packagingOnchange = (value, index) => {
             />
             <Picker
               selectedValue={mass}
-              onValueChange={(itemValue, itemIndex) => 
-                {
-                    setMass(itemValue)
-                    setFormData({ ...formData, mass:itemValue });
-                }}
+              onValueChange={(itemValue, itemIndex) => {
+                setMass(itemValue);
+                setFormData({ ...formData, mass: itemValue });
+              }}
               style={{
                 marginLeft: 8,
                 borderColor: "black",
@@ -317,11 +322,10 @@ const packagingOnchange = (value, index) => {
             </Text>
             <Picker
               selectedValue={deliveryConfirmation}
-              onValueChange={(itemValue, itemIndex) =>{
-                   setDeliveryConfirmation(itemValue)
-                   setFormData({ ...formData, signature:itemValue });
-              }
-              }
+              onValueChange={(itemValue, itemIndex) => {
+                setDeliveryConfirmation(itemValue);
+                setFormData({ ...formData, signature: itemValue });
+              }}
               style={{ marginLeft: 8, borderColor: "black" }}
               value={formData.signature}
             >
@@ -346,7 +350,8 @@ const packagingOnchange = (value, index) => {
             </Text>
             <TextInput
               style={styles.input}
-              placeholder="$ 1.00"
+              placeholder="$ 1.00 (US Dollar)"
+              inlineImageLeft="search"
               keyboardType="numeric"
               onChangeText={handleUSdollarChange}
               value={formData.USdollar}

@@ -148,8 +148,9 @@ const CreateShipment = () => {
 
               <View style={styles.flex}>
                 <TouchableOpacity
-                  onPress={() => handlePress("usps")}
+                  onPress={() => handlePress("fedex")}
                   style={{
+                    borderColor: "black",
                     borderBottomWidth: 1,
                     borderRightWidth: 1,
                     borderTopWidth: 1,
@@ -163,7 +164,7 @@ const CreateShipment = () => {
                         source={require("../assets/img/ups.png")}
                         style={styles.img}
                       />
-                      <Text style={styles.text}>USPS</Text>
+                      <Text style={styles.text}>FedEx</Text>
                     </View>
                   </Card>
                 </TouchableOpacity>
@@ -191,9 +192,8 @@ const CreateShipment = () => {
                 </TouchableOpacity>
 
                 <TouchableOpacity
-                  onPress={() => handlePress("fedex")}
+                  onPress={() => handlePress("usps")}
                   style={{
-                    borderColor: "black",
                     borderBottomWidth: 1,
                     borderRightWidth: 1,
                     borderTopWidth: 1,
@@ -207,7 +207,7 @@ const CreateShipment = () => {
                         source={require("../assets/img/ups.png")}
                         style={styles.img}
                       />
-                      <Text style={styles.text}>FedEx</Text>
+                      <Text style={styles.text}>USPS</Text>
                     </View>
                   </Card>
                 </TouchableOpacity>
@@ -223,7 +223,7 @@ const CreateShipment = () => {
                   selectedValue={selectedValue}
                   onValueChange={(itemValue, itemIndex) => {
                     setSelectedValue(itemValue);
-                   // console.log("serviceValue", itemValue);
+                    // console.log("serviceValue", itemValue);
                   }}
                   style={{ marginLeft: 8, borderColor: "black" }}
                   value={values.service}
@@ -399,8 +399,11 @@ const CreateShipment = () => {
                 </View>
               </View>
             </View>
-            <TouchableOpacity style={{marginLeft:17, marginTop:-20}} onPress={handleSubmit}>
-              <Text style={{fontSize:20}}>SIGN IN</Text>
+            <TouchableOpacity
+              style={{ marginLeft: 17, marginTop: -20 }}
+              onPress={handleSubmit}
+            >
+              <Text style={{ fontSize: 20 }}>SIGN IN</Text>
             </TouchableOpacity>
           </ScrollView>
         </SafeAreaView>

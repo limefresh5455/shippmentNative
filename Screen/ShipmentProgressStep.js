@@ -27,6 +27,8 @@ let getData;
 let addrFromData;
 let toaddressData;
 let packagingData;
+let objectId;
+
 export default function ShipmentProgressStep({ navigation }) {
   const [disable, setDisable] = useState(false);
   const [rates, setRates] = useState([]);
@@ -37,7 +39,10 @@ export default function ShipmentProgressStep({ navigation }) {
     addrFromData = await AsyncStorage.getItem("addressFrom");
     toaddressData = await AsyncStorage.getItem("addressTo");
     packagingData = await AsyncStorage.getItem("packaging");
+    objectId = await AsyncStorage.getItem("objectid");
   };
+
+  console.log("objectId", objectId);
 
   GetData();
 
@@ -103,9 +108,10 @@ export default function ShipmentProgressStep({ navigation }) {
     //       mass_unit: g.mass,
     //     },
     //   ],
-    //   carrier_accounts: ["f0b7919bcfe0476e859b5f38416bb426"],
+    //   carrier_accounts: objectId,
     //   async: false,
     // };
+    
 
     const data = {
       address_to: {
@@ -164,8 +170,11 @@ export default function ShipmentProgressStep({ navigation }) {
   };
 
   useEffect(() => {
-    AsyncStorage.setItem("rate_id", rateId);
-    console.log("id -----:::::" + rateId);
+    if (rateId != undefined){
+       AsyncStorage.setItem("rate_id", rateId);
+      console.log("id -----:::::" + rateId);
+    }
+      
   }, [rateId]);
 
   return (
