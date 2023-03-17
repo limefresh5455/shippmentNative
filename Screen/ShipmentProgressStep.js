@@ -13,6 +13,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import React, { useState, useEffect } from "react";
+import { DataTable } from "react-native-paper";
 import { ProgressSteps, ProgressStep } from "react-native-progress-steps";
 import CreateShipment from "./CreateShipment";
 import Header from "./Header";
@@ -21,6 +22,8 @@ import DownloadShipment from "./DownloadShipment";
 import Trial from "./Trial";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import TextBox from "react-native-password-eye";
+import { CheckBox, Stack } from "@rneui/themed";
+import DetailClient from "./DetailClient";
 
 // import { Button } from "@rneui/base";
 let getData;
@@ -31,8 +34,11 @@ let objectId;
 
 export default function ShipmentProgressStep({ navigation }) {
   const [disable, setDisable] = useState(false);
+  // const [check, setCheck] = useState(false);
   const [rates, setRates] = useState([]);
   const [rateId, setRateId] = useState();
+  const [rateAmount, setRateAmount] = useState();
+  const [order, setOrder] = useState(false);
 
   const GetData = async () => {
     getData = await AsyncStorage.getItem("user");
@@ -58,6 +64,10 @@ export default function ShipmentProgressStep({ navigation }) {
     console.log("called next step");
   };
 
+  const handleOrder = () => {
+    setOrder(true);
+  };
+
   const onPaymentStepComplete = () => {
     alert("Payment step completed!");
   };
@@ -71,7 +81,7 @@ export default function ShipmentProgressStep({ navigation }) {
     navigation.navigate("SignIn");
   };
 
-  const handleSubmit1 = () => {
+  const handleSubmit = () => {
     let v = JSON.parse(addrFromData);
     let g = JSON.parse(getData);
     let t = JSON.parse(toaddressData);
@@ -111,7 +121,6 @@ export default function ShipmentProgressStep({ navigation }) {
     //   carrier_accounts: objectId,
     //   async: false,
     // };
-    
 
     const data = {
       address_to: {
@@ -144,37 +153,41 @@ export default function ShipmentProgressStep({ navigation }) {
           mass_unit: "lb",
         },
       ],
-       carrier_accounts: ["f0b7919bcfe0476e859b5f38416bb426"],
-       async: false
+      carrier_accounts: ["f0b7919bcfe0476e859b5f38416bb426"],
+      async: false,
     };
     console.log("data -----::::: " + JSON.stringify(data));
 
     const token = "shippo_test_385ed1b28f50d525d8b9088ac3cbaed1bc9b8ff2";
 
-    fetch("https://api.goshippo.com/shipments/", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `ShippoToken ${token}`,
-      },
-      body: JSON.stringify(data),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        let rate = data.rates;
-        setRates(rate);
+    setTimeout(() => {
+      fetch("https://api.goshippo.com/shipments/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `ShippoToken ${token}`,
+        },
+        body: JSON.stringify(data),
       })
-      .catch((e) => {
-        console.log("errors", e);
-      });
+        .then((response) => response.json())
+        .then((data) => {
+          let rate = data.rates;
+          setRates(rate);
+          console.log("rate", data.rates);
+        })
+        .catch((e) => {
+          console.log("errors", e);
+        });
+    },2000);
   };
 
+  //  console.log("rates1", rates);
+
   useEffect(() => {
-    if (rateId != undefined){
-       AsyncStorage.setItem("rate_id", rateId);
+    if (rateId != undefined) {
+      AsyncStorage.setItem("rate_id", rateId);
       console.log("id -----:::::" + rateId);
     }
-      
   }, [rateId]);
 
   return (
@@ -210,45 +223,89 @@ export default function ShipmentProgressStep({ navigation }) {
             onNext={onNextStep}
             onPrevious={onPrevStep}
             previousBtnDisabled={disable}
-            nextBtnStyle={rates.length == 0 ? styles.btntextt : styles.button}
+            nextBtnStyle={!order ? styles.btntextt : styles.button}
             nextBtnTextStyle={styles.btntext}
             previousBtnStyle={styles.btton}
             previousBtnTextStyle={styles.bttext}
             scrollViewProps={defaultScrollViewProps}
           >
-            <ShipmentInfo />
-            <TouchableOpacity style={styles.rates} onPress={handleSubmit1}>
-              <Text style={styles.rates1}>Create Shipment And Get Rates</Text>
-            </TouchableOpacity>
-
-            <View
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-between",
-                marginLeft: 20,
-                marginRight: 25,
-                marginBottom: 25,
-              }}
-            >
-              <Text style={{ fontSize: 25 }}>Total : </Text>
-              {rates.map((data, i) => {
-                return (
-                  <Text
-                    onPress={() => setRateId(data.object_id)}
-                    key={i}
-                    style={
-                      rateId === data.object_id
-                        ? styles.rateIdHigh
-                        : styles.rateId
-                    }
-                  >
-                    {i > 0 && ", "}
-                    {data.amount}
+            {order ? (
+              <DetailClient />
+            ) : (
+              <>
+                <ShipmentInfo />
+                <TouchableOpacity style={styles.rates} onPress={handleSubmit}>
+                  <Text style={styles.rates1}>
+                    Create Shipment And Get Rates
                   </Text>
-                );
-              })}
-            </View>
+                </TouchableOpacity>
+                <View style={styles.DataTable}>
+                  <DataTable>
+                    <DataTable.Header>
+                      <DataTable.Title></DataTable.Title>
+                      <DataTable.Title>Rates</DataTable.Title>
+                      <DataTable.Title>Services</DataTable.Title>
+                      <DataTable.Title numeric>Estimated Days</DataTable.Title>
+                    </DataTable.Header>
+
+                    {rates.map((data, i) => {
+                      return (
+                        <>
+                          <DataTable.Row>
+                            <DataTable.Cell>
+                              <CheckBox
+                                center
+                                checkedIcon="dot-circle-o"
+                                uncheckedIcon="circle-o"
+                                checked={rateId === data.object_id}
+                                onPress={() => {
+                                  setRateAmount(data.amount);
+                                  setRateId(data.object_id);
+                                }}
+                                key={i}
+                              />
+                            </DataTable.Cell>
+                            <DataTable.Cell>$ {data.amount}</DataTable.Cell>
+                            <DataTable.Cell>
+                              {data.servicelevel.name}
+                            </DataTable.Cell>
+                            <DataTable.Cell numeric>
+                              {data.estimated_days}
+                            </DataTable.Cell>
+                          </DataTable.Row>
+                        </>
+                      );
+                    })}
+                  </DataTable>
+                </View>
+                <View
+                  style={{
+                    display: "flex",
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    marginLeft: 20,
+                    marginRight: 25,
+                    marginBottom: 25,
+                  }}
+                >
+                  <Text
+                    style={{
+                      fontSize: 25,
+                      marginLeft: 160,
+                      marginTop: 20,
+                      marginBottom: 10,
+                    }}
+                  >
+                    Total : {rateAmount}
+                  </Text>
+                </View>
+                <TouchableOpacity  onPress={handleOrder}>
+                  <Text>
+                    NextButton
+                  </Text>
+                </TouchableOpacity>
+              </>
+            )}
           </ProgressStep>
 
           <ProgressStep
@@ -273,6 +330,7 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     justifyContent: "center",
   },
+  DataTable: {},
   rateId: {
     fontSize: 25,
   },

@@ -24,6 +24,7 @@ import * as Yup from "yup";
 import Carousel from "react-native-snap-carousel";
 import CarouselCardItem, { SLIDER_WIDTH, ITEM_WIDTH } from "./CarouselCardItem";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+// import DatePicker from "react-native-modern-datepicker";
 
 const data = [
   {
@@ -37,6 +38,8 @@ const data = [
 ];
 
 const Trial = () => {
+  //DateTimePicker
+  //  const [selectedDate, setSelectedDate] = useState("");
   const [selectedValue, setSelectedValue] = useState();
   const [serviceDetails, setserviceDetails] = useState([]);
   const [selectedValue1, setSelectedValue1] = useState();
@@ -300,6 +303,8 @@ const packagingOnchange = (value, index) => {
               <Picker.Item label="kg" value="kg" />
             </Picker>
 
+            {/* <DatePicker onSelectedChange={(date) => setSelectedDate(date)} /> */}
+
             <Text
               style={{
                 marginLeft: 18,
@@ -355,9 +360,10 @@ const packagingOnchange = (value, index) => {
               keyboardType="numeric"
               onChangeText={handleUSdollarChange}
               value={formData.USdollar}
+              Image={"\u0024"}
             />
 
-            <View style={styles.flex}>
+            {/* <View style={styles.flex}>
               <Text style={{ fontSize: 20 }}>Amount pay from</Text>
               <Text style={{ fontSize: 17, marginTop: 5, color: "#e3b993" }}>
                 Add New
@@ -377,7 +383,7 @@ const packagingOnchange = (value, index) => {
                 useScrollView={true}
                 style={{ position: "absolute" }}
               />
-            </View>
+            </View> */}
           </View>
         </View>
       </ScrollView>

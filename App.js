@@ -15,6 +15,7 @@ import ShipmentProgressStep from "./Screen/ShipmentProgressStep";
 import ShipmentInfo from "./Screen/ShipmentInfo";
 import CreateShipment from "./Screen/CreateShipment";
 import Trial from "./Screen/Trial";
+import DetailClient from "./Screen/DetailClient";
 
 // import Tabs from './Screen/Tabs';
 export default function App() {
@@ -79,6 +80,7 @@ export default function App() {
     //   <ShipmentInfo/>
     //    <DownloadShipment/>
     //  <SignIn/>
+    //    <DetailClient/>
 
 
   );
@@ -90,3 +92,11 @@ const styles = StyleSheet.create({
     backgroundColor: "#fbf1e6",
   },
 });
+
+
+
+
+
+
+
+
