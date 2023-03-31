@@ -35,7 +35,7 @@ const SignupSchema = Yup.object().shape({
   address: Yup.string().required("please fill the address"),
   address_2: Yup.string().required("please again fill the address"),
   fax: Yup.number().required("please fill the fax"),
-   country: Yup.string().required("please select a value"),
+  country: Yup.string().required("please select a value"),
   city: Yup.string().required("city is required"),
   state: Yup.string().required("state is required"),
   zip: Yup.number().required("zip is required"),
@@ -55,7 +55,7 @@ const BusinessProfile = ({ navigation }) => {
   };
 
   useEffect(() => {
-    const timer = setTimeout(async  () => {
+    const timer = setTimeout(async () => {
       const data = await AsyncStorage.getItem("userdata");
 
       fetch(
@@ -81,10 +81,9 @@ const BusinessProfile = ({ navigation }) => {
     return () => clearTimeout(timer);
   });
 
-
   async function handleSubmit(values) {
     const data = await AsyncStorage.getItem("userdata");
-    
+
     const user = {
       user_id: data,
       company_name: values.company_name,

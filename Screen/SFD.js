@@ -1,7 +1,7 @@
 import {
   View,
   Text,
-  TextInput,
+  TextInput, 
   StyleSheet,
   ScrollView,
   Pressable,
@@ -74,14 +74,13 @@ export default function SFD() {
   };
 
   const stateList = () => {
-    if (stateData.length>0){
-return stateData.map((state, i) => {
-  return <Picker.Item key={i} label={state.name} value={state.name} />;
-});
+    if (stateData.length > 0) {
+      return stateData.map((state, i) => {
+        return <Picker.Item key={i} label={state.name} value={state.code} />;
+      });
     }
-      
   };
-  
+
   useEffect(() => {
     setMainData({ ...mainData, ["country"]: selectedValue });
   }, [selectedValue]);

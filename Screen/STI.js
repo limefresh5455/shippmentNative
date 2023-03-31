@@ -32,7 +32,7 @@ export default function STI() {
     country: "",
     state: "",
   });
-  
+
   useEffect(() => {
     // Dynamic Country Data
     fetch("https://shipwwt.com/wp-json/wp/v2/shipwwt-get-all-countries", {
@@ -51,7 +51,6 @@ export default function STI() {
   }, []);
   // Dynamic Data States
   useEffect(() => {
-
     fetch(
       `https://shipwwt.com/wp-json/wp/v2/shipwwt-get-states-from-country?country_code=${selectedValue}`,
       {
@@ -78,7 +77,7 @@ export default function STI() {
 
   const stateList = () => {
     return stateData.map((state, i) => {
-      return <Picker.Item key={i} label={state.name} value={state.name} />;
+      return <Picker.Item key={i} label={state.name} value={state.code} />;
     });
   };
 
@@ -114,13 +113,11 @@ export default function STI() {
   const onPressRadioButton = (radioButtonsArray) => {
     setRadioButtons(radioButtonsArray);
   };
- 
 
   const fieldData = async () => {
-        console.log("(mainData):", JSON.stringify(mainData));
+    // console.log("(mainData):", JSON.stringify(mainData));
 
     await AsyncStorage.setItem("addressTo", JSON.stringify(mainData));
-   
   };
   useEffect(() => {
     fieldData();
@@ -128,7 +125,7 @@ export default function STI() {
 
   const countryOnChange = (code, index) => {
     setSelectedValue(code);
-    let c = countryData[index-1]
+    let c = countryData[index - 1];
   };
   return (
     <ScrollView>
@@ -436,7 +433,6 @@ export default function STI() {
             title="Delivery"
           />
         </View>
-        
       </View>
     </ScrollView>
   );

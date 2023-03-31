@@ -23,9 +23,20 @@ import Trial from "./Trial";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import TextBox from "react-native-password-eye";
 import { CheckBox, Stack } from "@rneui/themed";
-import DetailClient from "./DetailClient";
+import OrderDetails from "./OrderDetails";
+// import PaymentModal from "./PaymentModal";
+import { Dialog } from "@rneui/themed";
+import { CardForm } from "@stripe/stripe-react-native";
+import { Formik } from "formik";
+import * as Yup from "yup";
 
-// import { Button } from "@rneui/base";
+const validationSchema = Yup.object().shape({
+  email: Yup.string()
+    .email("Please enter a valid email address.")
+    .required("Email is required."),
+  holderName: Yup.string().required("holderName is required."),
+});
+
 let getData;
 let addrFromData;
 let toaddressData;
@@ -36,21 +47,26 @@ export default function ShipmentProgressStep({ navigation }) {
   const [disable, setDisable] = useState(false);
   // const [check, setCheck] = useState(false);
   const [rates, setRates] = useState([]);
+  // const [transId, setTransId] = useState();
   const [rateId, setRateId] = useState();
   const [rateAmount, setRateAmount] = useState();
   const [order, setOrder] = useState(false);
+  const [paymentModal, setPaymentModal] = useState(false);
+  const [showButton, setShowButton] = useState(false);
+  const [token, setToken] = useState();
+  const [cardDetails, setCardDetails] = useState("");
 
-  const GetData = async () => {
-    getData = await AsyncStorage.getItem("user");
-    addrFromData = await AsyncStorage.getItem("addressFrom");
-    toaddressData = await AsyncStorage.getItem("addressTo");
-    packagingData = await AsyncStorage.getItem("packaging");
-    objectId = await AsyncStorage.getItem("objectid");
+  const handleSubmit = (values) => {
+    let card = {
+      ...values,
+      ...cardDetails,
+    };
+    setPaymentModal(false);
+    if (card) {
+      setShowButton(true);
+    }
+    console.log("data", card);
   };
-
-  console.log("objectId", objectId);
-
-  GetData();
 
   const defaultScrollViewProps = {
     keyboardShouldPersistTaps: "handled",
@@ -62,6 +78,18 @@ export default function ShipmentProgressStep({ navigation }) {
 
   const onNextStep = () => {
     console.log("called next step");
+  };
+
+  const onNext = () => {
+    // setPaymentModal(true)
+  };
+
+  const handlePayment = () => {
+    setPaymentModal(true);
+  };
+
+  const closeModal = () => {
+    setPaymentModal(false);
   };
 
   const handleOrder = () => {
@@ -81,112 +109,177 @@ export default function ShipmentProgressStep({ navigation }) {
     navigation.navigate("SignIn");
   };
 
-  const handleSubmit = () => {
-    let v = JSON.parse(addrFromData);
-    let g = JSON.parse(getData);
-    let t = JSON.parse(toaddressData);
-    let p = JSON.parse(packagingData);
+  //--- Get Token Post Rates API ---//
+  useEffect(() => {
+    const formData = new URLSearchParams();
+    formData.append("grant_type", "client_credentials");
+    formData.append("client_id", "l7cedb873968594ca0b36b370575801843");
+    formData.append("client_secret", "d64a4e7b41f34c64aa11e51a9a91e415");
+    formData.append("child_Key", "WWTGlobal");
+    formData.append("child_secret", "d64a4e7b41f34c64aa11e51a9a91e415");
 
+    fetch("https://apis-sandbox.fedex.com/oauth/token", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: formData.toString(),
+    })
+      .then((response) => response.json())
+      .then(async(data) => {
+        // console.log("Token :- ", data.access_token);
+        setToken(data.access_token);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  }, []);
+  //--- Get Token Post Rates API ---//
+
+  //-------------- New Packaging Details Post API ----------------//
+  const handleSubmit1 = async () => {
+    getData = await AsyncStorage.getItem("user");
+    addrFromData = await AsyncStorage.getItem("addressFrom");
+    toaddressData = await AsyncStorage.getItem("addressTo");
+    packagingData = await AsyncStorage.getItem("packaging");
+    objectId = await AsyncStorage.getItem("objectid");
+    let g = JSON.parse(getData);
+    let f = JSON.parse(addrFromData);
+    let t = JSON.parse(toaddressData);
+    // let p = JSON.parse(packagingData);
+
+    //------ order detail set data ---------//
+
+    // const data = { g., user_lname, user_email, user_phone };
+    // AsyncStorage.setItem("orderDetails", data);
+
+    //------ order detail set data ---------//
+
+    //------ Dynamic Data Get Rates ---------//
     // const data = {
-    //   address_to: {
-    //     name: t.firstname + " " + t.lastname,
-    //     street1: t.address,
-    //     city: t.city,
-    //     state: t.state,
-    //     zip: t.zip,
-    //     country: t.country,
-    //     phone: t.phone,
-    //     email: t.email,
+    //   accountNumber: {
+    //     value: "510087720",
     //   },
-    //   address_from: {
-    //     name: v.firstname + " " + v.lastname,
-    //     street1: v.address,
-    //     city: v.city,
-    //     state: v.state,
-    //     zip: v.zip,
-    //     country: v.country,
-    //     phone: v.phone,
-    //     email: v.email,
+    //   rateRequestControlParameters: {
+    //     returnTransitTimes: true,
+    //     servicesNeededOnRateFailure: true,
+    //     variableOptions: "FREIGHT_GUARANTEE",
+    //     rateSortOrder: "SERVICENAMETRADITIONAL",
     //   },
-    //   parcels: [
-    //     {
-    //       length: p.length,
-    //       width: p.width,
-    //       height: p.height,
-    //       distance_unit: p.distance_unit,
-    //       weight: g.weight,
-    //       mass_unit: g.mass,
+    //   requestedShipment: {
+    //     shipper: {
+    //       address: {
+    //         streetLines: [f.address],
+    //         city: f.city,
+    //         stateOrProvinceCode: f.state,
+    //         postalCode: f.zip,
+    //         countryCode: f.country,
+    //       },
     //     },
-    //   ],
-    //   carrier_accounts: objectId,
-    //   async: false,
+    //     recipient: {
+    //       address: {
+    //         streetLines: [t.address],
+    //         city: t.city,
+    //         stateOrProvinceCode: t.state,
+    //         postalCode: t.zip,
+    //         countryCode: t.country,
+    //       },
+    //     },
+    //     shipDateStamp: "2023-03-24",
+    //     packagingType: g.packaging,
+    //     pickupType: "USE_SCHEDULED_PICKUP",
+    //     rateRequestType: ["ACCOUNT"],
+    //     requestedPackageLineItems: [
+    //       {
+    //         weight: {
+    //           units: g.mass,
+    //           value: g.weight,
+    //         },
+    //       },
+    //     ],
+    //   },
     // };
 
-    const data = {
-      address_to: {
-        name: "Mr Hippo",
-        street1: "965 Mission St #572",
-        city: "San Francisco",
-        state: "CA",
-        zip: "94103",
-        country: "US",
-        phone: "4151234567",
-        email: "mrhippo@goshippo.com",
-      },
-      address_from: {
-        name: "Mrs Hippo",
-        street1: "1092 Indian Summer Ct",
-        city: "San Jose",
-        state: "CA",
-        zip: "95122",
-        country: "US",
-        phone: "4159876543",
-        email: "mrshippo@goshippo.com",
-      },
-      parcels: [
-        {
-          length: "38",
-          width: "6",
-          height: "6",
-          distance_unit: "in",
-          weight: "10",
-          mass_unit: "lb",
-        },
-      ],
-      carrier_accounts: ["f0b7919bcfe0476e859b5f38416bb426"],
-      async: false,
-    };
-    console.log("data -----::::: " + JSON.stringify(data));
+    // console.log("data0000" + JSON.stringify(data));
 
-    const token = "shippo_test_385ed1b28f50d525d8b9088ac3cbaed1bc9b8ff2";
+    //------ Dynamic Data Get Rates ---------//
+
+    //------ Static Data Get Rates ---------//
+    const data = {
+      accountNumber: {
+        value: "510087720",
+      },
+      rateRequestControlParameters: {
+        returnTransitTimes: true,
+        servicesNeededOnRateFailure: true,
+        variableOptions: "FREIGHT_GUARANTEE",
+        rateSortOrder: "SERVICENAMETRADITIONAL",
+      },
+      requestedShipment: {
+        shipper: {
+          address: {
+            streetLines: ["965 Mission St #572", ""],
+            city: "San Francisco",
+            stateOrProvinceCode: "CA",
+            postalCode: "94103",
+            countryCode: "US",
+          },
+        },
+        recipient: {
+          address: {
+            streetLines: ["1092 Indian Summer Ct", ""],
+            city: "San Jose",
+            stateOrProvinceCode: "CA",
+            postalCode: "95122",
+            countryCode: "US",
+          },
+        },
+        shipDateStamp: "2023-03-24",
+        packagingType: "YOUR_PACKAGING",
+        pickupType: "USE_SCHEDULED_PICKUP",
+        rateRequestType: ["ACCOUNT"],
+        requestedPackageLineItems: [
+          {
+            weight: {
+              units: "LB",
+              value: "22",
+            },
+          },
+        ],
+      },
+    };
+    // console.log("data -----::::: " + JSON.stringify(data));
+
+    //------ Static Data Get Rates ---------//
 
     setTimeout(() => {
-      fetch("https://api.goshippo.com/shipments/", {
+      fetch("https://apis-sandbox.fedex.com/rate/v1/rates/quotes", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `ShippoToken ${token}`,
+          Authorization: `Bearer ${token}`,
+          "X-locale": "en_US",
         },
         body: JSON.stringify(data),
       })
         .then((response) => response.json())
         .then((data) => {
-          let rate = data.rates;
-          setRates(rate);
-          console.log("rate", data.rates);
+          // console.log("data!!!!!!!", data);
+          // let rate = ;
+          setRates(data.output.rateReplyDetails);
+          // console.log("rate", rate.serviceName);
         })
         .catch((e) => {
           console.log("errors", e);
         });
-    },2000);
+    }, 1000);
   };
-
-  //  console.log("rates1", rates);
+  //-------------- New Packaging Details Post API ----------------//
 
   useEffect(() => {
     if (rateId != undefined) {
       AsyncStorage.setItem("rate_id", rateId);
-      console.log("id -----:::::" + rateId);
+      // console.log("id -----:::::" + rateId);
     }
   }, [rateId]);
 
@@ -220,35 +313,190 @@ export default function ShipmentProgressStep({ navigation }) {
 
           <ProgressStep
             label="Shipment info"
-            onNext={onNextStep}
+            onNext={onNext}
             onPrevious={onPrevStep}
             previousBtnDisabled={disable}
-            nextBtnStyle={!order ? styles.btntextt : styles.button}
+            nextBtnStyle={
+              !order
+                ? styles.btntextt
+                : !paymentModal && !showButton
+                ? styles.btntextt
+                : styles.button
+            }
             nextBtnTextStyle={styles.btntext}
             previousBtnStyle={styles.btton}
             previousBtnTextStyle={styles.bttext}
             scrollViewProps={defaultScrollViewProps}
           >
+            {paymentModal ? (
+              <Dialog>
+                <Formik
+                  initialValues={{
+                    email: "",
+                    holderName: "",
+                  }}
+                  validationSchema={validationSchema}
+                  onSubmit={handleSubmit}
+                >
+                  {({
+                    handleChange,
+                    handleBlur,
+                    handleSubmit,
+                    values,
+                    errors,
+                    touched,
+                  }) => (
+                    <>
+                      <View
+                        style={{
+                          flexDirection: "row",
+                          justifyContent: "space-between",
+                        }}
+                      >
+                        <Text style={{ fontSize: 25, color: "CE9D62" }}>
+                          Card Details
+                        </Text>
+                        <Text
+                          style={{ fontWeight: "bold" }}
+                          onPress={closeModal}
+                        >
+                          X
+                        </Text>
+                      </View>
+
+                      <TextInput
+                        style={styles.input}
+                        onChangeText={handleChange("email")}
+                        onBlur={handleBlur("email")}
+                        value={values.email}
+                        placeholder="Email"
+                        keyboardType="email-address"
+                      />
+                      {touched.email && errors.email && (
+                        <Text style={styles.error}>{errors.email}</Text>
+                      )}
+                      <TextInput
+                        style={styles.input}
+                        onChangeText={handleChange("holderName")}
+                        onBlur={handleBlur("holderName")}
+                        value={values.holderName}
+                        placeholder="holderName"
+                      />
+                      {touched.holderName && errors.holderName && (
+                        <Text style={styles.error}>{errors.holderName}</Text>
+                      )}
+
+                      <CardForm
+                        postalCodeEnabled={true}
+                        onFormComplete={(cardDetails) => {
+                          setCardDetails(cardDetails);
+                        }}
+                        style={{
+                          height: 250,
+                          justifyContent: "center",
+                          alignItems: "center",
+                          textAlign: "center",
+                        }}
+                      />
+
+                      <TouchableOpacity
+                        style={{
+                          backgroundColor: "#CE9D62",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          marginLeft: 5,
+                          marginRight: 5,
+                          borderRadius: 8,
+                        }}
+                        onPress={handleSubmit}
+                      >
+                        <Text
+                          style={{
+                            color: "white",
+                            padding: 15,
+                            fontSize: 18,
+                          }}
+                        >
+                          Validate
+                        </Text>
+                      </TouchableOpacity>
+                      {/* <Button onPress={handleSubmit} title="Submit" /> */}
+                    </>
+                  )}
+                </Formik>
+              </Dialog>
+            ) : (
+              ""
+            )}
             {order ? (
-              <DetailClient />
+              <>
+                <OrderDetails
+                  getData={getData}
+                  addrFromData={addrFromData}
+                  toaddressData={toaddressData}
+                />
+                <TouchableOpacity
+                  onPress={handlePayment}
+                  style={{
+                    backgroundColor: "#CE9D62",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    marginLeft: 140,
+                    marginRight: 20,
+                    borderRadius: 8,
+                    display: paymentModal
+                      ? "none"
+                      : showButton
+                      ? "none"
+                      : "flex",
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: "white",
+                      padding: 15,
+                      fontSize: 18,
+                    }}
+                  >
+                    Approve & Finish
+                  </Text>
+                </TouchableOpacity>
+              </>
             ) : (
               <>
                 <ShipmentInfo />
-                <TouchableOpacity style={styles.rates} onPress={handleSubmit}>
+                <TouchableOpacity style={styles.rates} onPress={handleSubmit1}>
                   <Text style={styles.rates1}>
                     Create Shipment And Get Rates
                   </Text>
                 </TouchableOpacity>
-                <View style={styles.DataTable}>
+                <View
+                  style={{
+                    display: rates.length == 0 ? "none" : "flex",
+                  }}
+                >
                   <DataTable>
                     <DataTable.Header>
                       <DataTable.Title></DataTable.Title>
-                      <DataTable.Title>Rates</DataTable.Title>
                       <DataTable.Title>Services</DataTable.Title>
+                      <DataTable.Title>Rates</DataTable.Title>
                       <DataTable.Title numeric>Estimated Days</DataTable.Title>
                     </DataTable.Header>
 
                     {rates.map((data, i) => {
+                      const serviceEstimateDate = new Date(
+                        data.operationalDetail.deliveryDate
+                      );
+                      // let g = JSON.parse(getData);
+                      // console.log("g",g)
+                      // console.log("serviceEstimateDate", serviceEstimateDate);
+
+                      const now = new Date("2023-03-24T12:00:00");
+                      const serviceEstimateDays = Math.round(
+                        (serviceEstimateDate.getTime() - now.getTime()) /
+                          (1000 * 24 * 60 * 60)
+                      );
+
                       return (
                         <>
                           <DataTable.Row>
@@ -257,20 +505,22 @@ export default function ShipmentProgressStep({ navigation }) {
                                 center
                                 checkedIcon="dot-circle-o"
                                 uncheckedIcon="circle-o"
-                                checked={rateId === data.object_id}
+                                checked={rateId === data.serviceName}
                                 onPress={() => {
-                                  setRateAmount(data.amount);
-                                  setRateId(data.object_id);
+                                  setRateAmount(
+                                    data.ratedShipmentDetails[0].totalNetCharge
+                                  );
+                                  setRateId(data.serviceName);
                                 }}
                                 key={i}
                               />
                             </DataTable.Cell>
-                            <DataTable.Cell>$ {data.amount}</DataTable.Cell>
+                            <DataTable.Cell>{data.serviceName}</DataTable.Cell>
                             <DataTable.Cell>
-                              {data.servicelevel.name}
+                              $ {data.ratedShipmentDetails[0].totalNetCharge}
                             </DataTable.Cell>
                             <DataTable.Cell numeric>
-                              {data.estimated_days}
+                              {serviceEstimateDays}
                             </DataTable.Cell>
                           </DataTable.Row>
                         </>
@@ -286,6 +536,7 @@ export default function ShipmentProgressStep({ navigation }) {
                     marginLeft: 20,
                     marginRight: 25,
                     marginBottom: 25,
+                    display: rates.length == 0 ? "none" : "flex",
                   }}
                 >
                   <Text
@@ -299,9 +550,26 @@ export default function ShipmentProgressStep({ navigation }) {
                     Total : {rateAmount}
                   </Text>
                 </View>
-                <TouchableOpacity  onPress={handleOrder}>
-                  <Text>
-                    NextButton
+                <TouchableOpacity
+                  onPress={handleOrder}
+                  style={{
+                    backgroundColor: "#CE9D62",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    marginLeft: 140,
+                    marginRight: 20,
+                    borderRadius: 8,
+                    display: rates.length == 0 ? "none" : "flex",
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: "white",
+                      padding: 15,
+                      fontSize: 18,
+                    }}
+                  >
+                    Continue To Preview
                   </Text>
                 </TouchableOpacity>
               </>
@@ -313,9 +581,11 @@ export default function ShipmentProgressStep({ navigation }) {
             onSubmit={onSubmitSteps}
             scrollViewProps={defaultScrollViewProps}
             removeBtnRow={disable}
+            previousBtnDisabled={disable}
+            previousBtnStyle={{ display: "none" }}
           >
             <View style={{ alignItems: "center" }}>
-              <DownloadShipment />
+              <DownloadShipment token={token} />
             </View>
           </ProgressStep>
         </ProgressSteps>
@@ -330,7 +600,6 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
     justifyContent: "center",
   },
-  DataTable: {},
   rateId: {
     fontSize: 25,
   },
@@ -568,5 +837,17 @@ const styles = StyleSheet.create({
 
   slide: {
     justifyContent: "space-between",
+  },
+  input: {
+    height: 40,
+    borderColor: "white",
+    backgroundColor: "white",
+    marginLeft: 10,
+    paddingLeft: -100,
+    padding: 7,
+  },
+  error: {
+    color: "red",
+    marginLeft: 10,
   },
 });

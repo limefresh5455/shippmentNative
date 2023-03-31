@@ -28,48 +28,58 @@ const screenOptionStyle = {
   tabBarStyle: [
     {
       borderRadius: 99,
-      backgroundColor:"white",
+      backgroundColor: "white",
       borderBottom: "none",
       marginLeft: 10,
       marginRight: 10,
       shadowOffset: { width: -2, height: 4 },
       shadowColor: "#171717",
       shadowOpacity: 0.2,
-      shadowRadius: 3, 
+      shadowRadius: 3,
     },
   ],
 };
-const ShipmentInfo =  () => {
-  
-  const [minHeight, setMinHeight] = useState(1075)
+const ShipmentInfo = () => {
+  const [minHeight, setMinHeight] = useState(1075);
 
   return (
     <>
-    {/* // <SafeAreaView style={styles.container}> */}
+      {/* // <SafeAreaView style={styles.container}> */}
       {/* <ScrollView style={{marginBottom:-600}}> */}
-        <View style={styles.businessForm}>
-          <View style={styles.formTitle}>
-            <Text style={styles.formTitleh1}>Shipment info</Text>
-          </View>
+      <View style={styles.businessForm}>
+        <View style={styles.formTitle}>
+          <Text style={styles.formTitleh1}>Shipment info</Text>
         </View>
+      </View>
       {/* </ScrollView> */}
-    {/* <ScrollView > */}
+      {/* <ScrollView > */}
       <NavigationContainer>
-        <Tab.Navigator style={{minHeight:minHeight}} screenOptions={screenOptionStyle}>
-          <Tab.Screen name="Ship From Details" component={SFD} listeners={{
-          tabPress: e => {
-           setMinHeight(1075)
-          },
-        }} />
-          <Tab.Screen name="Ship To Information" component={STI} listeners={{
-          tabPress: e => {
-           setMinHeight(1720)
-          },
-        }} />
+        <Tab.Navigator
+          style={{ minHeight: minHeight }}
+          screenOptions={screenOptionStyle}
+        >
+          <Tab.Screen
+            name="Ship From Details"
+            component={SFD}
+            listeners={{
+              tabPress: (e) => {
+                setMinHeight(1075);
+              },
+            }}
+          />
+          <Tab.Screen
+            name="Ship To Information"
+            component={STI}
+            listeners={{
+              tabPress: (e) => {
+                setMinHeight(1720);
+              },
+            }}
+          />
         </Tab.Navigator>
       </NavigationContainer>
       {/* </ScrollView> */}
-    {/* </SafeAreaView> */}
+      {/* </SafeAreaView> */}
     </>
   );
 };

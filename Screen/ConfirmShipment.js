@@ -122,8 +122,6 @@ const ConfirmShipment = ({ navigation }) => {
             </Text>
           </View>
 
-
-          
           <View style={styles.formTitle}>
             <Text style={styles.formTitleh1}>Image Upload:</Text>
             <Text style={styles.formTitleh2}>Step 3-4</Text>
@@ -136,7 +134,7 @@ const ConfirmShipment = ({ navigation }) => {
             placeholder="Email Id"
           />
           <Text style={styles.label}>Upload Your Signature Photo:*</Text>
-         
+
           <TextInput
             style={styles.input}
             //   onChangeText={onChangeNumber}
@@ -150,7 +148,6 @@ const ConfirmShipment = ({ navigation }) => {
               onPress={() => navigation.navigate("ShipmentInfo")}
             >
               <Text style={styles.btntext}>Previous</Text>
-              
             </Pressable>
             <Pressable
               style={styles.button}
@@ -266,7 +263,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     marginTop: 25,
-    paddingRight:5
+    paddingRight: 5,
   },
   label: {
     paddingLeft: 10,

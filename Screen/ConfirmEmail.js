@@ -1,16 +1,21 @@
-import { View, Text, StyleSheet, SafeAreaView, Image, Button } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  SafeAreaView,
+  Image,
+  Button,
+} from "react-native";
 import React from "react";
 import Header from "./Header";
 import Icon from "react-native-vector-icons/FontAwesome";
 import SignIn from "./SignIn";
 import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
 const ConfirmEmail = ({ navigation }) => {
-
-
-    const showMessage =() => {
-         navigation.navigate("SignIn");
-         // alert("hii...")
-    }
+  const showMessage = () => {
+    navigation.navigate("SignIn");
+    // alert("hii...")
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -49,14 +54,13 @@ const ConfirmEmail = ({ navigation }) => {
         </View>
       </View>
       <View>
-        <Text
-         style={styles.skipContent}
-        onPress={showMessage}  
-        >Skip this step</Text>
+        <Text style={styles.skipContent} onPress={showMessage}>
+          Skip this step
+        </Text>
       </View>
     </SafeAreaView>
   );
-}; 
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -66,7 +70,7 @@ const styles = StyleSheet.create({
   dialougeBox: {
     paddingLeft: 15,
     paddingRight: 15,
-    marginTop:125,
+    marginTop: 125,
   },
   companyLogo: {
     width: 120,
@@ -85,10 +89,10 @@ const styles = StyleSheet.create({
     marginBottom: 28,
     color: "#b1aeae",
     fontWeight: "300",
-    textAlign:"center"
+    textAlign: "center",
   },
   h1m: {
-   fontSize: 30,
+    fontSize: 30,
     fontWeight: "250",
     marginRight: 20,
     fontWeight: "bold",
@@ -103,33 +107,32 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   innercontentView: {
-   textAlign : "center",
-  marginTop: -45,
-  padding: 20
-  
+    textAlign: "center",
+    marginTop: -45,
+    padding: 20,
   },
   skipContent: {
-    marginTop: 90, 
-    color: "#cf9e63", 
-    marginLeft: 135, 
+    marginTop: 90,
+    color: "#cf9e63",
+    marginLeft: 135,
   },
   SquareShapeView: {
-    marginTop: 20, 
-    width: 380, 
-    height: 80, 
-    borderRadius: 12, 
-    borderWidth: 0.5, 
-    borderColor: "#EDE6D6", 
-    paddingBottom: 30, 
+    marginTop: 20,
+    width: 380,
+    height: 80,
+    borderRadius: 12,
+    borderWidth: 0.5,
+    borderColor: "#EDE6D6",
+    paddingBottom: 30,
   },
   header: {
-    display: "flex", 
-    flexDirection: "row", 
-    marginTop: 20, 
-    paddingRight: 15, 
-    justifyContent: "space-between", 
-    paddingLeft: -65, 
-    shadowColor: "blue", 
+    display: "flex",
+    flexDirection: "row",
+    marginTop: 20,
+    paddingRight: 15,
+    justifyContent: "space-between",
+    paddingLeft: -65,
+    shadowColor: "blue",
   },
 });
 export default ConfirmEmail;

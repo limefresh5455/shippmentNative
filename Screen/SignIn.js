@@ -219,13 +219,13 @@ const styles = StyleSheet.create({
     backgroundColor: "#fbf1e6",
     padding: 9,
   },
-    bp: {
+  bp: {
     color: "#cf9e63",
     fontSize: 15,
     textAlign: "left",
-    marginTop:-55,
-    marginBottom:40,
-    marginLeft:13
+    marginTop: -55,
+    marginBottom: 40,
+    marginLeft: 13,
   },
   title1: {
     fontSize: 28,

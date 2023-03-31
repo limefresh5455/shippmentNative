@@ -1,7 +1,28 @@
-import { View, Text, SafeAreaView, ScrollView } from "react-native";
-import React from "react";
+import {
+  View,
+  Text,
+  SafeAreaView,
+  ScrollView,
+  TouchableOpacity,
+} from "react-native";
+import React, { useState, useEffect } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export default function DetailClient() {
+export default function OrderDetails(props) {
+  let data = JSON.parse(props.getData);
+  useEffect(() => {
+    function fetchData() {
+      data.carrier = AsyncStorage.getItem("Carrier");
+      console.log("dataaa", data);
+    }
+    fetchData();
+  }, []);
+  // const allData=async()=>{
+
+  //  }
+
+  console.log("get data", data);
+
   return (
     <SafeAreaView>
       <ScrollView>
@@ -9,7 +30,7 @@ export default function DetailClient() {
           {/* First Block Details Start */}
           <View
             style={{
-              marginTop: 60,
+              marginTop: 30,
               marginLeft: 30,
               display: "flex",
               flexDirection: "row",
@@ -77,7 +98,7 @@ export default function DetailClient() {
             }}
           >
             <Text style={{ fontSize: 18 }}>Insured value :</Text>
-            <Text style={{ marginLeft: 10 }}>$1.00</Text>
+            <Text style={{ marginLeft: 10 }}>$ {data.USdollar}</Text>
           </View>
 
           <View
@@ -114,9 +135,7 @@ export default function DetailClient() {
             }}
           >
             <Text style={{ fontSize: 18 }}>Services Type :</Text>
-            <Text style={{ marginLeft: 10 }}>
-              ups_mail_innovations_bpm_parcel
-            </Text>
+            <Text style={{ marginLeft: 10 }}>{data.service}</Text>
           </View>
 
           <View
@@ -128,7 +147,7 @@ export default function DetailClient() {
             }}
           >
             <Text style={{ fontSize: 18 }}>Packaging :</Text>
-            <Text style={{ marginLeft: 10 }}>UPS_Express_Legal_Envelope</Text>
+            <Text style={{ marginLeft: 10 }}>{data.packaging}</Text>
           </View>
 
           <View
@@ -140,7 +159,7 @@ export default function DetailClient() {
             }}
           >
             <Text style={{ fontSize: 18 }}>Insured value :</Text>
-            <Text style={{ marginLeft: 10 }}>$1.00</Text>
+            <Text style={{ marginLeft: 10 }}>$ {data.USdollar}</Text>
           </View>
 
           <View
@@ -185,7 +204,7 @@ export default function DetailClient() {
                 fontSize: 22,
               }}
             >
-              ShIP FROM DETAILS
+              SHIP FROM DETAILS
             </Text>
           </View>
           <View
@@ -215,7 +234,7 @@ export default function DetailClient() {
                 fontSize: 22,
               }}
             >
-              ShIP TO INFORMATION
+              SHIP TO INFORMATION
             </Text>
           </View>
           <View
@@ -242,7 +261,9 @@ export default function DetailClient() {
               }}
             >
               <Text style={{ fontSize: 20 }}>Insurance </Text>
-              <Text style={{ marginLeft: 60, fontSize: 15 }}>$1.00</Text>
+              <Text style={{ marginLeft: 60, fontSize: 15 }}>
+                $ {data.USdollar}
+              </Text>
             </View>
 
             <View
@@ -278,7 +299,7 @@ export default function DetailClient() {
                 flexDirection: "row",
                 justifyContent: "center",
                 alignItems: "center",
-                marginBottom: 20
+                marginBottom: 40,
               }}
             >
               <Text style={{ fontSize: 20 }}>Total due </Text>

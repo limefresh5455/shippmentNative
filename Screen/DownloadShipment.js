@@ -8,61 +8,173 @@ import {
   Linking,
 } from "react-native";
 import React, { useState, useEffect } from "react";
-// import { Ticket } from "../assets/img/ticket.png";
-import { NavigationContainer } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-// import RNFetchBlob from "rn-fetch-blob";
 
 let rateId;
-export default function DownloadShipment({ navigation }) {
+export default function DownloadShipment(props) {
   const [image, setImage] = useState();
+  console.log("props",props)
 
+//---------------- Download Label URL ----------------//
+  useEffect(async() => {
+    // rateId = AsyncStorage.getItem("rate_id");
 
-  useEffect(() => {
-    rateId = AsyncStorage.getItem("rate_id");
-
+    //-------------- static data for label --------------//
     let data = {
-      rate: rateId,
-      label_file_type: "PDF",
-      test: true,
-      order: "",
-      async: false,
+      labelResponseOptions: "URL_ONLY",
+      requestedShipment: {
+        shipper: {
+          contact: {
+            personName: "MrsHippo",
+            phoneNumber: "4151234567",
+            companyName: "Google",
+          },
+          address: {
+            streetLines: ["1092 Indian Summer Ct "],
+            city: "San Jose",
+            stateOrProvinceCode: "CA",
+            postalCode: "95122",
+            countryCode: "US",
+          },
+        },
+        recipients: [
+          {
+            contact: {
+              personName: "MrsHippo",
+              phoneNumber: "4151234568",
+              companyName: "facebook",
+            },
+            address: {
+              streetLines: ["965 Mission St #572"],
+              city: "San Francisco",
+              stateOrProvinceCode: "CA",
+              postalCode: "94103",
+              countryCode: "US",
+            },
+          },
+        ],
+        shipDateStamp: "2023-03-24",
+        packagingType: "YOUR_PACKAGING",
+        serviceType: "FIRST_OVERNIGHT",
+        pickupType: "USE_SCHEDULED_PICKUP",
+        shippingChargesPayment: {
+          paymentType: "SENDER",
+        },
+        labelSpecification: {
+          imageType: "PDF",
+          labelStockType: "PAPER_85X11_TOP_HALF_LABEL",
+        },
+        requestedPackageLineItems: [
+          {
+            weight: {
+              units: "LB",
+              value: "22",
+            },
+          },
+        ],
+      },
+      accountNumber: {
+        value: "510087020",
+      },
     };
+    //-------------- static data for label --------------//
 
-    // set static data
-    // let data = {
-    //   rate: "363eda578b5341a484f9cd3a458daf71",
-    //   label_file_type: "PDF",
-    //   test: true,
-    //   order: "",
-    //   async: false,
-    // };
+//-------------- Dynamic data for label --------------//
+//  getData = await AsyncStorage.getItem("user");
+//  addrFromData = await AsyncStorage.getItem("addressFrom");
+//  toaddressData = await AsyncStorage.getItem("addressTo");
 
-    console.log("rateid", data.rate);
+//   let g = JSON.parse(getData);
+//   let f = JSON.parse(addrFromData);
+//   let t = JSON.parse(toaddressData);
 
-    const token = "shippo_test_385ed1b28f50d525d8b9088ac3cbaed1bc9b8ff2";
+//     const data = {
+//       labelResponseOptions: "URL_ONLY",
+//       requestedShipment: {
+//         shipper: {
+//           contact: {
+//             personName: f.firstname + "" + f.lastname,
+//             phoneNumber: f.phone,
+//             companyName: "Google",
+//           },
+//           address: {
+//             streetLines: [f.address],
+//             city: f.city,
+//             stateOrProvinceCode: f.state,
+//             postalCode: f.zip,
+//             countryCode: f.country,
+//           },
+//         },
+//         recipients: [
+//           {
+//             contact: {
+//               personName: t.firstname + "" + f.lastname,
+//               phoneNumber: t.phone,
+//               companyName: "facebook",
+//             },
+//             address: {
+//               streetLines: [t.address],
+//               city: t.city,
+//               stateOrProvinceCode: t.state,
+//               postalCode: t.zip,
+//               countryCode: t.country,
+//             },
+//           },
+//         ],
+//         shipDateStamp: "2023-03-24",
+//         packagingType: g.packaging,
+//         serviceType: "FIRST_OVERNIGHT",
+//         pickupType: "USE_SCHEDULED_PICKUP",
+//         shippingChargesPayment: {
+//           paymentType: "SENDER",
+//         },
+//         labelSpecification: {
+//           imageType: "PDF",
+//           labelStockType: "PAPER_85X11_TOP_HALF_LABEL",
+//         },
+//         requestedPackageLineItems: [
+//           {
+//             weight: {
+//               units: g.mass,
+//               value: g.weight,
+//             },
+//           },
+//         ],
+//       },
+//       accountNumber: {
+//         value: "510087020",
+//       },
+//     };
 
-    fetch("https://api.goshippo.com/transactions/", {
+//-------------- Dynamic data for label --------------//
+
+    fetch("https://apis-sandbox.fedex.com/ship/v1/shipments", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `ShippoToken ${token}`,
+        Authorization: `Bearer ${props.token}`,
+        "X-locale": "en_US",
       },
       body: JSON.stringify(data),
     })
       .then((response) => response.json())
       .then((data) => {
-        if (data.status == SUCCESS){
-          
-        } 
-        setImage(data.label_url);
-        console.log("data.label_url", data);
+        setImage(
+          data.output.transactionShipments[0].pieceResponses[0]
+            .packageDocuments[0].url
+        );
+
+        console.log(
+          "data.label_url",
+          data.output.transactionShipments[0].pieceResponses[0]
+            .packageDocuments[0].url
+        );
       })
       .catch((e) => {
         console.log("errors", e);
       });
   }, []);
-  console.log("image path ---------- " + image);
+   console.log("image path ---------- " + image);
 
   // Dynamic Download pdf
   const handleDownload = async () => {

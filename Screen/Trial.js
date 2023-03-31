@@ -11,6 +11,8 @@ import {
   Dimensions,
   ScrollView,
   TouchableOpacity,
+  Platform,
+  Modal,
 } from "react-native";
 import Slideshow from "react-native-image-slider-show";
 import React, { useState, useEffect } from "react";
@@ -18,152 +20,96 @@ import { Picker } from "@react-native-picker/picker";
 import Icon from "react-native-vector-icons/FontAwesome";
 import { Card } from "react-native-shadow-cards";
 import AnimatedInput from "react-native-animated-input";
-import DatePicker from "react-native-datepicker";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import Carousel from "react-native-snap-carousel";
-import CarouselCardItem, { SLIDER_WIDTH, ITEM_WIDTH } from "./CarouselCardItem";
-import AsyncStorage from '@react-native-async-storage/async-storage';
-// import DatePicker from "react-native-modern-datepicker";
-
-const data = [
-  {
-    imgUrl:
-      "https://www.axisbank.com/images/default-source/default-album/ace-credit-card.jpg",
-  },
-  {
-    imgUrl:
-      "https://1.bp.blogspot.com/-vbR02D5OHjs/XTxr17QOLaI/AAAAAAAAARE/11BvbYw9ZI84U-Jwjs2Z29Z3aWLwgNp7wCLcBGAs/s1600/Axis%2BBank%2BRewards%2BPlus.jpg",
-  },
-];
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import DatePicker from "react-native-modern-datepicker";
 
 const Trial = () => {
-  //DateTimePicker
-  //  const [selectedDate, setSelectedDate] = useState("");
-  const [selectedValue, setSelectedValue] = useState();
-  const [serviceDetails, setserviceDetails] = useState([]);
+  //----- DatePicker -----//
+  const [show, setShow] = useState(false);
+  //----- DatePicker -----//
+
   const [selectedValue1, setSelectedValue1] = useState();
-  const [packagingDetails, setpackagingDetails] = useState([]);
+  // const [packagingDetails, setpackagingDetails] = useState([]);
   const [objectId, setObjectId] = useState([]);
   const [weight, setWeight] = useState("");
   const [mass, setMass] = useState("");
   const [deliveryConfirmation, setDeliveryConfirmation] = useState("");
   const [position, setPosition] = useState(0);
   const [formData, setFormData] = useState({
-    service: "",
     packaging: "",
     weight: "",
     mass: "",
+    date: "",
     item: "",
     signature: "",
     USdollar: "",
+    carrier: "",
   });
 
-  console.log("objectid", objectId);
+  // console.log("objectid", objectId);
+  // console.log("formData", formData);
+  //   console.log("selectedDate", selectedDate);
 
-  AsyncStorage.setItem("objectid", JSON.stringify(objectId));
+  // AsyncStorage.setItem("objectid", JSON.stringify(objectId));
 
-  const handleWeightChange = (weight) =>{
-      setFormData({ ...formData, weight });
-  }
+  //----- DatePicker -----//
 
-  const handleItemChange = (item) =>{
-      setFormData({ ...formData, item });
-  }
+  const handlePress = () => {
+    setShow(!show);
+  };
 
-  const handleUSdollarChange = (USdollar) =>{
-      setFormData({ ...formData, USdollar });
-  }
+  const handleDate = (date) => {
+    setFormData({ ...formData, date });
+    setShow(false);
+  };
+
+  //----- DatePicker -----//
+
+  const handleWeightChange = (weight) => {
+    setFormData({ ...formData, weight });
+  };
+
+  const handleItemChange = (item) => {
+    setFormData({ ...formData, item });
+  };
+
+  const handleUSdollarChange = (USdollar) => {
+    USdollar.toLocaleString("en-US", {
+      style: "currency",
+      currency: "USD",
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
+    setFormData({ ...formData, USdollar });
+  };
 
   //console.log("formData",formData);
-   
-     
-   
-  const handlePress = (value) => {
-    // console.log(value)
-    fetch(
-      "https://api.goshippo.com/carrier_accounts/?carrier=" +
-        value +
-        "&service_levels=1",
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization:
-            "ShippoToken shippo_test_385ed1b28f50d525d8b9088ac3cbaed1bc9b8ff2",
-        },
-      }
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        setserviceDetails(data.results[0].service_levels);
-       // console.log(data.results[data.results.length-1].object_id);
-        setObjectId(data.results[data.results.length - 1].object_id);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
 
-    fetch("https://api.goshippo.com/parcel-templates?carrier=" + value, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization:
-          "ShippoToken shippo_test_385ed1b28f50d525d8b9088ac3cbaed1bc9b8ff2",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        // console.log("data - ", data.results);
-        setpackagingDetails(data.results);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
-  };
-
-
-  const serviceList = () => {
-    // console.log(serviceDetails)
-    return serviceDetails.map((service,i) => {
-      return <Picker.Item key={i} label={service.name} value={service.name} />;
-    });
-  };
-
-  const packageList = () => {
-    // console.log("asddjfdjfd")
-    return packagingDetails.map((service,i) => {
-      return <Picker.Item key={i} label={service.name} value={service.name} />;
-    });
-  };
-useEffect( ()=>{
-  AsyncStorage.setItem('user',JSON.stringify(formData)); 
- console.log("formdata",formData);
-},[formData])
-  // const fieldData = async () =>{
-  
-    
-  // }
   useEffect(() => {
+    AsyncStorage.setItem("user", JSON.stringify(formData));
+    // console.log("formdata1", formData);
+  }, [formData]);
 
-      // fieldData()
+  // useEffect(() => {
+  //   const toggle = setInterval(() => {
+  //     setPosition(position === data.length - 1 ? 0 : position + 1);
+  //   }, 3000);
 
-    const toggle = setInterval(() => {
-      setPosition(position === data.length - 1 ? 0 : position + 1);
-    }, 3000);
+  //   return () => clearInterval(toggle);
+  // });
 
-    return () => clearInterval(toggle);
-  });
+  // const isCarousel = React.useRef(null);
 
-  const isCarousel = React.useRef(null);
-
-const packagingOnchange = (value, index) => {
-   AsyncStorage.setItem(
-     "packaging",
-     JSON.stringify(packagingDetails[index - 1])
-   );
-  setSelectedValue1(value);
-};
+  // const packagingOnchange = (value, index) => {
+  //   AsyncStorage.setItem(
+  //     "packaging",
+  //     JSON.stringify(packagingDetails[index - 1])
+  //   );
+  //   setSelectedValue1(value);
+  // };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -173,105 +119,41 @@ const packagingOnchange = (value, index) => {
             <Text style={styles.formTitleh1}>Package info</Text>
           </View>
 
-          <View style={styles.flex}>
-            <TouchableOpacity
-              onPress={() => handlePress("fedex")}
-              // style={{
-              //   borderColor: "black",
-              //   borderBottomWidth: 1,
-              //   borderRightWidth: 1,
-              //   borderTopWidth: 1,
-              //   borderLeftWidth: 1,
-              //   borderRadius: 9,
-              // }}
-            >
-              <Card style={styles.cards}>
-                <View style={styles.card}>
-                  <Image
-                    source={require("../assets/img/ups.png")}
-                    style={styles.img}
-                  />
-                  <Text style={styles.text}>FedEx</Text>
-                </View>
-              </Card>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              onPress={() => handlePress("ups")}
-              // style={{
-              //   borderColor: "black",
-              //   borderBottomWidth: 1,
-              //   borderRightWidth: 1,
-              //   borderTopWidth: 1,
-              //   borderLeftWidth: 1,
-              //   borderRadius: 9,
-              // }}
-            >
-              <Card style={styles.cards}>
-                <View style={styles.card}>
-                  <Image
-                    source={require("../assets/img/ups.png")}
-                    style={styles.img}
-                  />
-                  <Text style={styles.text}>UPS</Text>
-                </View>
-              </Card>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              onPress={() => handlePress("usps")}
-              // style={{
-              //   borderBottomWidth: 1,
-              //   borderRightWidth: 1,
-              //   borderTopWidth: 1,
-              //   borderLeftWidth: 1,
-              //   borderRadius: 9,
-              // }}
-            >
-              <Card style={styles.cards}>
-                <View style={styles.card}>
-                  <Image
-                    source={require("../assets/img/ups.png")}
-                    style={styles.img}
-                  />
-                  <Text style={styles.text}>USPS</Text>
-                </View>
-              </Card>
-            </TouchableOpacity>
-          </View>
-
           <View>
-            <Text style={{ marginLeft: 16, marginTop: 20, color: "#8d9092" }}>
-              Service Type
-            </Text>
-            <Picker
-              selectedValue={selectedValue}
-              onValueChange={(itemValue, itemIndex) => {
-                setSelectedValue(itemValue);
-                setFormData({ ...formData, service: itemValue });
-              }}
-              style={{ marginLeft: 8, borderColor: "black" }}
-              value={formData.service}
-            >
-              <Picker.Item label="Select Service type" value="" />
-              {serviceList()}
-            </Picker>
-            <Text style={styles.inputs}></Text>
-
             <Text style={{ marginLeft: 16, marginTop: 20, color: "#8d9092" }}>
               Packaging
             </Text>
             <Picker
               selectedValue={selectedValue1}
               onValueChange={(itemValue, itemIndex) => {
-                packagingOnchange(itemValue, itemIndex);
+                setSelectedValue1(itemValue, itemIndex);
                 setFormData({ ...formData, packaging: itemValue });
               }}
               style={{ marginLeft: 8, borderColor: "black" }}
               value={formData.packaging}
             >
               <Picker.Item label="Select Packaging" value="" />
-              {packageList()}
+              <Picker.Item
+                label="Customer Packaging, FedEx Express® Services"
+                value="YOUR_PACKAGING"
+              />
+              <Picker.Item
+                label="Customer Packaging, FedEx Ground® Economy (Formerly known as FedEx SmartPost®) Services"
+                value="YOUR_PACKAGING"
+              />
+              <Picker.Item label="FedEx® Envelope" value="FEDEX_ENVELOPE" />
+              <Picker.Item label="FedEx® Box" value="FEDEX_BOX" />
+              <Picker.Item label="FedEx® Small Box" value="FEDEX_SMALL_BOX" />
+              <Picker.Item label="FedEx® Medium Box" value="FEDEX_MEDIUM_BOX" />
+              <Picker.Item label="FedEx® Large Box" value="FEDEX_LARGE_BOX" />
+              <Picker.Item
+                label="FedEx® Extra Large Box"
+                value="FEDEX_EXTRA_LARGE_BOX"
+              />
+              <Picker.Item label="FedEx® 10kg Box" value="FEDEX_10KG_BOX" />
+              <Picker.Item label="FedEx® 25kg Box" value="FEDEX_25KG_BOX" />
+              <Picker.Item label="FedEx® Pak" value="FEDEX_PAK" />
+              <Picker.Item label="FedEx® Tube" value="FEDEX_TUBE" />
             </Picker>
             <Text style={styles.inputs}></Text>
 
@@ -297,14 +179,30 @@ const packagingOnchange = (value, index) => {
               value={formData.mass}
             >
               <Picker.Item label="Select Mass Unit" value="" />
-              <Picker.Item label="lb" value="lb" />
-              <Picker.Item label="oz" value="oz" />
-              <Picker.Item label="g" value="g" />
-              <Picker.Item label="kg" value="kg" />
+              <Picker.Item label="lb" value="LB" />
+              <Picker.Item label="oz" value="OZ" />
+              <Picker.Item label="g" value="G" />
+              <Picker.Item label="kg" value="KG" />
             </Picker>
 
-            {/* <DatePicker onSelectedChange={(date) => setSelectedDate(date)} /> */}
+            <View
+              style={{
+                marginLeft: 13,
+                marginRight: 14,
+                marginBottom: 30,
+                marginTop: -10,
+              }}
+            >
+              <Button title="DatePicker" onPress={handlePress}></Button>
 
+              {show && (
+                <DatePicker
+                  mode="calendar"
+                  onSelectedChange={(date) => handleDate(date)}
+                  value={formData.selectedDate}
+                />
+              )}
+            </View>
             <Text
               style={{
                 marginLeft: 18,
@@ -335,11 +233,9 @@ const packagingOnchange = (value, index) => {
               value={formData.signature}
             >
               <Picker.Item label="Select No. of packages" value="" />
-              <Picker.Item
-                label="Signature required"
-                value="Signature required"
-              />
-              <Picker.Item label="Demo" value="Demo" />
+              <Picker.Item label="No signature" value="No signature" />
+              <Picker.Item label="Direct signature" value="Direct signature" />
+              <Picker.Item label="Adult signature" value="Adult signature" />
             </Picker>
             <Text style={styles.inputs}></Text>
 
@@ -362,28 +258,6 @@ const packagingOnchange = (value, index) => {
               value={formData.USdollar}
               Image={"\u0024"}
             />
-
-            {/* <View style={styles.flex}>
-              <Text style={{ fontSize: 20 }}>Amount pay from</Text>
-              <Text style={{ fontSize: 17, marginTop: 5, color: "#e3b993" }}>
-                Add New
-              </Text>
-            </View>
-
-            <View style={styles.slide}>
-              <Carousel
-                layout="default"
-                layoutCardOffset={9}
-                ref={isCarousel}
-                data={data}
-                renderItem={CarouselCardItem}
-                sliderWidth={340}
-                itemWidth={330}
-                inactiveSlideShift={0}
-                useScrollView={true}
-                style={{ position: "absolute" }}
-              />
-            </View> */}
           </View>
         </View>
       </ScrollView>
