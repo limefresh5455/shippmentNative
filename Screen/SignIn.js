@@ -60,6 +60,14 @@ const SignIn = ({ navigation }) => {
       });
   }
 
+  const handleGoogle = () => {
+    Linking.openURL("https://shipwwt.com/");
+  };
+
+  const handleFacebook = () => {
+    alert("No Facebook Page Available !!!!");
+  };
+
   return (
     <Formik
       initialValues={{
@@ -178,7 +186,7 @@ const SignIn = ({ navigation }) => {
                   style={{
                     textAlign: "center",
                     color: "#b1aeae",
-                    marginLeft: 10,
+                    marginLeft: 5,
                     marginRight: 10,
                   }}
                 >
@@ -196,13 +204,13 @@ const SignIn = ({ navigation }) => {
             </View>
             <View style={styles.socialLogo}>
               <View style={styles.SquareShapeView}>
-                <Pressable onPress={() => navigation.navigate("ConfirmEmail")}>
+                <Pressable onPress={handleGoogle}>
                   <Icon name="google" size={40} color="#cc3333" />
                 </Pressable>
               </View>
 
               <View style={styles.SquareShapeView2}>
-                <Pressable onPress={() => navigation.navigate("ConfirmEmail")}>
+                <Pressable onPress={handleFacebook}>
                   <Icon name="facebook" size={40} color="#3c63e2" />
                 </Pressable>
               </View>

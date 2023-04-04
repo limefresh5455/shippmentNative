@@ -55,6 +55,9 @@ export default function ShipmentProgressStep({ navigation }) {
   const [showButton, setShowButton] = useState(false);
   const [token, setToken] = useState();
   const [cardDetails, setCardDetails] = useState("");
+  const [cardDetails1, setCardDetails1] = useState("");
+
+
 
   const handleSubmit = (values) => {
     let card = {
@@ -126,7 +129,7 @@ export default function ShipmentProgressStep({ navigation }) {
       body: formData.toString(),
     })
       .then((response) => response.json())
-      .then(async(data) => {
+      .then(async (data) => {
         // console.log("Token :- ", data.access_token);
         setToken(data.access_token);
       })
@@ -315,7 +318,6 @@ export default function ShipmentProgressStep({ navigation }) {
             label="Shipment info"
             onNext={onNext}
             onPrevious={onPrevStep}
-            previousBtnDisabled={disable}
             nextBtnStyle={
               !order
                 ? styles.btntextt
@@ -434,6 +436,7 @@ export default function ShipmentProgressStep({ navigation }) {
                   getData={getData}
                   addrFromData={addrFromData}
                   toaddressData={toaddressData}
+                  rateAmount={rateAmount}
                 />
                 <TouchableOpacity
                   onPress={handlePayment}
@@ -637,14 +640,18 @@ const styles = StyleSheet.create({
   btntextt: {
     display: "none",
   },
+  continueText: {
+    display: "none",
+  },
   btton: {
     fontSize: 16,
     lineHeight: 21,
     fontWeight: "bold",
     letterSpacing: 0.25,
-    color: "white",
+    backgroundColor: "#cf9e63",
     justifyContent: "center",
     padding: 8,
+    marginLeft:-50
   },
   bttext: {
     fontSize: 16,

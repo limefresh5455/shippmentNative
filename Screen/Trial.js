@@ -25,6 +25,7 @@ import * as Yup from "yup";
 import Carousel from "react-native-snap-carousel";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import DatePicker from "react-native-modern-datepicker";
+import moment from "moment";
 
 const Trial = () => {
   //----- DatePicker -----//
@@ -45,27 +46,19 @@ const Trial = () => {
     date: "",
     item: "",
     signature: "",
-    USdollar: "",
-    carrier: "",
+    USdollar: "1.00",
   });
-
-  // console.log("objectid", objectId);
-  // console.log("formData", formData);
-  //   console.log("selectedDate", selectedDate);
 
   // AsyncStorage.setItem("objectid", JSON.stringify(objectId));
 
-  //----- DatePicker -----//
-
+  //--------- DatePicker -----//
   const handlePress = () => {
     setShow(!show);
   };
-
   const handleDate = (date) => {
-    setFormData({ ...formData, date });
+    setFormData({ ...formData, date});
     setShow(false);
   };
-
   //----- DatePicker -----//
 
   const handleWeightChange = (weight) => {
@@ -77,39 +70,13 @@ const Trial = () => {
   };
 
   const handleUSdollarChange = (USdollar) => {
-    USdollar.toLocaleString("en-US", {
-      style: "currency",
-      currency: "USD",
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    });
     setFormData({ ...formData, USdollar });
   };
-
-  //console.log("formData",formData);
 
   useEffect(() => {
     AsyncStorage.setItem("user", JSON.stringify(formData));
     // console.log("formdata1", formData);
   }, [formData]);
-
-  // useEffect(() => {
-  //   const toggle = setInterval(() => {
-  //     setPosition(position === data.length - 1 ? 0 : position + 1);
-  //   }, 3000);
-
-  //   return () => clearInterval(toggle);
-  // });
-
-  // const isCarousel = React.useRef(null);
-
-  // const packagingOnchange = (value, index) => {
-  //   AsyncStorage.setItem(
-  //     "packaging",
-  //     JSON.stringify(packagingDetails[index - 1])
-  //   );
-  //   setSelectedValue1(value);
-  // };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -164,6 +131,7 @@ const Trial = () => {
               onChangeText={handleWeightChange}
               value={formData.weight}
             />
+
             <Picker
               selectedValue={mass}
               onValueChange={(itemValue, itemIndex) => {
@@ -193,13 +161,47 @@ const Trial = () => {
                 marginTop: -10,
               }}
             >
-              <Button title="DatePicker" onPress={handlePress}></Button>
+              <Button
+                title="DatePicker"
+                onPress={handlePress}
+                style={{ backgroundColor: "white" }}
+              ></Button>
 
               {show && (
                 <DatePicker
                   mode="calendar"
+                  format="YYYY-MM-DD"
                   onSelectedChange={(date) => handleDate(date)}
                   value={formData.selectedDate}
+                  style={{
+                    width: "100%",
+                    backgroundColor: "#FFFFFF",
+                    borderRadius: 10,
+                    paddingVertical: 10,
+                    paddingHorizontal: 20,
+                    shadowColor: "#000",
+                    shadowOffset: {
+                      width: 0,
+                      height: 2,
+                    },
+                    shadowOpacity: 0.25,
+                    shadowRadius: 3.84,
+                    elevation: 5,
+                  }}
+                  textStyle={{
+                    fontSize: 16,
+                    color: "#333333",
+                  }}
+                  selectedTextStyle={{
+                    fontWeight: "bold",
+                  }}
+                  selectedDayColor="#00BFFF"
+                  selectedDayTextColor="#FFFFFF"
+                  todayBackgroundColor="#F5F5F5"
+                  todayTextStyle={{
+                    fontWeight: "bold",
+                    color: "#333333",
+                  }}
                 />
               )}
             </View>
@@ -250,14 +252,31 @@ const Trial = () => {
               Insured value of package
             </Text>
             <TextInput
-              style={styles.input}
-              placeholder="$ 1.00 (US Dollar)"
+              style={{
+                height: 40,
+                margin: 12,
+                borderWidth: 1,
+                padding: 10,
+                borderTopWidth: 0,
+                borderRightWidth: 0,
+                borderLeftWidth: 0,
+                marginBottom: 20,
+                borderStyle: "solid",
+                borderBottomColor: "#6B6969",
+                marginLeft: 14,
+                marginRight: 13,
+                paddingLeft: 24,
+              }}
+              placeholder="1.00 (US Dollar)"
               inlineImageLeft="search"
               keyboardType="numeric"
               onChangeText={handleUSdollarChange}
               value={formData.USdollar}
-              Image={"\u0024"}
+              editable={true}
             />
+            <Text style={{ marginLeft: 25, marginTop: -50, paddingRight: 20 }}>
+              {"\u0024"}
+            </Text>
           </View>
         </View>
       </ScrollView>

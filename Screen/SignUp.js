@@ -52,13 +52,6 @@ const SignUp = ({ navigation }) => {
       user_password: values.user_password,
     };
 
-    //------ order detail set data ---------//
-
-    // const data = { user_fname, user_lname, user_email, user_phone };
-    // AsyncStorage.setItem("orderDetails", data);
-
-    //------ order detail set data ---------//
-
     fetch(
       "https://shipwwt.com/wp-json/wp/v2/shipwwt-register-user-by-email-password/",
       {

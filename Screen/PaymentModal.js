@@ -24,8 +24,12 @@ const validationSchema = Yup.object().shape({
 
 export default function PaymentModal(props) {
   const [cardDetails, setCardDetails] = useState("");
-  
-  
+  const [cardComplete, setCardComplete] = useState(false);
+
+  const handleCardChange = (cardDetails) => {
+    const { complete } = cardDetails;
+    setCardComplete(complete);
+  };
 
   const handleSubmit = (values) => {
     let card = {
@@ -39,104 +43,105 @@ export default function PaymentModal(props) {
 
   return (
     <SafeAreaView>
-        <Formik
-          initialValues={{
-            email: "",
-            holderName: "",
-          }}
-          validationSchema={validationSchema}
-          onSubmit={handleSubmit}
-        >
-          {({
-            handleChange,
-            handleBlur,
-            handleSubmit,
-            values,
-            errors,
-            touched,
-            // isValid,
-            // isSubmitting,
-          }) => (
-            <Dialog>
-              <View
+      <Formik
+        initialValues={{
+          email: "",
+          holderName: "",
+        }}
+        validationSchema={validationSchema}
+        onSubmit={handleSubmit}
+      >
+        {({
+          handleChange,
+          handleBlur,
+          handleSubmit,
+          values,
+          errors,
+          touched,
+          // isValid,
+          // isSubmitting,
+        }) => (
+          <Dialog>
+            <View
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+              }}
+            >
+              <Text style={{ fontSize: 25, color: "CE9D62" }}>
+                Card Details
+              </Text>
+              <Text style={{ fontWeight: "bold" }} onPress={props.paymentModal}>
+                X
+              </Text>
+            </View>
+
+            <TextInput
+              style={styles.input}
+              onChangeText={handleChange("email")}
+              onBlur={handleBlur("email")}
+              value={values.email}
+              placeholder="Email"
+              keyboardType="email-address"
+            />
+            {touched.email && errors.email && (
+              <Text style={styles.error}>{errors.email}</Text>
+            )}
+            <TextInput
+              style={styles.input}
+              onChangeText={handleChange("holderName")}
+              onBlur={handleBlur("holderName")}
+              value={values.holderName}
+              placeholder="holderName"
+            />
+            {touched.holderName && errors.holderName && (
+              <Text style={styles.error}>{errors.holderName}</Text>
+            )}
+
+            <CardForm
+              postalCodeEnabled={true}
+              onCardChange={handleCardChange}
+              onFormComplete={(cardDetails) => {
+                setCardDetails(cardDetails);
+              }}
+              style={{
+                height: 250,
+                justifyContent: "center",
+                alignItems: "center",
+                textAlign: "center",
+              }}
+            />
+
+            {/* <TouchableOpacity
+              style={{
+                backgroundColor: "#CE9D62",
+                justifyContent: "center",
+                alignItems: "center",
+                marginLeft: 5,
+                marginRight: 5,
+                borderRadius: 8,
+              }}
+              // disabled={!isValid || isSubmitting}
+              onPress={handleSubmit}
+            >
+              <Text
                 style={{
-                  flexDirection: "row",
-                  justifyContent: "space-between",
+                  color: "white",
+                  padding: 15,
+                  fontSize: 18,
                 }}
               >
-                <Text style={{ fontSize: 25, color: "CE9D62" }}>
-                  Card Details
-                </Text>
-                <Text
-                  style={{ fontWeight: "bold" }}
-                  onPress={props.paymentModal}
-                >
-                  X
-                </Text>
-              </View>
-
-              <TextInput
-                style={styles.input}
-                onChangeText={handleChange("email")}
-                onBlur={handleBlur("email")}
-                value={values.email}
-                placeholder="Email"
-                keyboardType="email-address"
-              />
-              {touched.email && errors.email && (
-                <Text style={styles.error}>{errors.email}</Text>
-              )}
-              <TextInput
-                style={styles.input}
-                onChangeText={handleChange("holderName")}
-                onBlur={handleBlur("holderName")}
-                value={values.holderName}
-                placeholder="holderName"
-              />
-              {touched.holderName && errors.holderName && (
-                <Text style={styles.error}>{errors.holderName}</Text>
-              )}
-
-              <CardForm
-                postalCodeEnabled={true}
-                onFormComplete={(cardDetails) => {
-                  setCardDetails(cardDetails);
-                }}
-                style={{
-                  height: 250,
-                  justifyContent: "center",
-                  alignItems: "center",
-                  textAlign: "center",
-                }}
-              />
-
-              <TouchableOpacity
-                style={{
-                  backgroundColor: "#CE9D62",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  marginLeft: 5,
-                  marginRight: 5,
-                  borderRadius: 8,
-                }}
-                // disabled={!isValid || isSubmitting}
-                onPress={handleSubmit}
-              >
-                <Text
-                  style={{
-                    color: "white",
-                    padding: 15,
-                    fontSize: 18,
-                  }}
-                >
-                  Validate
-                </Text>
-              </TouchableOpacity>
-              {/* <Button onPress={handleSubmit} title="Submit" /> */}
-            </Dialog>
-          )}
-        </Formik>
-      
+                Validate
+              </Text>
+            </TouchableOpacity> */}
+            <Button
+              title="Submit"
+              onPress={handleSubmit}
+              disabled={!cardComplete || !email || !holderName}
+            />
+          </Dialog>
+        )}
+      </Formik>
     </SafeAreaView>
   );
 }

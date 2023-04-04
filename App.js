@@ -18,6 +18,7 @@ import Trial from "./Screen/Trial";
 import DetailClient from "./Screen/OrderDetails";
 import PaymentModal from "./Screen/PaymentModal";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import Demo from "./Screen/Demo";
 // import Tabs from './Screen/Tabs';
 
 export default function App() {
@@ -72,7 +73,8 @@ export default function App() {
     // </SafeAreaProvider>
 
     //  <BusinessProfile/>
-    <ShipmentProgressStep />
+       <Demo/>
+    //   <ShipmentProgressStep />
     //  <Trial/>
     //   <CreateShipment/>
     //  <BusinessProfile1/>
@@ -80,7 +82,8 @@ export default function App() {
     //    <DownloadShipment/>
     //   <SignIn/>
     //    <DetailClient/>
-    //     <PaymentModal/>
+     
+   // <PaymentModal/>
   );
 }
 
