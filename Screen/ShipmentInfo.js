@@ -53,7 +53,7 @@ const ShipmentInfo = () => {
       </View>
       {/* </ScrollView> */}
       {/* <ScrollView > */}
-      <NavigationContainer>
+      {/* <NavigationContainer> */}
         <Tab.Navigator
           style={{ minHeight: minHeight }}
           screenOptions={screenOptionStyle}
@@ -63,7 +63,7 @@ const ShipmentInfo = () => {
             component={SFD}
             listeners={{
               tabPress: (e) => {
-                setMinHeight(1075);
+                setMinHeight(1180);
               },
             }}
           />
@@ -72,12 +72,12 @@ const ShipmentInfo = () => {
             component={STI}
             listeners={{
               tabPress: (e) => {
-                setMinHeight(1720);
+                setMinHeight(1190);
               },
             }}
           />
         </Tab.Navigator>
-      </NavigationContainer>
+      {/* </NavigationContainer> */}
       {/* </ScrollView> */}
       {/* </SafeAreaView> */}
     </>

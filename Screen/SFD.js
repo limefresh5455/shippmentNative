@@ -9,6 +9,8 @@ import {
 import React, { useState, useEffect } from "react";
 import { Picker } from "@react-native-picker/picker";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { CheckBox } from "@rneui/themed";
+
 
 export default function SFD() {
   const [selectedLanguage, setSelectedLanguage] = useState();
@@ -256,6 +258,34 @@ export default function SFD() {
           value={mainData.email}
           keyboardType="Years in Business"
         />
+        <View>
+          <CheckBox
+            // checked={checked}
+            // onPress={toggleCheckbox}
+            iconType="material-community"
+            checkedIcon="checkbox-marked"
+            uncheckedIcon="checkbox-blank-outline"
+            checkedColor="blue"
+            title="Save to address book as a new entry:"
+          />
+          <TextInput
+            style={{
+              height: 40,
+              margin: 12,
+              borderWidth: 1,
+              padding: 10,
+              borderTopWidth: 1,
+              borderRightWidth: 1,
+              borderLeftWidth: 1,
+              borderBottomWidth: 1,
+              marginTop: -7,
+              borderStyle: "solid",
+              // borderBottomColor: "#c7bdbd",
+              marginLeft: 25,
+              marginRight: 50,
+            }}
+          />
+        </View>
       </View>
     </ScrollView>
   );

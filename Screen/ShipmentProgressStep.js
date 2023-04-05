@@ -56,8 +56,9 @@ export default function ShipmentProgressStep({ navigation }) {
   const [token, setToken] = useState();
   const [cardDetails, setCardDetails] = useState("");
   const [cardDetails1, setCardDetails1] = useState("");
+  const [dollar , setDollar] = useState("1.00");
 
-
+  console.log("dollar",dollar);
 
   const handleSubmit = (values) => {
     let card = {
@@ -275,7 +276,7 @@ export default function ShipmentProgressStep({ navigation }) {
         .catch((e) => {
           console.log("errors", e);
         });
-    }, 1000);
+    });
   };
   //-------------- New Packaging Details Post API ----------------//
 
@@ -437,6 +438,7 @@ export default function ShipmentProgressStep({ navigation }) {
                   addrFromData={addrFromData}
                   toaddressData={toaddressData}
                   rateAmount={rateAmount}
+                  dollar={dollar}
                 />
                 <TouchableOpacity
                   onPress={handlePayment}
@@ -531,6 +533,52 @@ export default function ShipmentProgressStep({ navigation }) {
                     })}
                   </DataTable>
                 </View>
+                <View>
+                  <Text
+                    style={{
+                      marginTop: 10,
+                      marginLeft: 30,
+                      marginBottom: -10,
+                      color: "black",
+                      fontSize: 15,
+                    }}
+                  >
+                    Insured value of package
+                  </Text>
+                  <TextInput
+                    style={{
+                      height: 40,
+                      margin: 12,
+                      borderWidth: 1,
+                      padding: 10,
+                      borderTopWidth: 1,
+                      borderRightWidth: 1,
+                      borderLeftWidth: 1,
+                      marginBottom: 20,
+                      borderStyle: "solid",
+                      borderBottomColor: "#6B6969",
+                      marginLeft: 30,
+                      marginRight: 30,
+                      paddingLeft: 26,
+                    }}
+                    placeholder="1.00 (US Dollar)"
+                    inlineImageLeft="search"
+                    keyboardType="numeric"
+                    onChangeText={(value) => setDollar(value)}
+                    value={dollar}
+                    editable={true}
+                  />
+                  <Text
+                    style={{
+                      marginLeft: 40,
+                      marginTop: -50,
+                      paddingRight: 20,
+                      marginBottom: 30,
+                    }}
+                  >
+                    {"\u0024"}
+                  </Text>
+                </View>
                 <View
                   style={{
                     display: "flex",
@@ -553,6 +601,7 @@ export default function ShipmentProgressStep({ navigation }) {
                     Total : {rateAmount}
                   </Text>
                 </View>
+
                 <TouchableOpacity
                   onPress={handleOrder}
                   style={{
@@ -582,6 +631,7 @@ export default function ShipmentProgressStep({ navigation }) {
           <ProgressStep
             label="Done"
             onSubmit={onSubmitSteps}
+            finishBtnText="My Account"
             scrollViewProps={defaultScrollViewProps}
             removeBtnRow={disable}
             previousBtnDisabled={disable}

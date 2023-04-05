@@ -73,8 +73,8 @@ export default function App() {
     // </SafeAreaProvider>
 
     //  <BusinessProfile/>
-       <Demo/>
-    //   <ShipmentProgressStep />
+    //   <Demo/>
+    //    <ShipmentProgressStep />
     //  <Trial/>
     //   <CreateShipment/>
     //  <BusinessProfile1/>
@@ -83,7 +83,7 @@ export default function App() {
     //   <SignIn/>
     //    <DetailClient/>
      
-   // <PaymentModal/>
+    <PaymentModal/>
   );
 }
 

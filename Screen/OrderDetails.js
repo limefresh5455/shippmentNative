@@ -13,6 +13,7 @@ export default function OrderDetails(props) {
   let amount = JSON.parse(props.rateAmount);
   let SFD = JSON.parse(props.addrFromData);
   let STD = JSON.parse(props.toaddressData);
+  let USDollar = JSON.parse(props.dollar);
 
   useEffect(() => {
     function fetchData() {
@@ -100,7 +101,7 @@ export default function OrderDetails(props) {
             }}
           >
             <Text style={{ fontSize: 18 }}>Insured value :</Text>
-            <Text style={{ marginLeft: 10 }}>$ {data.USdollar}</Text>
+            <Text style={{ marginLeft: 10 }}>$ {USDollar}</Text>
           </View>
 
           <View
@@ -150,7 +151,7 @@ export default function OrderDetails(props) {
             }}
           >
             <Text style={{ fontSize: 18 }}>Insured value :</Text>
-            <Text style={{ marginLeft: 10 }}>$ {data.USdollar}</Text>
+            <Text style={{ marginLeft: 10 }}>$ {USDollar}</Text>
           </View>
 
           <View
@@ -298,9 +299,7 @@ export default function OrderDetails(props) {
               }}
             >
               <Text style={{ fontSize: 20 }}>Insurance </Text>
-              <Text style={{ marginLeft: 60, fontSize: 15 }}>
-                $ {data.USdollar}
-              </Text>
+              <Text style={{ marginLeft: 60, fontSize: 15 }}>$ {USDollar}</Text>
             </View>
 
             <View

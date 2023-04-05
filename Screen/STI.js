@@ -276,8 +276,36 @@ export default function STI() {
           value={mainData.email}
           keyboardType="Years in Business"
         />
+        <View>
+          <CheckBox
+            checked={checked}
+            onPress={toggleCheckbox}
+            iconType="material-community"
+            checkedIcon="checkbox-marked"
+            uncheckedIcon="checkbox-blank-outline"
+            checkedColor="blue"
+            title="Save to address book as a new entry:"
+          />
+          <TextInput
+            style={{
+              height: 40,
+              margin: 12,
+              borderWidth: 1,
+              padding: 10,
+              borderTopWidth: 1,
+              borderRightWidth: 1,
+              borderLeftWidth: 1,
+              borderBottomWidth: 1,
+              marginTop: -7,
+              borderStyle: "solid",
+              // borderBottomColor: "#c7bdbd",
+              marginLeft: 25,
+              marginRight: 50,
+            }}
+          />
+        </View>
 
-        <View style={{ marginBottom: 10 }}>
+        {/* <View style={{ marginBottom: 10 }}>
           <Text style={{ fontSize: 22, marginLeft: 15 }}>Location Type</Text>
           <RadioGroup
             radioButtons={radioButtons}
@@ -285,9 +313,9 @@ export default function STI() {
             layout="row"
             style={styles.rad}
           />
-        </View>
+        </View> */}
 
-        <View>
+        {/* <View>
           <Text style={{ fontSize: 22, marginLeft: 15 }}>Special Services</Text>
           <RadioGroup
             radioButtons={radioButtons}
@@ -295,9 +323,9 @@ export default function STI() {
             layout="row"
             style={styles.rad}
           />
-        </View>
+        </View> */}
 
-        <View
+        {/* <View
           style={{
             borderBottomWidth: 1,
             borderBottomColor: "black",
@@ -305,9 +333,9 @@ export default function STI() {
             marginLeft: 13,
             marginTop: 20,
           }}
-        />
+        /> */}
 
-        <Text style={{ fontSize: 22, marginLeft: 15, marginTop: 10 }}>
+        {/* <Text style={{ fontSize: 22, marginLeft: 15, marginTop: 10 }}>
           FedEx ShipAlert®-Express
         </Text>
 
@@ -319,9 +347,9 @@ export default function STI() {
           //   onChangeText={handleChange("address")}
           //   value={values.address}
           keyboardType="Years in Business"
-        />
+        /> */}
 
-        <View style={{ flexDirection: "row", marginLeft: -8, marginRight: 20 }}>
+        {/* <View style={{ flexDirection: "row", marginLeft: -8, marginRight: 20 }}>
           <CheckBox
             checked={checked}
             onPress={toggleCheckbox}
@@ -350,9 +378,9 @@ export default function STI() {
             checkedColor="blue"
             title="Delivery"
           />
-        </View>
+        </View> */}
 
-        <Text style={{ marginLeft: 16, marginTop: 30, color: "#8d9092" }}>
+        {/* <Text style={{ marginLeft: 16, marginTop: 30, color: "#8d9092" }}>
           Recipient
         </Text>
         <TextInput
@@ -360,9 +388,9 @@ export default function STI() {
           //   onChangeText={handleChange("address")}
           //   value={values.address}
           keyboardType="Years in Business"
-        />
+        /> */}
 
-        <View style={{ flexDirection: "row", marginLeft: -8, marginRight: 20 }}>
+        {/* <View style={{ flexDirection: "row", marginLeft: -8, marginRight: 20 }}>
           <CheckBox
             checked={checked}
             onPress={toggleCheckbox}
@@ -391,9 +419,9 @@ export default function STI() {
             checkedColor="blue"
             title="Delivery"
           />
-        </View>
+        </View> */}
 
-        <Text style={{ marginLeft: 16, marginTop: 30, color: "#8d9092" }}>
+        {/* <Text style={{ marginLeft: 16, marginTop: 30, color: "#8d9092" }}>
           Other
         </Text>
         <TextInput
@@ -401,9 +429,9 @@ export default function STI() {
           //   onChangeText={handleChange("address")}
           //   value={values.address}
           keyboardType="Years in Business"
-        />
+        /> */}
 
-        <View style={{ flexDirection: "row", marginLeft: -8, marginRight: 20 }}>
+        {/* <View style={{ flexDirection: "row", marginLeft: -8, marginRight: 20 }}>
           <CheckBox
             checked={checked}
             onPress={toggleCheckbox}
@@ -432,7 +460,7 @@ export default function STI() {
             checkedColor="blue"
             title="Delivery"
           />
-        </View>
+        </View> */}
       </View>
     </ScrollView>
   );

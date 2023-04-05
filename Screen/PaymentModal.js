@@ -9,139 +9,113 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import { Dialog } from "@rneui/themed";
-import { CardForm } from "@stripe/stripe-react-native";
+import { CardField, StripeProvider } from "@stripe/stripe-react-native";
 import { TextInput } from "react-native-paper";
-import { Formik } from "formik";
-import * as Yup from "yup";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-
-const validationSchema = Yup.object().shape({
-  email: Yup.string()
-    .email("Please enter a valid email address.")
-    .required("Email is required."),
-  holderName: Yup.string().required("holderName is required."),
-});
 
 export default function PaymentModal(props) {
-  const [cardDetails, setCardDetails] = useState("");
-  const [cardComplete, setCardComplete] = useState(false);
+  const [cardDetails, setCardDetails] = useState({
+    complete: false,
+    brand: "",
+    last4: "",
+    postalCode: "",
+    expMonth: 0,
+    expYear: 0,
+  });
 
-  const handleCardChange = (cardDetails) => {
-    const { complete } = cardDetails;
-    setCardComplete(complete);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+
+  const handleCardDetailsChange = (cardDetails) => {
+    setCardDetails(cardDetails);
   };
 
-  const handleSubmit = (values) => {
-    let card = {
-      ...values,
-      ...cardDetails,
-    };
-    console.log("data",card)
-    AsyncStorage.setItem("cardDetails", JSON.stringify(card));
-     props.paymentModal()
+  const handleSubmit = () => {
+    if (!name) {
+      alert("Please enter your name");
+      return;
+    }
+
+    if (!email || !validateEmail(email)) {
+      alert("Please enter a valid email address");
+      return;
+    }
+
+    if (!cardDetails.complete) {
+      alert("Please enter a valid card");
+      return;
+    }
+
+    console.log("name", name);
+    console.log("email", email);
+    console.log("cardDetails", cardDetails);
+
+    // Perform the payment processing logic here
+  };
+
+  const validateEmail = (email) => {
+    const re =
+      // Regex pattern for email validation
+      /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
   };
 
   return (
     <SafeAreaView>
-      <Formik
-        initialValues={{
-          email: "",
-          holderName: "",
-        }}
-        validationSchema={validationSchema}
-        onSubmit={handleSubmit}
-      >
-        {({
-          handleChange,
-          handleBlur,
-          handleSubmit,
-          values,
-          errors,
-          touched,
-          // isValid,
-          // isSubmitting,
-        }) => (
-          <Dialog>
-            <View
-              style={{
-                flexDirection: "row",
-                justifyContent: "space-between",
-              }}
-            >
-              <Text style={{ fontSize: 25, color: "CE9D62" }}>
-                Card Details
-              </Text>
-              <Text style={{ fontWeight: "bold" }} onPress={props.paymentModal}>
-                X
-              </Text>
-            </View>
+      <Dialog>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+          }}
+        >
+          <Text style={{ fontSize: 25, color: "CE9D62" }}>Card Details</Text>
+          <Text style={{ fontWeight: "bold" }} onPress={props.paymentModal}>
+            X
+          </Text>
+        </View>
 
-            <TextInput
-              style={styles.input}
-              onChangeText={handleChange("email")}
-              onBlur={handleBlur("email")}
-              value={values.email}
-              placeholder="Email"
-              keyboardType="email-address"
-            />
-            {touched.email && errors.email && (
-              <Text style={styles.error}>{errors.email}</Text>
-            )}
-            <TextInput
-              style={styles.input}
-              onChangeText={handleChange("holderName")}
-              onBlur={handleBlur("holderName")}
-              value={values.holderName}
-              placeholder="holderName"
-            />
-            {touched.holderName && errors.holderName && (
-              <Text style={styles.error}>{errors.holderName}</Text>
-            )}
+        <TextInput
+          style={styles.input}
+          value={name}
+          onChangeText={setName}
+          placeholder="Email"
+          keyboardType="email-address"
+        />
+        <TextInput
+          style={styles.input}
+          value={email}
+          onChangeText={setEmail}
+          placeholder="holderName"
+        />
 
-            <CardForm
-              postalCodeEnabled={true}
-              onCardChange={handleCardChange}
-              onFormComplete={(cardDetails) => {
-                setCardDetails(cardDetails);
-              }}
-              style={{
-                height: 250,
-                justifyContent: "center",
-                alignItems: "center",
-                textAlign: "center",
-              }}
-            />
+        <CardField
+          postalCodeEnabled={false}
+          onCardChange={handleCardDetailsChange}
+          style={styles.cardField}
+        />
 
-            {/* <TouchableOpacity
-              style={{
-                backgroundColor: "#CE9D62",
-                justifyContent: "center",
-                alignItems: "center",
-                marginLeft: 5,
-                marginRight: 5,
-                borderRadius: 8,
-              }}
-              // disabled={!isValid || isSubmitting}
-              onPress={handleSubmit}
-            >
-              <Text
-                style={{
-                  color: "white",
-                  padding: 15,
-                  fontSize: 18,
-                }}
-              >
-                Validate
-              </Text>
-            </TouchableOpacity> */}
-            <Button
-              title="Submit"
-              onPress={handleSubmit}
-              disabled={!cardComplete || !email || !holderName}
-            />
-          </Dialog>
-        )}
-      </Formik>
+        <TouchableOpacity
+          style={{
+            backgroundColor: "#CE9D62",
+            justifyContent: "center",
+            alignItems: "center",
+            marginLeft: 5,
+            marginRight: 5,
+            borderRadius: 8,
+          }}
+          onPress={handleSubmit}
+        >
+          <Text
+            style={{
+              color: "white",
+              padding: 15,
+              fontSize: 18,
+            }}
+          >
+            Validate
+          </Text>
+        </TouchableOpacity>
+      </Dialog>
     </SafeAreaView>
   );
 }
@@ -154,9 +128,15 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     paddingLeft: -100,
     padding: 7,
+    marginVertical: 10,
   },
   error: {
     color: "red",
     marginLeft: 10,
+  },
+  cardField: {
+    width: "100%",
+    height: 50,
+    marginVertical: 10,
   },
 });

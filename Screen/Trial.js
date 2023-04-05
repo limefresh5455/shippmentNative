@@ -56,7 +56,7 @@ const Trial = () => {
     setShow(!show);
   };
   const handleDate = (date) => {
-    setFormData({ ...formData, date});
+    setFormData({ ...formData, date });
     setShow(false);
   };
   //----- DatePicker -----//
@@ -69,9 +69,7 @@ const Trial = () => {
     setFormData({ ...formData, item });
   };
 
-  const handleUSdollarChange = (USdollar) => {
-    setFormData({ ...formData, USdollar });
-  };
+
 
   useEffect(() => {
     AsyncStorage.setItem("user", JSON.stringify(formData));
@@ -124,34 +122,39 @@ const Trial = () => {
             </Picker>
             <Text style={styles.inputs}></Text>
 
-            <TextInput
-              style={styles.input1}
-              placeholder="Avg. weight"
-              keyboardType="numeric"
-              onChangeText={handleWeightChange}
-              value={formData.weight}
-            />
-
-            <Picker
-              selectedValue={mass}
-              onValueChange={(itemValue, itemIndex) => {
-                setMass(itemValue);
-                setFormData({ ...formData, mass: itemValue });
-              }}
-              style={{
-                marginLeft: 8,
-                borderColor: "black",
-                marginBottom: 25,
-                marginTop: -25,
-              }}
-              value={formData.mass}
+            <View
+              style={{ display: "flex", flexDirection: "row", marginTop: -10 }}
             >
-              <Picker.Item label="Select Mass Unit" value="" />
-              <Picker.Item label="lb" value="LB" />
-              <Picker.Item label="oz" value="OZ" />
-              <Picker.Item label="g" value="G" />
-              <Picker.Item label="kg" value="KG" />
-            </Picker>
+              <TextInput
+                style={styles.input1}
+                placeholder="Avg. weight"
+                keyboardType="numeric"
+                onChangeText={handleWeightChange}
+                value={formData.weight}
+              />
+              <Picker
+                selectedValue={mass}
+                onValueChange={(itemValue, itemIndex) => {
+                  setMass(itemValue);
+                  setFormData({ ...formData, mass: itemValue });
+                }}
+                style={{
+                  marginLeft: -160,
+                  borderColor: "black",
+                  borderTopWidth: 1,
+                  marginBottom: 25,
+                  marginTop: 23,
+                  width: 200,
+                }}
+                value={formData.mass}
+              >
+                <Picker.Item label="Select Mass Unit" value="" />
+                <Picker.Item label="lb" value="LB" />
+                <Picker.Item label="oz" value="OZ" />
+                <Picker.Item label="g" value="G" />
+                <Picker.Item label="kg" value="KG" />
+              </Picker>
+            </View>
 
             <View
               style={{
@@ -161,12 +164,46 @@ const Trial = () => {
                 marginTop: -10,
               }}
             >
-              <Button
-                title="DatePicker"
-                onPress={handlePress}
-                style={{ backgroundColor: "white" }}
-              ></Button>
-
+              <View style={{ display: "flex", flexDirection: "row" }}>
+                <TouchableOpacity
+                  style={{
+                    borderColor: "#32302e7a",
+                    borderLeftWidth: 1,
+                    borderRightWidth: 1,
+                    borderTopWidth: 1,
+                    borderBottomWidth: 1,
+                    marginTop: 10,
+                    padding: 8,
+                    width: 140,
+                  }}
+                  onPress={handlePress}
+                >
+                  <Text
+                    style={{
+                      color: "black",
+                      textAlign: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    DatePicker
+                  </Text>
+                </TouchableOpacity>
+                <Text
+                  style={{
+                    borderColor: "#32302e7a",
+                    borderLeftWidth: 1,
+                    borderRightWidth: 1,
+                    borderTopWidth: 1,
+                    borderBottomWidth: 1,
+                    marginTop: 10,
+                    marginLeft: 25,
+                    padding: 8,
+                    width: 140,
+                  }}
+                >
+                  {formData.date}
+                </Text>
+              </View>
               {show && (
                 <DatePicker
                   mode="calendar"
@@ -205,6 +242,7 @@ const Trial = () => {
                 />
               )}
             </View>
+
             <Text
               style={{
                 marginLeft: 18,
@@ -241,42 +279,7 @@ const Trial = () => {
             </Picker>
             <Text style={styles.inputs}></Text>
 
-            <Text
-              style={{
-                marginTop: 20,
-                marginLeft: 18,
-                marginBottom: -10,
-                color: "#8d9092",
-              }}
-            >
-              Insured value of package
-            </Text>
-            <TextInput
-              style={{
-                height: 40,
-                margin: 12,
-                borderWidth: 1,
-                padding: 10,
-                borderTopWidth: 0,
-                borderRightWidth: 0,
-                borderLeftWidth: 0,
-                marginBottom: 20,
-                borderStyle: "solid",
-                borderBottomColor: "#6B6969",
-                marginLeft: 14,
-                marginRight: 13,
-                paddingLeft: 24,
-              }}
-              placeholder="1.00 (US Dollar)"
-              inlineImageLeft="search"
-              keyboardType="numeric"
-              onChangeText={handleUSdollarChange}
-              value={formData.USdollar}
-              editable={true}
-            />
-            <Text style={{ marginLeft: 25, marginTop: -50, paddingRight: 20 }}>
-              {"\u0024"}
-            </Text>
+           
           </View>
         </View>
       </ScrollView>
@@ -309,7 +312,6 @@ const styles = StyleSheet.create({
     borderRightWidth: 0,
     borderLeftWidth: 0,
     marginTop: -48,
-
     borderBottomColor: "#c7bdbd",
   },
 
@@ -344,15 +346,19 @@ const styles = StyleSheet.create({
     margin: 12,
     padding: 10,
     marginBottom: 20,
-    borderStyle: "solid",
+    // borderStyle: "#6B6969",
     borderBottomColor: "#6B6969",
     borderWidth: 1,
     borderTopWidth: 1,
     borderRightWidth: 1,
     borderLeftWidth: 1,
-    marginLeft: 14,
-    marginRight: 13,
+    marginLeft: 16,
+    marginRight: 150,
     marginTop: 28,
+    borderColor: "#6B6969",
+    width:135,
+    justifyContent:"center",
+    textAlign:"center"
   },
 
   businessForm: {

@@ -1,95 +1,120 @@
-import { Button, StyleSheet, TextInput, View } from "react-native";
-import { CardField, useStripe } from "@stripe/stripe-react-native";
 import React, { useState } from "react";
+import { Button, StyleSheet,TouchableOpacity, Text, TextInput, View } from "react-native";
+import { CardField, StripeProvider } from "@stripe/stripe-react-native";
 
-export default function Demo() {
-  const { createPaymentMethod } = useStripe();
+const Demo = () => {
+  const [cardDetails, setCardDetails] = useState({
+    complete: false,
+    brand: "",
+    last4: "",
+    postalCode: "",
+    expMonth: 0,
+    expYear: 0,
+  });
+
+
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [cardholderName, setCardholderName] = useState("");
-  const [cardComplete, setCardComplete] = useState(false);
 
-  const handleCardChange = (cardDetails) => {
-    const { complete } = cardDetails;
-    setCardComplete(complete);
+  const handleCardDetailsChange = (cardDetails) => {
+    setCardDetails(cardDetails);
   };
 
-  const handleSubmit = async () => {
-    // Validate email and cardholder name
-    const emailValid = validateEmail(email);
-    const cardholderNameValid = validateCardholderName(cardholderName);
-
-    if (cardComplete && emailValid && cardholderNameValid) {
-      // Create payment method
-      const { paymentMethod, error } = await createPaymentMethod({
-        type: "Card",
-        billingDetails: {
-          email,
-          name: cardholderName,
-        },
-      });
-
-      if (error) {
-        console.log("Error creating payment method:", error);
-      } else {
-        console.log("Payment method created:", paymentMethod);
-        // You can now use the payment method to make a payment or save it for later
-      }
+  const handleSubmit = () => {
+    if (!name) {
+      alert("Please enter your name");
+      return;
     }
+
+    if (!email || !validateEmail(email)) {
+      alert("Please enter a valid email address");
+      return;
+    }
+
+    if (!cardDetails.complete) {
+      alert("Please enter a valid card");
+      return;
+    }
+
+    console.log("name",name);
+    console.log("email", email);
+    console.log("cardDetails", cardDetails); 
+
+    // Perform the payment processing logic here
   };
 
   const validateEmail = (email) => {
-    // Add your email validation logic here
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-  };
-
-  const validateCardholderName = (name) => {
-    // Add your cardholder name validation logic here
-    return name.trim().length > 0;
+    const re =
+      // Regex pattern for email validation
+      /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
   };
 
   return (
-    <View style={{ marginTop: 200 }}>
-      <View style={styles.container}>
-        <TextInput
-          style={styles.input}
-          placeholder="Email"
-          value={email}
-          onChangeText={setEmail}
-          autoCapitalize="none"
-          keyboardType="email-address"
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Cardholder Name"
-          value={cardholderName}
-          onChangeText={setCardholderName}
-        />
-        <CardField
-          postalCodeEnabled={false}
-          onCardChange={handleCardChange}
-          style={{ width: "100%", height: 50 }}
-        />
-        <Button
-          title="Submit"
-          onPress={handleSubmit}
-          disabled={!cardComplete || !email || !cardholderName}
-        />
-      </View>
+    <View style={styles.container}>
+      <TextInput
+        placeholder="Name"
+        value={name}
+        onChangeText={setName}
+        style={styles.input}
+      />
+      <TextInput
+        placeholder="Email"
+        value={email}
+        onChangeText={setEmail}
+        style={styles.input}
+      />
+      <CardField
+        postalCodeEnabled={false}
+        onCardChange={handleCardDetailsChange}
+        style={styles.cardField}
+      />
+      <TouchableOpacity
+              style={{
+                backgroundColor: "#CE9D62",
+                justifyContent: "center",
+                alignItems: "center",
+                marginLeft: 5,
+                marginRight: 5,
+                borderRadius: 8,
+              }}
+              onPress={handleSubmit}
+            >
+              <Text
+                style={{
+                  color: "white",
+                  padding: 15,
+                  fontSize: 18,
+                }}
+              >
+                Validate
+              </Text>
+            </TouchableOpacity>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
     justifyContent: "center",
+    alignItems: "center",
   },
   input: {
-    height: 40,
-    borderColor: "gray",
+    height: 50,
+    width: "80%",
     borderWidth: 1,
-    marginBottom: 10,
-    paddingHorizontal: 10,
+    borderColor: "#ccc",
+    padding: 10,
+    marginVertical: 10,
+  },
+  cardField: {
+    width: "100%",
+    height: 50,
+    marginVertical: 10,
+    marginLeft: 40,
+    marginRight: 20,
   },
 });
+
+export default Demo;
