@@ -52,9 +52,9 @@ export default function STI() {
     }
   };
 
-  useEffect(async() => {
-    const data = await AsyncStorage.getItem("addressTo");
-    console.log("mainData", data);
+  useEffect(() => {
+   // const data = AsyncStorage.getItem("addressTo");
+   // console.log("mainData", data);
     // Dynamic Country Data
     fetch("https://shipwwt.com/wp-json/wp/v2/shipwwt-get-all-countries", {
       method: "GET",

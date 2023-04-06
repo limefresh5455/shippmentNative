@@ -141,7 +141,7 @@ export default function ShipmentProgressStep({ navigation }) {
       .catch((error) => {
         console.error("Error:", error);
       });
-  }, []);
+  },[]);
   //--- Get Token Post Rates API ---//
 
   //-------------- New Packaging Details Post API ----------------//
@@ -280,7 +280,7 @@ export default function ShipmentProgressStep({ navigation }) {
         .catch((e) => {
           console.log("errors", e);
         });
-    });
+    },1000);
   };
   //-------------- New Packaging Details Post API ----------------//
 
