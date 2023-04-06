@@ -77,7 +77,7 @@ export default function SFD() {
       .catch((error) => {
         console.error("Error:", error);
       });
-  }, []);
+  }, [selectedValue]);
 
   const countryList = () => {
     return countryData.map((country, i) => {
