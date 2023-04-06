@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#ccc",
     padding: 10,
-    marginVertical: 11,
+    marginVertical: 10,
   },
   cardField: {
     width: "100%",
