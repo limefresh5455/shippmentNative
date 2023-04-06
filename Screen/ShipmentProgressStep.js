@@ -65,6 +65,10 @@ export default function ShipmentProgressStep({ navigation }) {
       ...values,
       ...cardDetails,
     };
+    if (!cardDetails.complete) {
+      alert("Please enter a valid card");
+      return;
+    }
     setPaymentModal(false);
     if (card) {
       setShowButton(true);
@@ -390,7 +394,7 @@ export default function ShipmentProgressStep({ navigation }) {
                       )}
 
                       <CardForm
-                        postalCodeEnabled={true}
+                        postalCodeEnabled={false}
                         onFormComplete={(cardDetails) => {
                           setCardDetails(cardDetails);
                         }}

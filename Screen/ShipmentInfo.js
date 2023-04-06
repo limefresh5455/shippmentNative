@@ -53,7 +53,7 @@ const ShipmentInfo = () => {
       </View>
       {/* </ScrollView> */}
       {/* <ScrollView > */}
-      {/* <NavigationContainer> */}
+      <NavigationContainer>
         <Tab.Navigator
           style={{ minHeight: minHeight }}
           screenOptions={screenOptionStyle}
@@ -77,7 +77,7 @@ const ShipmentInfo = () => {
             }}
           />
         </Tab.Navigator>
-      {/* </NavigationContainer> */}
+      </NavigationContainer>
       {/* </ScrollView> */}
       {/* </SafeAreaView> */}
     </>

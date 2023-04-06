@@ -19,6 +19,10 @@ export default function STI() {
   const [selectedValue, setSelectedValue] = useState();
   const [stateData, setStateData] = useState([]);
   const [selectedValue1, setSelectedValue1] = useState();
+  //--- Check Value State  ---//
+  const [inputCheck, setInputCheck] = useState("");
+  const [updateCheck, setUpdateCheck] = useState("");
+  //--- Check Value State  ---//
   const [mainData, setMainData] = useState({
     company_name: "",
     firstname: "",
@@ -33,7 +37,24 @@ export default function STI() {
     state: "",
   });
 
-  useEffect(() => {
+  const [checked, setChecked] = useState(false);
+  const toggleCheckbox = () => {
+    setChecked(true);
+    setUpdateCheck(inputCheck);
+    setMainData({ ...mainData, adrBook: inputCheck });
+  };
+
+  const getPreviousData = async (v) => {
+    const data = await AsyncStorage.getItem("addressTo");
+    console.log("mainData", data);
+    if(data.adrBook == v) {
+      setSelectedValue(data.country);
+    }
+  };
+
+  useEffect(async() => {
+    const data = await AsyncStorage.getItem("addressTo");
+    console.log("mainData", data);
     // Dynamic Country Data
     fetch("https://shipwwt.com/wp-json/wp/v2/shipwwt-get-all-countries", {
       method: "GET",
@@ -94,9 +115,6 @@ export default function STI() {
     });
   };
 
-  const [checked, setChecked] = React.useState(true);
-  const toggleCheckbox = () => setChecked(!checked);
-
   const [radioButtons, setRadioButtons] = useState([
     {
       id: "1",
@@ -116,7 +134,6 @@ export default function STI() {
 
   const fieldData = async () => {
     // console.log("(mainData):", JSON.stringify(mainData));
-
     await AsyncStorage.setItem("addressTo", JSON.stringify(mainData));
   };
   useEffect(() => {
@@ -135,23 +152,20 @@ export default function STI() {
         </Text>
         <Picker
           selectedValue={selectedLanguage}
-          onValueChange={(itemValue, itemIndex) =>
-            setSelectedLanguage(itemValue)
-          }
+          onValueChange={(itemValue, itemIndex) => {
+            setSelectedLanguage(itemValue);
+            getPreviousData(itemValue);
+          }}
           style={{ marginLeft: 8 }}
-          //   onChangeText={handleChange("company_type")}
-          //   value={values.company_type}
         >
-          <Picker.Item label="Please Select a value" value="" />
-          <Picker.Item label="Partnership" value="Partnership" />
-          <Picker.Item label="Corporation" value="Corporation" />
-          <Picker.Item label="S corporation" value="S corporation" />
-          <Picker.Item label="LLC" value="LLC" />
-          <Picker.Item label="United Kingdom" value="United Kingdom" />
-          <Picker.Item label="Star8ship" value="Star8ship" />
+          <Picker.Item label="Select contact from address book" value="" />
+          {updateCheck != "" ? (
+            <Picker.Item label={updateCheck} value={updateCheck} />
+          ) : null}
         </Picker>
         <Text style={styles.inputs}></Text>
 
+        {/* Start Coding Shipment Info STI*/}
         <Text style={{ marginLeft: 16, marginTop: 18, color: "#8d9092" }}>
           Country
         </Text>
@@ -160,12 +174,7 @@ export default function STI() {
           onValueChange={(itemValue, item, itemIndex) =>
             countryOnChange(itemValue, item)
           }
-          // onValueChange={(itemValue, itemIndex) =>
-          //   setSelectedValue(itemValue)
-          // }
           style={{ marginLeft: 8 }}
-          //   onChangeText={handleChange("company_type")}
-          //   value={values.company_type}
         >
           <Picker.Item label="Please Select a Country" value="" />
           {countryList()}
@@ -239,8 +248,6 @@ export default function STI() {
           selectedValue={selectedValue1}
           onValueChange={(itemValue, itemIndex) => setSelectedValue1(itemValue)}
           style={{ marginLeft: 8 }}
-          //   onChangeText={handleChange("company_type")}
-          //   value={values.company_type}
         >
           <Picker.Item label="Please Select a state" value="" />
           {stateList()}
@@ -287,6 +294,7 @@ export default function STI() {
             title="Save to address book as a new entry:"
           />
           <TextInput
+            onChangeText={(text) => setInputCheck(text)}
             style={{
               height: 40,
               margin: 12,
@@ -298,7 +306,6 @@ export default function STI() {
               borderBottomWidth: 1,
               marginTop: -7,
               borderStyle: "solid",
-              // borderBottomColor: "#c7bdbd",
               marginLeft: 25,
               marginRight: 50,
             }}

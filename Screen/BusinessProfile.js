@@ -56,7 +56,7 @@ const BusinessProfile = ({ navigation }) => {
 
   useEffect(() => {
     const timer = setTimeout(async () => {
-      const data = await AsyncStorage.getItem("userdata");
+      const data = await AsyncStorage.getItem("userData");
 
       fetch(
         `https://shipwwt.com/wp-json/wp/v2/shipwwt-get-business-profile?user_id=${data}`,
@@ -82,7 +82,7 @@ const BusinessProfile = ({ navigation }) => {
   });
 
   async function handleSubmit(values) {
-    const data = await AsyncStorage.getItem("userdata");
+    const data = await AsyncStorage.getItem("userData");
 
     const user = {
       user_id: data,

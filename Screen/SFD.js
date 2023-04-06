@@ -18,6 +18,7 @@ export default function SFD() {
   const [selectedValue, setSelectedValue] = useState();
   const [stateData, setStateData] = useState([]);
   const [selectedValue1, setSelectedValue1] = useState();
+  const [inputCheck, setInputCheck] = useState("");
   const [mainData, setMainData] = useState({
     company_name: "",
     firstname: "",
@@ -31,10 +32,19 @@ export default function SFD() {
     country: "",
     state: "",
   });
+  const [checked, setChecked] = useState(false);
+  const toggleCheckbox = () =>{
+      setChecked(true);
+   console.log("inputCheck", inputCheck);  
+  } 
+
+  const getPreviousData = async () => {
+    const value = await AsyncStorage.getItem("addressTo");
+    console.log("mainData", value);
+  };
 
   useEffect(() => {
     // Dynamic Country Data
-
     fetch("https://shipwwt.com/wp-json/wp/v2/shipwwt-get-all-countries", {
       method: "GET",
       headers: {
@@ -67,7 +77,7 @@ export default function SFD() {
       .catch((error) => {
         console.error("Error:", error);
       });
-  }, [selectedValue]);
+  }, []);
 
   const countryList = () => {
     return countryData.map((country, i) => {
@@ -113,21 +123,18 @@ export default function SFD() {
           selectedValue={selectedLanguage}
           onValueChange={(itemValue, itemIndex) => {
             setSelectedLanguage(itemValue);
+            getPreviousData(itemValue);
           }}
           style={{ marginLeft: 8 }}
-          //   onChangeText={handleChange("company_type")}
-          //   value={values.company_type}
         >
-          <Picker.Item label="Please Select a value" value="" />
-          <Picker.Item label="Partnership" value="Partnership" />
-          <Picker.Item label="Corporation" value="Corporation" />
-          <Picker.Item label="S corporation" value="S corporation" />
-          <Picker.Item label="LLC" value="LLC" />
-          <Picker.Item label="United Kingdom" value="United Kingdom" />
-          <Picker.Item label="Star8ship" value="Star8ship" />
+          <Picker.Item label="Select contact from address book" value="" />
+          {inputCheck != "" ? (
+            <Picker.Item label={inputCheck} value={inputCheck} />
+          ) : null}
         </Picker>
         <Text style={styles.inputs}></Text>
 
+        {/* Start Coding Shipment Info SFD */}
         <Text style={{ marginLeft: 16, marginTop: 18, color: "#8d9092" }}>
           Country
         </Text>
@@ -136,8 +143,6 @@ export default function SFD() {
           onValueChange={(itemValue, itemIndex) => setSelectedValue(itemValue)}
           style={{ marginLeft: 8 }}
           name={"country"}
-          // onChangeText={(text) => handleChange('country', text)}
-          // value={values.company_type}
         >
           <Picker.Item label="Please Select a Country" value="" />
           {countryList()}
@@ -217,8 +222,6 @@ export default function SFD() {
           selectedValue={selectedValue1}
           onValueChange={(itemValue, itemIndex) => setSelectedValue1(itemValue)}
           style={{ marginLeft: 8 }}
-
-          // value={values.company_type}
         >
           <Picker.Item label="Please Select a state" value="" />
           {stateList()}
@@ -260,8 +263,8 @@ export default function SFD() {
         />
         <View>
           <CheckBox
-            // checked={checked}
-            // onPress={toggleCheckbox}
+            checked={checked}
+            onPress={toggleCheckbox}
             iconType="material-community"
             checkedIcon="checkbox-marked"
             uncheckedIcon="checkbox-blank-outline"
@@ -269,6 +272,7 @@ export default function SFD() {
             title="Save to address book as a new entry:"
           />
           <TextInput
+            onChangeText={(text) => setInputCheck(text)}
             style={{
               height: 40,
               margin: 12,
@@ -280,7 +284,6 @@ export default function SFD() {
               borderBottomWidth: 1,
               marginTop: -7,
               borderStyle: "solid",
-              // borderBottomColor: "#c7bdbd",
               marginLeft: 25,
               marginRight: 50,
             }}

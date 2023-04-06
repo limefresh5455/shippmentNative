@@ -74,7 +74,7 @@ export default function App() {
 
     //  <BusinessProfile/>
     //   <Demo/>
-    //    <ShipmentProgressStep />
+    //  <ShipmentProgressStep />
     //  <Trial/>
     //   <CreateShipment/>
     //  <BusinessProfile1/>

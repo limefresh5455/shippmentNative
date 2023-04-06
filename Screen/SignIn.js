@@ -48,7 +48,7 @@ const SignIn = ({ navigation }) => {
           alert(data.msg);
           navigation.navigate("ShipmentProgressStep");
           await AsyncStorage.setItem(
-            "userdata",
+            "userData",
             JSON.stringify(data.data.user_id)
           );
         } else {
