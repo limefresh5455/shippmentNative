@@ -24,7 +24,7 @@ import Demo from "./Screen/Demo";
 export default function App() {
   const Stack = createNativeStackNavigator();
   return (
-    // <SafeAreaProvider>
+    //  <SafeAreaProvider>
     //   <NavigationContainer>
     //     <Stack.Navigator initialRouteName="SignIn">
     //       <Stack.Screen
@@ -70,17 +70,17 @@ export default function App() {
     //       />
     //     </Stack.Navigator>
     //   </NavigationContainer>
-    // </SafeAreaProvider>
+    //  </SafeAreaProvider>
 
     //  <BusinessProfile/>
     //   <Demo/>
     //  <ShipmentProgressStep />
-        <Trial/>
+    //  <Trial/>
     //   <CreateShipment/>
     //  <BusinessProfile1/>
     //   <ShipmentInfo/>
     //    <DownloadShipment/>
-    //   <SignIn/>
+        <SignIn/>
     //    <DetailClient/>
      
    // <PaymentModal/>
