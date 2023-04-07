@@ -6,7 +6,6 @@ import ConfirmEmail from "./Screen/ConfirmEmail";
 import SignUp from "./Screen/SignUp";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import ConfirmShipment from "./Screen/ConfirmShipment";
 import SubmitShipment from "./Screen/SubmitShipment";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import DownloadShipment from "./Screen/DownloadShipment";
