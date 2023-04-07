@@ -1,5 +1,4 @@
-import { StatusBar } from "expo-status-bar";
-import { Alert, StyleSheet, Text, View } from "react-native";
+import {StyleSheet} from "react-native";
 import SignIn from "./Screen/SignIn";
 import BusinessProfile from "./Screen/BusinessProfile";
 import ConfirmEmail from "./Screen/ConfirmEmail";
@@ -8,68 +7,59 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import SubmitShipment from "./Screen/SubmitShipment";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import DownloadShipment from "./Screen/DownloadShipment";
-import Header from "./Screen/Header";
 import ShipmentProgressStep from "./Screen/ShipmentProgressStep";
-import ShipmentInfo from "./Screen/ShipmentInfo";
-import CreateShipment from "./Screen/CreateShipment";
-import Trial from "./Screen/Trial";
-import DetailClient from "./Screen/OrderDetails";
-import PaymentModal from "./Screen/PaymentModal";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import Demo from "./Screen/Demo";
-// import Tabs from './Screen/Tabs';
+
 
 export default function App() {
   const Stack = createNativeStackNavigator();
   return (
-    //  <SafeAreaProvider>
-    //   <NavigationContainer>
-    //     <Stack.Navigator initialRouteName="SignIn">
-    //       <Stack.Screen
-    //         name="SignIn"
-    //         component={SignIn}
-    //         options={{ headerShown: false }}
-    //       />
-    //       <Stack.Screen
-    //         name="SignUp"
-    //         component={SignUp}
-    //         options={{ headerShown: false, headerBackTitleVisible: false }}
+     <SafeAreaProvider>
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="SignIn">
+          <Stack.Screen
+            name="SignIn"
+            component={SignIn}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="SignUp"
+            component={SignUp}
+            options={{ headerShown: false, headerBackTitleVisible: false }}
 
-    //       />
-    //       <Stack.Screen
-    //         name="BusinessProfile"
-    //         component={BusinessProfile}
-    //         options={{ headerShown: false }}
-    //       />
-    //       <Stack.Screen
-    //         name="ShipmentProgressStep"
-    //         component={ShipmentProgressStep}
-    //         options={{ headerShown: false }}
-    //       />
-    //       {/* <Stack.Screen
-    //         name="ShipmentInfo"
-    //         component={ShipmentInfo}
-    //         options={{ headerShown: false }}
-    //       /> */}
-    //       <Stack.Screen
-    //         name="ConfirmShipment"
-    //         component={ConfirmShipment}
-    //         options={{ headerShown: false }}
-    //       />
-    //       <Stack.Screen
-    //         name="Submit"
-    //         component={SubmitShipment}
-    //         options={{ headerShown: false }}
-    //       />
-    //       <Stack.Screen
-    //         name="ConfirmEmail"
-    //         component={ConfirmEmail}
-    //         options={{ headerShown: false }}
-    //       />
-    //     </Stack.Navigator>
-    //   </NavigationContainer>
-    //  </SafeAreaProvider>
+          />
+          <Stack.Screen
+            name="BusinessProfile"
+            component={BusinessProfile}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="ShipmentProgressStep"
+            component={ShipmentProgressStep}
+            options={{ headerShown: false }}
+          />
+          {/* <Stack.Screen
+            name="ShipmentInfo"
+            component={ShipmentInfo}
+            options={{ headerShown: false }}
+          /> */}
+          <Stack.Screen
+            name="ConfirmShipment"
+            component={ConfirmShipment}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Submit"
+            component={SubmitShipment}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="ConfirmEmail"
+            component={ConfirmEmail}
+            options={{ headerShown: false }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+     </SafeAreaProvider>
 
     //  <BusinessProfile/>
     //   <Demo/>
@@ -81,7 +71,7 @@ export default function App() {
     //    <DownloadShipment/>
     //      <SignIn/>
     //    <DetailClient/>
-    <Demo/>
+   // <Demo/>
      
    // <PaymentModal/>
   );
