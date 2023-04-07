@@ -43,7 +43,7 @@ const SignIn = ({ navigation }) => {
       }
     )
       .then((response) => response.json())
-      .then(async (data) => {
+      .then(async(data) => {
         if (data.status === true) {
           alert(data.msg);
           navigation.navigate("ShipmentProgressStep");
