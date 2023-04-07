@@ -15,13 +15,12 @@ import {
 import React, { useState, useEffect } from "react";
 import { DataTable } from "react-native-paper";
 import { ProgressSteps, ProgressStep } from "react-native-progress-steps";
-import CreateShipment from "./CreateShipment";
 import Header from "./Header";
 import ShipmentInfo from "./ShipmentInfo";
 import DownloadShipment from "./DownloadShipment";
 import Trial from "./Trial";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import TextBox from "react-native-password-eye";
+// import TextBox from "react-native-password-eye";
 import { CheckBox, Stack } from "@rneui/themed";
 import OrderDetails from "./OrderDetails";
 // import PaymentModal from "./PaymentModal";

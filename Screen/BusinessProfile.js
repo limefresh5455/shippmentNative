@@ -17,8 +17,8 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import AnimatedInput from "react-native-animated-input";
 import { Picker } from "@react-native-picker/picker";
-import Icon from "react-native-vector-icons/FontAwesome";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+// import Icon from "react-native-vector-icons/FontAwesome";
+// import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import Header from "./Header";
 import { useEffect } from "react";
 

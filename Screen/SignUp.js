@@ -10,7 +10,7 @@ import {
   Alert,
 } from "react-native";
 import React, { useEffect } from "react";
-import Icon from "react-native-vector-icons/FontAwesome";
+// import Icon from "react-native-vector-icons/FontAwesome";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { Formik, yupToFormErrors } from "formik";
 import AnimatedInput from "react-native-animated-input";

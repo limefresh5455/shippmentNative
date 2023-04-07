@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import { Dialog } from "@rneui/themed";
-import { CardField, StripeProvider } from "@stripe/stripe-react-native";
+import { CardField } from "@stripe/stripe-react-native";
 import { TextInput } from "react-native-paper";
 
 export default function PaymentModal(props) {

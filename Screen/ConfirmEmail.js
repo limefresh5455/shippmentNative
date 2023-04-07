@@ -7,10 +7,10 @@ import {
   Button,
 } from "react-native";
 import React from "react";
-import Header from "./Header";
+// import Header from "./Header";
 import Icon from "react-native-vector-icons/FontAwesome";
-import SignIn from "./SignIn";
-import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
+// import SignIn from "./SignIn";
+// import Pressable from "react-native/Libraries/Components/Pressable/Pressable";
 const ConfirmEmail = ({ navigation }) => {
   const showMessage = () => {
     navigation.navigate("SignIn");

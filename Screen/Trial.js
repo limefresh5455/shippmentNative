@@ -14,18 +14,18 @@ import {
   Platform,
   Modal,
 } from "react-native";
-import Slideshow from "react-native-image-slider-show";
+// import Slideshow from "react-native-image-slider-show";
 import React, { useState, useEffect } from "react";
 import { Picker } from "@react-native-picker/picker";
-import Icon from "react-native-vector-icons/FontAwesome";
-import { Card } from "react-native-shadow-cards";
-import AnimatedInput from "react-native-animated-input";
-import { Formik } from "formik";
-import * as Yup from "yup";
-import Carousel from "react-native-snap-carousel";
+// import Icon from "react-native-vector-icons/FontAwesome";
+// import { Card } from "react-native-shadow-cards";
+// import AnimatedInput from "react-native-animated-input";
+// import { Formik } from "formik";
+// import * as Yup from "yup";
+// import Carousel from "react-native-snap-carousel";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import DatePicker from "react-native-modern-datepicker";
-import moment from "moment";
+// import moment from "moment";
 
 const Trial = () => {
   //----- DatePicker -----//

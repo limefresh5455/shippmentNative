@@ -1,27 +1,20 @@
 import {
   Text,
-  TextInput,
-  Button,
-  Linking,
-  Pressable,
-  SafeAreaView,
-  Dimensions,
-  ScrollView,
 } from "react-native";
-import Slideshow from "react-native-image-slider-show";
+// import Slideshow from "react-native-image-slider-show";
 import React, { useState, useEffect } from "react";
-import { Picker } from "@react-native-picker/picker";
-import Icon from "react-native-vector-icons/FontAwesome";
-import { Card } from "react-native-shadow-cards";
-import Header from "./Header";
+// import { Picker } from "@react-native-picker/picker";
+// import Icon from "react-native-vector-icons/FontAwesome";
+// import { Card } from "react-native-shadow-cards";
+// import Header from "./Header";
 import { View, StyleSheet, useWindowDimensions, StatusBar } from "react-native";
-import { TabView, SceneMap } from "react-native-tab-view";
-import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+// import { TabView, SceneMap } from "react-native-tab-view";
+// import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import { NavigationContainer } from "@react-navigation/native";
+// import { NavigationContainer } from "@react-navigation/native";
 import SFD from "./SFD";
 import STI from "./STI";
-import Trial from "./Trial";
+// import Trial from "./Trial";
 
 const Tab = createMaterialTopTabNavigator();
 const screenOptionStyle = {
