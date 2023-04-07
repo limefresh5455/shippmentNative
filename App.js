@@ -43,11 +43,6 @@ export default function App() {
             options={{ headerShown: false }}
           /> */}
           <Stack.Screen
-            name="ConfirmShipment"
-            component={ConfirmShipment}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
             name="Submit"
             component={SubmitShipment}
             options={{ headerShown: false }}
