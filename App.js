@@ -1,13 +1,13 @@
 import {StyleSheet} from "react-native";
 import SignIn from "./Screen/SignIn";
-import BusinessProfile from "./Screen/BusinessProfile";
+// import BusinessProfile from "./Screen/BusinessProfile";
 // import ConfirmEmail from "./Screen/ConfirmEmail";
-import SignUp from "./Screen/SignUp";
-import { NavigationContainer } from "@react-navigation/native";
+// import SignUp from "./Screen/SignUp";
+// import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import SubmitShipment from "./Screen/SubmitShipment";
-import { SafeAreaProvider } from "react-native-safe-area-context";
-import ShipmentProgressStep from "./Screen/ShipmentProgressStep";
+// import SubmitShipment from "./Screen/SubmitShipment";
+// import { SafeAreaProvider } from "react-native-safe-area-context";
+// import ShipmentProgressStep from "./Screen/ShipmentProgressStep";
 
 
 export default function App() {
