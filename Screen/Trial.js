@@ -69,8 +69,6 @@ const Trial = () => {
     setFormData({ ...formData, item });
   };
 
-
-
   useEffect(() => {
     AsyncStorage.setItem("user", JSON.stringify(formData));
     // console.log("formdata1", formData);
@@ -278,8 +276,6 @@ const Trial = () => {
               <Picker.Item label="Adult signature" value="Adult signature" />
             </Picker>
             <Text style={styles.inputs}></Text>
-
-           
           </View>
         </View>
       </ScrollView>
@@ -356,9 +352,9 @@ const styles = StyleSheet.create({
     marginRight: 150,
     marginTop: 28,
     borderColor: "#6B6969",
-    width:135,
-    justifyContent:"center",
-    textAlign:"center"
+    width: 135,
+    justifyContent: "center",
+    textAlign: "center",
   },
 
   businessForm: {
