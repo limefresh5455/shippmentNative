@@ -1,7 +1,7 @@
 import {StyleSheet} from "react-native";
 import SignIn from "./Screen/SignIn";
 import BusinessProfile from "./Screen/BusinessProfile";
-import ConfirmEmail from "./Screen/ConfirmEmail";
+// import ConfirmEmail from "./Screen/ConfirmEmail";
 import SignUp from "./Screen/SignUp";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
