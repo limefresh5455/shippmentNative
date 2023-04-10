@@ -1,6 +1,6 @@
 import {StyleSheet} from "react-native";
 import SignIn from "./Screen/SignIn";
-// import BusinessProfile from "./Screen/BusinessProfile";
+ import BusinessProfile from "./Screen/BusinessProfile";
 // import ConfirmEmail from "./Screen/ConfirmEmail";
 // import SignUp from "./Screen/SignUp";
 // import { NavigationContainer } from "@react-navigation/native";
@@ -51,6 +51,7 @@ export default function App() {
     //   </NavigationContainer>
     //  </SafeAreaProvider>
     <SignIn/>
+   // <BusinessProfile/>
   );
 }
 
