@@ -64,10 +64,10 @@ export default function ShipmentProgressStep({ navigation }) {
       ...values,
       ...cardDetails,
     };
-    if (!cardDetails.complete) {
-      alert("Please enter a valid card");
-      return;
-    }
+    // if (!cardDetails.complete) {
+    //   alert("Please enter a valid card");
+    //   return;
+    // }
     setPaymentModal(false);
     if (card) {
       setShowButton(true);
@@ -392,18 +392,18 @@ export default function ShipmentProgressStep({ navigation }) {
                         <Text style={styles.error}>{errors.holderName}</Text>
                       )}
 
-                      <CardForm
+                      {/* <CardForm
                         postalCodeEnabled={false}
                         onFormComplete={(cardDetails) => {
                           setCardDetails(cardDetails);
                         }}
                         style={{
-                          height: 250,
+                          height: 200,
                           justifyContent: "center",
                           alignItems: "center",
                           textAlign: "center",
                         }}
-                      />
+                      /> */}
 
                       <TouchableOpacity
                         style={{
@@ -426,7 +426,6 @@ export default function ShipmentProgressStep({ navigation }) {
                           Validate
                         </Text>
                       </TouchableOpacity>
-                      {/* <Button onPress={handleSubmit} title="Submit" /> */}
                     </>
                   )}
                 </Formik>
@@ -584,7 +583,6 @@ export default function ShipmentProgressStep({ navigation }) {
                 </View>
                 <View
                   style={{
-                    display: "flex",
                     flexDirection: "row",
                     justifyContent: "space-between",
                     marginLeft: 20,
@@ -740,7 +738,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
     paddingLeft: 20,
     justifyContent: "space-between",
-    paddingLeft: -60,
+    //paddingLeft: -60,
     borderRadius: 10,
     paddingRight: 15,
   },

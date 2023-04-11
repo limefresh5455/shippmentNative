@@ -294,7 +294,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
     paddingLeft: 20,
     justifyContent: "space-between",
-    paddingLeft: -60,
+    //paddingLeft: -60,
     borderRadius: 10,
     paddingRight: 15,
   },

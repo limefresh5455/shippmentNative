@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
   },
   h1m: {
     fontSize: 30,
-    fontWeight: "250",
+   // fontWeight: "250",
     marginRight: 20,
     fontWeight: "bold",
     textAlign: "center",
